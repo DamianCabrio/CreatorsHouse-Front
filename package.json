@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Platform for contant creator to receive donations and sell their content to fans.",
   "productName": "Creator House",
-  "author": "n0rb3r7 <n0rb3r7@outlook.com>",
+  "author": "Creator House Team",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
