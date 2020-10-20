@@ -1,23 +1,33 @@
-/vendor/
-node_modules/
-npm-debug.log
-yarn-error.log
+.DS_Store
+.thumbs.db
+node_modules
 
-# Laravel 4 specific
-bootstrap/compiled.php
-app/storage/
+# Quasar core related directories
+.quasar
+/dist
 
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
+# Cordova related directories and files
+/src-cordova/node_modules
+/src-cordova/platforms
+/src-cordova/plugins
+/src-cordova/www
 
-# Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
+# Capacitor related directories and files
+/src-capacitor/www
+/src-capacitor/node_modules
 
-storage/*.key
-.env
-Homestead.yaml
-Homestead.json
-/.vagrant
-.phpunit.result.cache
+# BEX related directories and files
+/src-bex/www
+/src-bex/js/core
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
