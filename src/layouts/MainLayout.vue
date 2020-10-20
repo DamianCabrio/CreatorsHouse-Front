@@ -10,15 +10,51 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-
+            <img
+            style="height: 40px; max-width: 150px"
+            alt="Creator House logo"
+            src="~assets/creator-house-another-version.png"
+        >
         <q-toolbar-title>
-          Quasar App
+          Creator House
         </q-toolbar-title>
+            <div class="q-gutter-y-md column" style="max-width: 300px">
 
-        <div>Quasar v{{ $q.version }}</div>
+      <q-input rounded outlined v-model="text">
+                <template v-slot:append>
+          <q-icon name="place" />
+        </template>
+      </q-input>
+    </div>
+  <div class="q-pa-md q-gutter-sm">
+    <q-avatar>
+      <img src="https://www.placecage.com/gif/200/200">
+    </q-avatar>
+        <q-btn-dropdown color="primary" label="Dropdown Button" content-class="bg-grey-1">
+      <q-list>
+        <q-item clickable v-close-popup @click="onItemClick">
+          <q-item-section>
+            <q-item-label>Photos</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable v-close-popup @click="onItemClick">
+          <q-item-section>
+            <q-item-label>Videos</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable v-close-popup @click="onItemClick">
+          <q-item-section>
+            <q-item-label>Articles</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-btn-dropdown>
+  </div>
+       <!-- <div>Quasar v{{ $q.version }}</div> -->
       </q-toolbar>
     </q-header>
-
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
