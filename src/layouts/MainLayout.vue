@@ -1,5 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
+    <!---------------- Inicia el encabezado -------------------------->
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -10,21 +11,21 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-            <img
+          <img
             style="height: 40px; max-width: 150px"
             alt="Creator House logo"
             src="~assets/creator-house-another-version.png"
-        >
+          >
         <q-toolbar-title>
           Creator House
         </q-toolbar-title>
-            <div class="q-gutter-y-md column" style="max-width: 300px">
+      <div class="q-gutter-y-md column" style="max-width: 300px">
 
-      <q-input rounded outlined v-model="text">
-                <template v-slot:append>
-          <q-icon name="place" />
-        </template>
-      </q-input>
+        <q-input rounded outlined v-model="text">
+          <template v-slot:append>
+            <q-icon name="place" />
+          </template>
+        </q-input>
     </div>
   <div class="q-pa-md q-gutter-sm">
     <q-avatar>
@@ -55,6 +56,7 @@
        <!-- <div>Quasar v{{ $q.version }}</div> -->
       </q-toolbar>
     </q-header>
+    <!---------------- Fin encabezado -------------------------->
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
