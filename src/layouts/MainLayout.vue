@@ -11,49 +11,53 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-          <img
-            style="height: 40px; max-width: 150px"
-            alt="Creator House logo"
-            src="~assets/creator-house-another-version.png"
-          >
+        <!--Icono de CreatorHouse-->
+        <img
+          style="height: 40px; max-width: 150px"
+          alt="Creator House logo"
+          src="~assets/creator-house-another-version.png"
+        >
+        <!--Titulo Creator House-->
         <q-toolbar-title>
           Creator House
         </q-toolbar-title>
-      <div class="q-gutter-y-md column" style="max-width: 300px">
+        <!--Combo de busqueda-->
+        <div class="q-gutter-y-md column" style="max-width: 300px">
 
-        <q-input rounded outlined v-model="text">
-          <template v-slot:append>
-            <q-icon name="place" />
-          </template>
-        </q-input>
-    </div>
-  <div class="q-pa-md q-gutter-sm">
-    <q-avatar>
-      <img src="https://www.placecage.com/gif/200/200">
-    </q-avatar>
-        <q-btn-dropdown color="primary" label="Dropdown Button" content-class="bg-grey-1">
-      <q-list>
-        <q-item clickable v-close-popup @click="onItemClick">
-          <q-item-section>
-            <q-item-label>Photos</q-item-label>
-          </q-item-section>
-        </q-item>
+          <q-input rounded outlined v-model="text">
+            <template v-slot:append>
+              <q-icon name="place" />
+            </template>
+          </q-input>
+        </div>
+        <!--Imagen de perfil y Menu Desplegable-->
+        <div class="q-pa-md q-gutter-sm">
+          <q-avatar>
+            <img src="https://www.placecage.com/gif/200/200">
+          </q-avatar>
+          <q-btn-dropdown color="primary" label="Dropdown Button" content-class="bg-grey-1">
+            <q-list>
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>Photos</q-item-label>
+                </q-item-section>
+              </q-item>
 
-        <q-item clickable v-close-popup @click="onItemClick">
-          <q-item-section>
-            <q-item-label>Videos</q-item-label>
-          </q-item-section>
-        </q-item>
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>Videos</q-item-label>
+                </q-item-section>
+              </q-item>
 
-        <q-item clickable v-close-popup @click="onItemClick">
-          <q-item-section>
-            <q-item-label>Articles</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-btn-dropdown>
-  </div>
-       <!-- <div>Quasar v{{ $q.version }}</div> -->
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>Articles</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </div>
+        <!-- <div>Quasar v{{ $q.version }}</div> -->
       </q-toolbar>
     </q-header>
     <!---------------- Fin encabezado -------------------------->
@@ -62,23 +66,25 @@
       show-if-above
       bordered
       content-class="bg-grey-1"
-    >
+      >
       <q-list>
         <q-item-label
           header
           class="text-grey-8"
         >
-          Essential Links
+        Essential Links
         </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+          <EssentialLink
+            v-for="link in essentialLinks"
+            :key="link.title"
+            v-bind="link"
+          />
       </q-list>
     </q-drawer>
 
     <q-page-container>
+      <!--Agregar Fecha Actual-->
+      <div class="text-subtitle1 q-pl-xl">{{todaysDate}}</div>
       <router-view />
     </q-page-container>
   </q-layout>
@@ -86,6 +92,7 @@
 
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
+import { date } from 'quasar'
 
 const linksData = [
   {
@@ -139,6 +146,12 @@ export default {
     return {
       leftDrawerOpen: false,
       essentialLinks: linksData
+    }
+  },
+  computed: {
+    todaysDate () {
+      const timeStamp = Date.now()
+      return date.formatDate(timeStamp, 'dddd D MMMM')
     }
   }
 }
