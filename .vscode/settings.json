@@ -4,5 +4,6 @@
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
   
   "vetur.experimental.templateInterpolationService": true,
-  "compile-hero.disable-compile-files-on-did-save-code": false
+  "compile-hero.disable-compile-files-on-did-save-code": false,
+  "vue3snippets.enable-compile-vue-file-on-did-save-code": true
 }

@@ -22,15 +22,17 @@
           Creator House
         </q-toolbar-title>
         <!--Combo de busqueda-->
-        <div class="q-gutter-y-md column" style="max-width: 300px">
-
-          <q-input rounded outlined v-model="text">
+          <div class="q-pa-md">
+            <q-btn to="login" style="color: white" label="Login" />
+          </div>
+        <div class="q-gutter-y-md column q-pa-sm" style="max-width: 300px">
+          <q-input rounded outlined v-model="text" label="Búsqueda">
             <template v-slot:append>
-              <q-icon name="place" />
+              <q-icon name="search" />
             </template>
           </q-input>
         </div>
-        <!--Imagen de perfil y Menu Desplegable-->
+        <!--Imagen de perfil y Menu Desplegable
         <div class="q-pa-md q-gutter-sm">
           <q-avatar>
             <img src="https://www.placecage.com/gif/200/200">
@@ -57,7 +59,7 @@
             </q-list>
           </q-btn-dropdown>
         </div>
-        <!-- <div>Quasar v{{ $q.version }}</div> -->
+         <div>Quasar v{{ $q.version }}</div> -->
       </q-toolbar>
     </q-header>
     <!---------------- Fin encabezado -------------------------->
@@ -136,6 +138,12 @@ const linksData = [
     caption: 'Community Quasar projects',
     icon: 'favorite',
     link: 'https://awesome.quasar.dev'
+  },
+  {
+    title: 'Login',
+    caption: 'Community Quasar projects',
+    icon: 'favorite',
+    link: 'login'
   }
 ]
 
