@@ -1,0 +1,111 @@
+<template>
+
+<q-page class="flex flex-center">
+  <div class="text-h3 q-mb-none">Registrarse</div>
+  <div class="q-pa-md fit row wrap justify-start items-start content-start">
+    <q-form
+      @submit="onSubmit"
+      @reset="onReset"
+      class="q-gutter-md col-md-4 col-12 self-center offset-md-4"
+    >
+      <q-input
+        filled
+        v-model="username"
+        label="Username *"
+        hint="Tu nombre en Creator house"
+        lazy-rules
+        :rules="[ val => val && val.length > 0 || 'Please type something']"
+      />
+
+      <q-input
+        filled
+        type="email"
+        v-model="email"
+        label="Email *"
+        lazy-rules
+        :rules="[
+          val => val !== null && val !== '' || 'Please type your age',
+          val => val > 0 && val < 100 || 'Please type a real age'
+        ]"
+      />
+      <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="Password with toggle">
+        <template v-slot:append>
+          <q-icon
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          />
+        </template>
+      </q-input>
+      <q-input v-model="password2" filled :type="isPwd ? 'password' : 'text'" hint="Password with toggle">
+        <template v-slot:append>
+          <q-icon
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          />
+        </template>
+      </q-input>
+        <q-input
+        filled
+        type="date"
+        v-model="birthDate"
+        label="Fecha de nacimiento"
+        lazy-rules
+        :rules="[
+          val => val !== null && val !== '' || 'Please type your age',
+          val => val > 0 && val < 100 || 'Please type a real age'
+        ]"
+      />
+      <q-toggle v-model="accept" label="I accept the license and terms" />
+      <div>
+        <q-btn label="Submit" type="submit" color="primary"/>
+        <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+      </div>
+    </q-form>
+  </div>
+</q-page>
+</template>
+
+<script>
+export default {
+  name: 'PageIndex',
+  data () {
+    return {
+      name: null,
+      age: null,
+      password: '',
+      password2: '',
+      birthDate: '',
+      isPwd: true,
+      accept: false
+    }
+  },
+
+  methods: {
+    onSubmit () {
+      if (this.accept !== true) {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'warning',
+          message: 'You need to accept the license and terms first'
+        })
+      } else {
+        this.$q.notify({
+          color: 'green-4',
+          textColor: 'white',
+          icon: 'cloud_done',
+          message: 'Submitted'
+        })
+      }
+    },
+
+    onReset () {
+      this.name = null
+      this.age = null
+      this.accept = false
+    }
+  }
+}
+</script>

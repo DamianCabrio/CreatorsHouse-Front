@@ -25,17 +25,20 @@
         </q-toolbar-title>
         <!--Agregar Fecha Actual-->
         <div class="text-subtitle1 q-pl-xl">{{todaysDate}}</div>
-        <!--Boton Login-->
-        <div class="q-pa-md">
-          <q-btn to="login" style="color: white" label="Login" icon="login" />
-        </div>
-        <!--Combo de busqueda-->
-        <div class="q-gutter-y-md column q-pa-sm" style="max-width: 300px">
-          <q-input rounded outlined v-model="text" label="Búsqueda">
+                <!--Combo de busqueda-->
+        <div class="q-gutter-y-md column q-pa-sm" style="min-width: 400px">
+          <q-input rounded outlined label="Encontrá a tu creador">
             <template v-slot:append>
               <q-icon name="search" />
             </template>
           </q-input>
+        </div>
+        <!--Boton Login-->
+        <div class="q-pa-sm">
+          <router-link to="login" style="color:white;text-decoration:none">Login</router-link>
+        </div>
+        <div class="q-pa-sm">
+          <q-btn to="register" style="color: white;background-color:black" label="Registrarse" icon="create" />
         </div>
         <!--Imagen de perfil y Menu Desplegable
         <div class="q-pa-md q-gutter-sm">

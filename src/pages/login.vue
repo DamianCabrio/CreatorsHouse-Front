@@ -1,42 +1,38 @@
 <template>
-<q-page class="flex flex-center">
-    <img alt="Creator House logo" src="~assets/creator-house.svg">
-  <div class="q-pa-md" style="max-width: 400px">
 
+<q-page class="flex flex-center">
+  <div class="text-h3">Log In</div>
+  <div class="q-pa-md fit row wrap justify-start items-start content-start">
     <q-form
       @submit="onSubmit"
       @reset="onReset"
-      class="q-gutter-md"
+      class="q-gutter-md col-md-4 col-12 self-center offset-md-4  "
     >
       <q-input
         filled
-        v-model="name"
-        label="Your name *"
-        hint="Name and surname"
-        lazy-rules
-        :rules="[ val => val && val.length > 0 || 'Please type something']"
-      />
-
-      <q-input
-        filled
-        type="number"
-        v-model="age"
-        label="Your age *"
+        type="email"
+        v-model="email"
+        label="Email *"
         lazy-rules
         :rules="[
           val => val !== null && val !== '' || 'Please type your age',
           val => val > 0 && val < 100 || 'Please type a real age'
         ]"
       />
-
-      <q-toggle v-model="accept" label="I accept the license and terms" />
-
+      <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="Password with toggle">
+        <template v-slot:append>
+          <q-icon
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          />
+        </template>
+      </q-input>
       <div>
         <q-btn label="Submit" type="submit" color="primary"/>
         <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
       </div>
     </q-form>
-
   </div>
 </q-page>
 </template>
@@ -46,35 +42,21 @@ export default {
   name: 'PageIndex',
   data () {
     return {
-      name: null,
-      age: null,
-
+      email: null,
+      password: '',
+      isPwd: true,
       accept: false
     }
   },
 
   methods: {
     onSubmit () {
-      if (this.accept !== true) {
-        this.$q.notify({
-          color: 'red-5',
-          textColor: 'white',
-          icon: 'warning',
-          message: 'You need to accept the license and terms first'
-        })
-      } else {
-        this.$q.notify({
-          color: 'green-4',
-          textColor: 'white',
-          icon: 'cloud_done',
-          message: 'Submitted'
-        })
-      }
+
     },
 
     onReset () {
-      this.name = null
-      this.age = null
+      this.email = null
+      this.password = null
       this.accept = false
     }
   }

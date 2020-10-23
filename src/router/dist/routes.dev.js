@@ -29,7 +29,7 @@ var routes = [{
     path: 'login',
     component: function component() {
       return Promise.resolve().then(function () {
-        return _interopRequireWildcard(require('pages/login.vue'));
+        return _interopRequireWildcard(require('pages/Login.vue'));
       });
     }
   }, {
@@ -37,6 +37,13 @@ var routes = [{
     component: function component() {
       return Promise.resolve().then(function () {
         return _interopRequireWildcard(require('pages/Help.vue'));
+      });
+    }
+  }, {
+    path: 'register',
+    component: function component() {
+      return Promise.resolve().then(function () {
+        return _interopRequireWildcard(require('pages/Register.vue'));
       });
     }
   }]
