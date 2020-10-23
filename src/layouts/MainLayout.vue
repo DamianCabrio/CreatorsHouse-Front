@@ -144,6 +144,12 @@ const linksData = [
     caption: 'Registarte - Ingresa al CreatorHouse',
     icon: 'login',
     link: '#/login'
+  },
+  {
+    title: 'Blog Creator House',
+    caption: 'Nuestro Blog',
+    icon: 'book',
+    link: 'https://creatorhouse.media'
   }
 ]
 
