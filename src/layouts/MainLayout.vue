@@ -21,10 +21,13 @@
         <q-toolbar-title>
           Creator House
         </q-toolbar-title>
+        <!--Agregar Fecha Actual-->
+        <div class="text-subtitle1 q-pl-xl">{{todaysDate}}</div>
+        <!--Boton Login-->
+        <div class="q-pa-md">
+          <q-btn to="login" style="color: white" label="Login" icon="login" />
+        </div>
         <!--Combo de busqueda-->
-          <div class="q-pa-md">
-            <q-btn to="login" style="color: white" label="Login" icon="login" />
-          </div>
         <div class="q-gutter-y-md column q-pa-sm" style="max-width: 300px">
           <q-input rounded outlined v-model="text" label="Búsqueda">
             <template v-slot:append>
@@ -85,8 +88,6 @@
     </q-drawer>
 
     <q-page-container>
-      <!--Agregar Fecha Actual-->
-      <div class="text-subtitle1 q-pl-xl">{{todaysDate}}</div>
       <router-view />
     </q-page-container>
   </q-layout>
