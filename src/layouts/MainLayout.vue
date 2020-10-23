@@ -23,7 +23,7 @@
         </q-toolbar-title>
         <!--Combo de busqueda-->
           <div class="q-pa-md">
-            <q-btn to="login" style="color: white" label="Login" />
+            <q-btn to="login" style="color: white" label="Login" icon="login" />
           </div>
         <div class="q-gutter-y-md column q-pa-sm" style="max-width: 300px">
           <q-input rounded outlined v-model="text" label="Búsqueda">
