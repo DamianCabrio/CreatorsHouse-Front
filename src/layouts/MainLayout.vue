@@ -62,7 +62,7 @@
          <div>Quasar v{{ $q.version }}</div> -->
       </q-toolbar>
     </q-header>
-    <!---------------- Fin encabezado -------------------------->
+    <!---------------- Menu Desplegable -------------------------->
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
@@ -97,7 +97,7 @@ import EssentialLink from 'components/EssentialLink.vue'
 import { date } from 'quasar'
 
 const linksData = [
-  {
+  /* {
     title: 'Docs',
     caption: 'quasar.dev',
     icon: 'school',
@@ -126,24 +126,24 @@ const linksData = [
     caption: '@quasarframework',
     icon: 'rss_feed',
     link: 'https://twitter.quasar.dev'
+  }, */
+  {
+    title: 'Home',
+    caption: 'Inicio CreatorHouse',
+    icon: 'home',
+    link: ''
   },
   {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+    title: 'Ayuda',
+    caption: 'Preguntas Frecuentes',
+    icon: 'help',
+    link: '#/help'
   },
   {
     title: 'Login',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'login'
+    caption: 'Registarte - Ingresa al CreatorHouse',
+    icon: 'login',
+    link: '#/login'
   }
 ]
 

@@ -32,6 +32,13 @@ var routes = [{
         return _interopRequireWildcard(require('pages/login.vue'));
       });
     }
+  }, {
+    path: 'help',
+    component: function component() {
+      return Promise.resolve().then(function () {
+        return _interopRequireWildcard(require('pages/Help.vue'));
+      });
+    }
   }]
 }, // Always leave this as last one,
 // but you can also remove it
