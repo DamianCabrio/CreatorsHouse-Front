@@ -11,12 +11,14 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-        <!--Icono de CreatorHouse-->
+        <router-link to="/">
+                <!--Icono de CreatorHouse-->
         <img
           style="height: 40px; max-width: 150px"
           alt="Creator House logo"
           src="~assets/creator-house-another-version.png"
         >
+        </router-link>
         <!--Titulo Creator House-->
         <q-toolbar-title>
           Creator House
