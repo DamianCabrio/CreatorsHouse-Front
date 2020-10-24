@@ -1,6 +1,12 @@
 <template>
-<q-page class="flex flex-center">
-    <img alt="Creator House logo" src="~assets/creator-house.svg">
+<q-page class="flex">
+<template>
+    <q-parallax
+      src="https://www.placecage.com/1920/1080"
+    >
+      <h1 class="text-white">Basic</h1>
+    </q-parallax>
+</template>
 </q-page>
 </template>
 

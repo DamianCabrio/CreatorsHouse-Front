@@ -72,7 +72,8 @@ export default {
   name: 'PageIndex',
   data () {
     return {
-      name: null,
+      username: null,
+      email: null,
       age: null,
       password: '',
       password2: '',
