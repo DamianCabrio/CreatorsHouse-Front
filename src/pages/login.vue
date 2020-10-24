@@ -1,13 +1,13 @@
 <template>
 
 <q-page class="flex flex-center">
-  <div class="text-h3">Log In</div>
   <div class="q-pa-md fit row wrap justify-start items-start content-start">
     <q-form
       @submit="onSubmit"
       @reset="onReset"
       class="q-gutter-md col-md-4 col-12 self-center offset-md-4  "
     >
+      <div class="text-h3">Log In</div>
       <q-input
         filled
         type="email"
