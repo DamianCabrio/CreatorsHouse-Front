@@ -14,7 +14,7 @@
         label="Username *"
         hint="Tu nombre en Creator house"
         lazy-rules
-        :rules="[ val => val && val.length > 0 || 'Please type something']"
+        :rules="[ val => val && val.length > 0 || 'Ingresa un nickname']"
       />
 
       <q-input
@@ -24,11 +24,10 @@
         label="Email *"
         lazy-rules
         :rules="[
-          val => val !== null && val !== '' || 'Please type your age',
-          val => val > 0 && val < 100 || 'Please type a real age'
+          val => val !== null && val !== '' || 'Ingresa tu email'
         ]"
       />
-      <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="Password with toggle">
+      <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="" label="Contraseña *">
         <template v-slot:append>
           <q-icon
             :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -37,7 +36,7 @@
           />
         </template>
       </q-input>
-      <q-input v-model="password2" filled :type="isPwd ? 'password' : 'text'" hint="Password with toggle">
+      <q-input v-model="password2" filled :type="isPwd ? 'password' : 'text'" hint="Repetir Contraseña">
         <template v-slot:append>
           <q-icon
             :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -46,21 +45,21 @@
           />
         </template>
       </q-input>
-        <q-input
+      <q-input
         filled
         type="date"
         v-model="birthDate"
-        label="Fecha de nacimiento"
+        label=""
+        hint="Fecha de nacimiento"
         lazy-rules
         :rules="[
-          val => val !== null && val !== '' || 'Please type your age',
-          val => val > 0 && val < 100 || 'Please type a real age'
+          val => val !== null && val !== '' || 'Ingrese su fecha de nacimiento'
         ]"
       />
-      <q-toggle v-model="accept" label="I accept the license and terms" />
+      <q-toggle v-model="accept" label="Yo acepto los términos y condiciones" />
       <div>
-        <q-btn label="Submit" type="submit" color="primary"/>
-        <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+        <q-btn label="Enviar" type="submit" color="primary"/>
+        <q-btn label="Borrar" type="reset" color="primary" flat class="q-ml-sm" />
       </div>
     </q-form>
   </div>
@@ -79,7 +78,7 @@ export default {
       password2: '',
       birthDate: '',
       isPwd: true,
-      accept: false
+      accept: true
     }
   },
 
@@ -90,21 +89,24 @@ export default {
           color: 'red-5',
           textColor: 'white',
           icon: 'warning',
-          message: 'You need to accept the license and terms first'
+          message: 'Debes aceptar los términos y condiciones'
         })
       } else {
         this.$q.notify({
           color: 'green-4',
           textColor: 'white',
           icon: 'cloud_done',
-          message: 'Submitted'
+          message: 'Bienvenido a Crator House'
         })
       }
     },
 
     onReset () {
-      this.name = null
-      this.age = null
+      this.username = null
+      this.email = null
+      this.password = null
+      this.password2 = null
+      this.birthDate = null
       this.accept = false
     }
   }

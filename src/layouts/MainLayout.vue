@@ -16,9 +16,8 @@
         <q-toolbar-title>
         </q-toolbar-title>
         <!--Agregar Fecha Actual
-        <div class="text-subtitle1 q-pl-xl desktop-only">{{todaysDate}}</div>
-        -->
-                <!--Combo de busqueda-->
+        <div class="text-subtitle1 q-pl-xl desktop-only">{{todaysDate}}</div>-->
+        <!--Combo de busqueda-->
         <div class="q-gutter-y-md column q-pa-sm desktop-only" style="min-width: 400px">
           <q-input color="white"  outlined label="Encontrá a tu creador">
             <template v-slot:append>
@@ -62,14 +61,15 @@
         </div>
       </q-toolbar>
     </q-header>
+    <!--Menu lateral Perfil de usuario-->
       <q-drawer
         side="right"
         v-model="drawerRight"
         show-if-above
         :width="250"
-        :breakpoint="400"
-      >
-        <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
+        :breakpoint="600"
+        >
+        <q-scroll-area style="height: calc(100% - 112px); margin-top: 150px; border-right: 1px solid #ddd">
           <q-list padding>
             <q-item clickable v-ripple>
               <q-item-section avatar>
@@ -113,7 +113,7 @@
           </q-list>
         </q-scroll-area>
 
-        <q-img class="absolute-top" src="https://media1.tenor.com/images/1bf691ff3daa369719b691ace708bf13/tenor.gif?itemid=14796708" style="height: 150px">
+        <q-img class="absolute-top" src="https://media1.tenor.com/images/1bf691ff3daa369719b691ace708bf13/tenor.gif?itemid=14796708" style="height: 114px">
           <div class="absolute-bottom bg-transparent">
             <div class="text-weight-bold">@username?</div>
             <div>user@mail?</div>
