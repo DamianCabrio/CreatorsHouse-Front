@@ -40,6 +40,7 @@
           </div>
         </q-carousel-slide>
       </q-carousel>
+      <q-btn @click="saludar">Saludar</q-btn>
     <q-parallax
       src="https://www.placecage.com/1920/1080"
     >
@@ -50,7 +51,7 @@
     >
       <h1 class="text-white">I don't know 2</h1>
     </q-parallax>
-</template>
+  </template>
 </q-page>
 </template>
 
@@ -59,8 +60,20 @@ export default {
   name: 'PageIndex',
   data () {
     return {
+      info: null,
       slide: 'style',
       lorem: 'I dun like carousels, but idk. Se ven raros los controles dots, con píxeles, wth? Los parallax son feos tmb. Todo plano if possible.'
+    }
+  },
+  methods: {
+    saludar: async function () {
+      try {
+        const data = await fetch('http://localhost:8000/users/2')
+        const response = await data.json()
+        console.log(response.data.id)
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 }
