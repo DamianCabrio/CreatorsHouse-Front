@@ -1,5 +1,23 @@
 <template>
-<q-page class="flex">
+<q-page class="bg-deep-purple-1">
+  <div class="row bg-primary">
+    <div class="col">
+      <div>
+        Apoya a tus creadores en Creator House.
+      </div>
+      <div>Registrate para ofrecer contenido mensual premium o recibir donaciones.</div>
+      <q-btn color="white" text-color="black" label="Standard" />
+    </div>
+    <div class="col">
+    <div
+      v-for="link in essentialLinks"
+      :key="link.title"
+    >
+      <ul>{{link.title}}</ul>
+        <li>{{link.caption}}</li>
+    </div>
+    </div>
+  </div>
 <template>
               <q-carousel
         style="width:100%"
@@ -43,7 +61,7 @@
     <q-parallax
       src="https://www.placecage.com/1920/1080"
     >
-      <h1 class="text-white">I don't know</h1>
+      <h1 class="text-white">I don't know 1</h1>
     </q-parallax>
         <q-parallax
       src="https://www.placecage.com/c/1920/1080"
@@ -55,10 +73,25 @@
 </template>
 
 <script>
+const linksData = [
+  {
+    title: 'Norb',
+    caption: 'quasar.dev'
+  },
+  {
+    title: 'Damián',
+    caption: 'quasar.whaaat'
+  },
+  {
+    title: 'Lau',
+    caption: 'github.com/quasarframework'
+  }
+]
 export default {
   name: 'PageIndex',
   data () {
     return {
+      essentialLinks: linksData,
       slide: 'style',
       lorem: 'I dun like carousels, but idk. Se ven raros los controles dots, con píxeles, wth? Los parallax son feos tmb. Todo plano if possible.'
     }

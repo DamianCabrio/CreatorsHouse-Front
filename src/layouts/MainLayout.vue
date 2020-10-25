@@ -45,7 +45,14 @@
         </q-toolbar-title>-->
         <!--Agregar Fecha Actual
         <div class="text-subtitle1 q-pl-xl desktop-only">{{todaysDate}}</div>-->
-        <!--Combo de busqueda-->
+        <q-select
+          style="min-width: 400px"
+          ref="search" dark dense standout use-input hide-selected
+          class="GL__toolbar-select q-gutter-y-md column q-pa-sm desktop-only"
+          color="black" :stack-label="false" label="Buscar un creador"
+          v-model="text" :options="filteredOptions" @filter="filter"
+        />
+        <!--Combo de busqueda
         <div class="q-gutter-y-md column q-pa-sm desktop-only" style="min-width: 400px">
           <q-input color="white"  outlined label="Encontrá a tu creador">
             <template v-slot:append>
@@ -53,6 +60,7 @@
             </template>
           </q-input>
         </div>
+        -->
         <!--Boton Login-->
         <div class="q-pa-sm desktop-only">
           <router-link to="login" style="color:white;text-decoration:none">Login</router-link>
@@ -162,6 +170,12 @@
 </template>
 
 <script>
+const stringOptions = [
+  'damián',
+  'norbert',
+  'laura'
+]
+
 import { date } from 'quasar'
 export default {
   computed: {
@@ -173,12 +187,77 @@ export default {
   methods: {
     onItemClick () {
       console.log('Clicked on an Item')
+    },
+    filter (val, update) {
+      if (this.options === null) {
+        // load data
+        setTimeout(() => {
+          this.options = stringOptions
+          this.$refs.search.filter('')
+        }, 2000)
+        update()
+        return
+      }
+      if (val === '') {
+        update(() => {
+          this.filteredOptions = this.options.map(op => ({ label: op }))
+        })
+        return
+      }
+      update(() => {
+        this.filteredOptions = [
+          {
+            label: val,
+            type: 'In this repository'
+          },
+          ...this.options
+            .filter(op => op.toLowerCase().includes(val.toLowerCase()))
+            .map(op => ({ label: op }))
+        ]
+      })
     }
   },
   data () {
     return {
-      drawerRight: false
+      text: '',
+      options: null,
+      filteredOptions: []
     }
   }
 }
 </script>
+<style lang="sass">
+.GL
+  &__select-GL__menu-link
+    .default-type
+      visibility: hidden
+    &:hover
+      background: #0366d6
+      color: white
+      .q-item__section--side
+        color: white
+      .default-type
+        visibility: visible
+  &__toolbar-link
+    a
+      color: white
+      text-decoration: none
+      &:hover
+        opacity: 0.7
+  &__menu-link:hover
+    background: #0366d6
+    color: white
+  &__menu-link-signed-in
+  &__menu-link-status
+    &:hover
+      & > div
+        background: white !important
+  &__menu-link-status
+    color: $blue-grey-6
+    &:hover
+      color: $light-blue-9
+  &__toolbar-select.q-field--focused
+    width: 450px !important
+    .q-field__append
+      display: none
+</style>
