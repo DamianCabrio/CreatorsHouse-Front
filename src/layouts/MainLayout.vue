@@ -4,17 +4,45 @@
     <q-header elevated>
       <q-toolbar>
         <router-link to="/">
-
-                <!--Icono de CreatorHouse-->
-        <img
-          style="height: 40px; max-width: 150px"
-          alt="Creator House logo"
-          src="~assets/creator-house-icon.svg"
-        >
+          <!--Icono de CreatorHouse-->
+          <img
+            style="height: 40px; max-width: 150px"
+            alt="Creator House logo"
+            src="~assets/creator-house-icon.svg"
+          >
         </router-link>
-        <!--Titulo Creator House-->
+        <div class="self-strech row no-wrap">
+          <!--Categorias-->
+          <q-btn-dropdown color="primary" unelevated label="Categorías" content-class="bg-grey-1">
+            <q-list>
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>Fotos</q-item-label>
+                  </q-item-section>
+              </q-item>
+
+              <q-item clickable v-close-popup @click="onItemClick">
+                  <q-item-section>
+                    <q-item-label>Videos</q-item-label>
+                  </q-item-section>
+              </q-item>
+
+              <q-item clickable v-close-popup @click="onItemClick">
+                  <q-item-section>
+                    <q-item-label>Artículos</q-item-label>
+                  </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+          <!--Link al blog-->
+          <div class="q-pa-sm desktop-only">
+            <router-link to="" style="color:white;text-decoration:none">Blog</router-link>
+          </div>
+        </div>
+        <div class="q-space"></div>
+        <!--Titulo Creator House
         <q-toolbar-title>
-        </q-toolbar-title>
+        </q-toolbar-title>-->
         <!--Agregar Fecha Actual
         <div class="text-subtitle1 q-pl-xl desktop-only">{{todaysDate}}</div>-->
         <!--Combo de busqueda-->
@@ -61,6 +89,12 @@
         </div>
       </q-toolbar>
     </q-header>
+    <!-----------------Footer----------------------------------------->
+    <q-footer>
+      <q-toolbar>
+        <q-toolbar-title>Footer</q-toolbar-title>
+      </q-toolbar>
+    </q-footer>
     <!--Menu lateral Perfil de usuario-->
       <q-drawer
         side="right"
@@ -123,6 +157,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
   </q-layout>
 </template>
 
