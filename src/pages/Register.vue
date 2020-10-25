@@ -78,7 +78,7 @@ export default {
       password2: '',
       birthDate: '',
       isPwd: true,
-      accept: true
+      accept: false
     }
   },
 
