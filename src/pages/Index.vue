@@ -45,7 +45,7 @@
         >
           <div class="q-pa-md">
             <q-card>
-              <q-img :src="user.avatar">
+              <q-img src="http://localhost:8888/img/ElSaurio.jpg">
                 <div class="absolute-bottom">
                   <div class="text-h6">@{{user.username}}</div>
                   <div class="text-subtitle2">{{user.name}}</div>
@@ -161,7 +161,7 @@ export default {
   methods: {
     getUser: async function () {
       try {
-        const data = await fetch('http://localhost:8000/users/2')
+        const data = await fetch('http://localhost:8888/users/2')
         const response = await data.json()
         console.log(response.data.id)
         this.user = response.data
@@ -171,9 +171,9 @@ export default {
     },
     getCreators: async function () {
       try {
-        const data = await fetch('http://localhost:8000/users')
+        const data = await fetch('http://localhost:8888/users')
         const response = await data.json()
-        console.log(response.data.id)
+        // console.log(response.data.id)
         this.users = response.data
       } catch (error) {
         console.error(error)
@@ -182,7 +182,7 @@ export default {
     // FIXME: hay que arreglar esta de abajo. mounted es cuando carga la página
     mounted: async function () {
       try {
-        const data = await fetch('http://localhost:8000/users')
+        const data = await fetch('http://localhost:8888/users')
         const response = await data.json()
         console.log(response.data.id)
         this.users = response.data
