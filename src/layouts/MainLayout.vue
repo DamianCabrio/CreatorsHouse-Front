@@ -97,6 +97,7 @@
     </q-footer>
     <!--Menu lateral Perfil de usuario-->
       <q-drawer
+        elevated
         content-class="bg-grey-1"
         side="right"
         v-model="drawerRight"
