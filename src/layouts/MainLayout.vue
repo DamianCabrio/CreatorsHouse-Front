@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHr LpR ffr">
     <!---------------- Inicia el encabezado -------------------------->
     <q-header elevated>
       <q-toolbar>
@@ -97,13 +97,14 @@
     </q-footer>
     <!--Menu lateral Perfil de usuario-->
       <q-drawer
+        content-class="bg-grey-1"
         side="right"
         v-model="drawerRight"
         show-if-above
-        :width="250"
+        :width="260"
         :breakpoint="600"
         >
-        <q-scroll-area style="height: calc(100% - 112px); margin-top: 150px; border-right: 1px solid #ddd">
+        <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
           <q-list padding>
             <q-item clickable v-ripple>
               <q-item-section avatar>
