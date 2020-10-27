@@ -16,7 +16,6 @@
         lazy-rules
         :rules="[
           val => val !== null && val !== '' || 'Please type your age',
-          val => val > 0 && val < 100 || 'Please type a real age'
         ]"
       />
       <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="Password with toggle">
@@ -29,7 +28,7 @@
         </template>
       </q-input>
       <div>
-        <q-btn label="Submit" type="submit" color="primary"/>
+        <q-btn label="Submit" type="submit" color="primary" @click="login"/>
         <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
       </div>
     </q-form>
@@ -38,6 +37,8 @@
 </template>
 
 <script>
+import * as axios from 'axios'
+
 export default {
   name: 'PageIndex',
   data () {
@@ -50,6 +51,16 @@ export default {
   },
 
   methods: {
+    login () {
+      axios.post('http://localhost:8000/login', {
+        email: this.email,
+        password: this.password
+      })
+        .then((response) => {
+          console.log(response)
+        })
+    },
+
     onSubmit () {
 
     },
