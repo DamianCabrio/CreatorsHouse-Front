@@ -43,20 +43,12 @@
               </q-item>
             </q-list>
           </q-btn-dropdown>
-          <q-btn
-            color="primary"
-            unelevated
-            label="getCreators"
-            content-class="bg-grey-1"
-            @click="getCreators"
-          >
-          </q-btn>
           <!--Link al blog-->
           <div class="q-pa-sm desktop-only">
             <router-link
               to=""
               style="color:white;text-decoration:none"
-            >{{ user }}</router-link>
+            >Blog</router-link>
           </div>
         </div>
         <div class="q-space"></div>
@@ -77,7 +69,7 @@
             class="GL__toolbar-select"
             color="black"
             :stack-label="false"
-            label="Search or jump to..."
+            label="Buscá tu creador..."
             v-model="text"
             :options="filteredOptions"
             @filter="filter"

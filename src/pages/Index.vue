@@ -23,28 +23,25 @@
           <div class="q-pa-xl">
             <q-video
               :ratio="2/1"
-              src="https://www.youtube.com/embed/k3_tw44QsZQ?rel=0"
+              src="https://www.youtube.com/embed/6RdcVauc-64?rel=0"
             />
           </div>
         </div>
       </div>
-      <div class="">
-        <q-btn @click="getUser">Get user</q-btn>
-        <div>{{ user }}</div>
+      <div>
+        <h2 class="text-center">Creadores</h2>
       </div>
-      <q-btn @click="getCreators">Get users</q-btn>
       <div
         class="row"
         style="padding-right:5vw;padding-left:5vw;"
       >
-
         <div
           v-for='user in users'
           class="my-card col-md-3"
           :key="user.id"
         >
           <div class="q-pa-md">
-            <q-card >
+            <q-card>
               <q-img src="http://localhost:8000/img/ElSaurio.jpg">
                 <div class="absolute-bottom">
                   <div class="text-h6">@{{user.username}}</div>
@@ -158,6 +155,9 @@ export default {
       lorem: 'I dun like carousels, but idk. Se ven raros los controles dots, con píxeles, wth? Los parallax son feos tmb. Todo plano if possible.'
     }
   },
+  mounted () {
+    this.getCreators()
+  },
   methods: {
     getUser: async function () {
       try {
@@ -174,17 +174,6 @@ export default {
         const data = await fetch('http://localhost:8000/userCreators')
         const response = await data.json()
         // console.log(response.data.id)
-        this.users = response.data
-      } catch (error) {
-        console.error(error)
-      }
-    },
-    // FIXME: hay que arreglar esta de abajo. mounted es cuando carga la página
-    mounted: async function () {
-      try {
-        const data = await fetch('http://localhost:8000/userCreators')
-        const response = await data.json()
-        console.log(response.data.id)
         this.users = response.data
       } catch (error) {
         console.error(error)
