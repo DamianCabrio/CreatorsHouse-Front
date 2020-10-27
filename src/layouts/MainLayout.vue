@@ -1,7 +1,10 @@
 <template>
   <q-layout view="hHr LpR ffr">
     <!---------------- Inicia el encabezado -------------------------->
-    <q-header elevated>
+    <q-header
+      elevated
+      class="q-pt-sm q-pb-sm"
+    >
       <q-toolbar>
         <router-link to="/">
           <!--Icono de CreatorHouse-->
@@ -12,6 +15,13 @@
           >
         </router-link>
         <div class="self-strech row no-wrap">
+          <!--Titulo Creator House -->
+          <div class="q-pl-md">
+            <q-toolbar-title>
+              Creator House
+            </q-toolbar-title>
+          </div>
+
           <!--Categorias-->
           <q-btn-dropdown
             color="primary"
@@ -33,37 +43,98 @@
               </q-item>
             </q-list>
           </q-btn-dropdown>
+          <q-btn
+            color="primary"
+            unelevated
+            label="getCreators"
+            content-class="bg-grey-1"
+            @click="getCreators"
+          >
+          </q-btn>
           <!--Link al blog-->
           <div class="q-pa-sm desktop-only">
             <router-link
               to=""
               style="color:white;text-decoration:none"
-            >Blog</router-link>
+            >{{ user }}</router-link>
           </div>
         </div>
         <div class="q-space"></div>
-        <!--Titulo Creator House
-        <q-toolbar-title>
-        </q-toolbar-title>-->
         <!--Agregar Fecha Actual
         <div class="text-subtitle1 q-pl-xl desktop-only">{{todaysDate}}</div>-->
         <!--Combo de busqueda-->
         <div
-          class="q-gutter-y-md column q-pa-sm desktop-only"
+          class=" column desktop-only"
           style="min-width: 400px"
         >
-          <q-input
-            color="white"
-            outlined
-            label="Encontrá a tu creador"
+          <q-select
+            ref="search"
+            dark
+            dense
+            standout
+            use-input
+            hide-selected
+            class="GL__toolbar-select"
+            color="black"
+            :stack-label="false"
+            label="Search or jump to..."
+            v-model="text"
+            :options="filteredOptions"
+            @filter="filter"
+            style="width: 300px"
           >
+
             <template v-slot:append>
-              <q-icon
-                color="white"
-                name="search"
-              />
+              <img src="https://cdn.quasar.dev/img/layout-gallery/img-github-search-key-slash.svg">
             </template>
-          </q-input>
+
+            <template v-slot:no-option>
+              <q-item>
+                <q-item-section>
+                  <div class="text-center">
+                    <q-spinner-pie
+                      color="grey-5"
+                      size="24px"
+                    />
+                  </div>
+                </q-item-section>
+              </q-item>
+            </template>
+
+            <template v-slot:option="scope">
+              <q-item
+                v-bind="scope.itemProps"
+                v-on="scope.itemEvents"
+                class="GL__select-GL__menu-link"
+              >
+                <q-item-section side>
+                  <q-icon name="collections_bookmark" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label v-html="scope.opt.label" />
+                </q-item-section>
+                <q-item-section
+                  side
+                  :class="{ 'default-type': !scope.opt.type }"
+                >
+                  <q-btn
+                    outline
+                    dense
+                    no-caps
+                    text-color="blue-grey-5"
+                    size="12px"
+                    class="bg-grey-1 q-px-sm"
+                  >
+                    {{ scope.opt.type || 'Jump to' }}
+                    <q-icon
+                      name="subdirectory_arrow_left"
+                      size="14px"
+                    />
+                  </q-btn>
+                </q-item-section>
+              </q-item>
+            </template>
+          </q-select>
         </div>
         <!--Boton Login-->
         <div class="q-pa-sm desktop-only">
@@ -82,7 +153,7 @@
           />
         </div>
         <!--Imagen de perfil y Menu Desplegable -->
-<!--         <div class="q-pa-md q-gutter-sm">
+        <!--         <div class="q-pa-md q-gutter-sm">
           <q-btn-dropdown
             color="primary"
             unelevated
@@ -137,7 +208,8 @@
       </q-toolbar>
     </q-footer>
     <!--Menu lateral Perfil de usuario-->
-    <q-drawer
+
+    <!--     <q-drawer
       elevated
       content-class="bg-grey-1"
       side="right"
@@ -207,7 +279,7 @@
           <div>user@mail?</div>
         </div>
       </q-img>
-    </q-drawer>
+    </q-drawer> -->
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -216,6 +288,13 @@
 </template>
 
 <script>
+
+const stringOptions = [
+  'damián',
+  'norbert',
+  'laura'
+]
+
 import { date } from 'quasar'
 export default {
   computed: {
@@ -225,11 +304,21 @@ export default {
     }
   },
   methods: {
+    getCreators: async function () {
+      try {
+        const data = await fetch('http://localhost:8000/users')
+        const response = await data.json()
+        // console.log(response.data.id)
+        this.users = response.data
+      } catch (error) {
+        console.error(error)
+      }
+    },
     getCategory: async function () {
       try {
         const data = await fetch('http://localhost:8000/categories')
         const response = await data.json()
-        console.log(response.data.id)
+        // console.log(response.data.id)
         this.categories = response.data
       } catch (error) {
         console.error(error)
@@ -237,12 +326,45 @@ export default {
     },
     onItemClick () {
       console.log('Clicked on an Item')
+    },
+    filter (val, update) {
+      if (this.options === null) {
+        // load data
+        setTimeout(() => {
+          this.options = stringOptions
+          this.$refs.search.filter('')
+        }, 100)
+        update()
+        return
+      }
+      if (val === '') {
+        update(() => {
+          this.filteredOptions = this.options.map(op => ({ label: op }))
+        })
+        return
+      }
+      update(() => {
+        this.filteredOptions = [
+          {
+            label: val,
+            type: 'In this repository'
+          },
+          ...this.options
+            .filter(op => op.toLowerCase().includes(val.toLowerCase()))
+            .map(op => ({ label: op }))
+        ]
+      })
     }
   },
   data () {
     return {
       categories: [],
+      // users: [],
+      search: '',
+      options: null,
+      filteredOptions: [],
       drawerRight: false
+
     }
   }
 }

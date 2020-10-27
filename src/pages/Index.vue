@@ -44,7 +44,7 @@
           :key="user.id"
         >
           <div class="q-pa-md">
-            <q-card>
+            <q-card >
               <q-img src="http://localhost:8000/img/ElSaurio.jpg">
                 <div class="absolute-bottom">
                   <div class="text-h6">@{{user.username}}</div>
@@ -171,7 +171,7 @@ export default {
     },
     getCreators: async function () {
       try {
-        const data = await fetch('http://localhost:8000/users')
+        const data = await fetch('http://localhost:8000/userCreators')
         const response = await data.json()
         // console.log(response.data.id)
         this.users = response.data
@@ -182,7 +182,7 @@ export default {
     // FIXME: hay que arreglar esta de abajo. mounted es cuando carga la página
     mounted: async function () {
       try {
-        const data = await fetch('http://localhost:8000/users')
+        const data = await fetch('http://localhost:8000/userCreators')
         const response = await data.json()
         console.log(response.data.id)
         this.users = response.data
