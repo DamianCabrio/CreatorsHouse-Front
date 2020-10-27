@@ -13,30 +13,32 @@
         </router-link>
         <div class="self-strech row no-wrap">
           <!--Categorias-->
-          <q-btn-dropdown color="primary" unelevated label="Categorías" content-class="bg-grey-1">
+          <q-btn-dropdown
+            color="primary"
+            unelevated
+            label="Categorías"
+            content-class="bg-grey-1"
+            @click="getCategory"
+          >
             <q-list>
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item
+                v-for='category in categories'
+                :key="category.id"
+                clickable
+                v-close-popup
+              >
                 <q-item-section>
-                  <q-item-label>Fotos</q-item-label>
-                  </q-item-section>
-              </q-item>
-
-              <q-item clickable v-close-popup @click="onItemClick">
-                  <q-item-section>
-                    <q-item-label>Videos</q-item-label>
-                  </q-item-section>
-              </q-item>
-
-              <q-item clickable v-close-popup @click="onItemClick">
-                  <q-item-section>
-                    <q-item-label>Artículos</q-item-label>
-                  </q-item-section>
+                  <q-item-label>{{category.nameCategory}}</q-item-label>
+                </q-item-section>
               </q-item>
             </q-list>
           </q-btn-dropdown>
           <!--Link al blog-->
           <div class="q-pa-sm desktop-only">
-            <router-link to="" style="color:white;text-decoration:none">Blog</router-link>
+            <router-link
+              to=""
+              style="color:white;text-decoration:none"
+            >Blog</router-link>
           </div>
         </div>
         <div class="q-space"></div>
@@ -46,47 +48,86 @@
         <!--Agregar Fecha Actual
         <div class="text-subtitle1 q-pl-xl desktop-only">{{todaysDate}}</div>-->
         <!--Combo de busqueda-->
-        <div class="q-gutter-y-md column q-pa-sm desktop-only" style="min-width: 400px">
-          <q-input color="white"  outlined label="Encontrá a tu creador">
+        <div
+          class="q-gutter-y-md column q-pa-sm desktop-only"
+          style="min-width: 400px"
+        >
+          <q-input
+            color="white"
+            outlined
+            label="Encontrá a tu creador"
+          >
             <template v-slot:append>
-              <q-icon color="white" name="search" />
+              <q-icon
+                color="white"
+                name="search"
+              />
             </template>
           </q-input>
         </div>
         <!--Boton Login-->
         <div class="q-pa-sm desktop-only">
-          <router-link to="login" style="color:white;text-decoration:none">Login</router-link>
+          <router-link
+            to="login"
+            style="color:white;text-decoration:none"
+          >Login</router-link>
         </div>
         <div class="q-pa-sm desktop-only">
-          <q-btn to="register" unelevated style="color: white;background-color:black" label="Registrarse" icon="create" />
+          <q-btn
+            to="register"
+            unelevated
+            style="color: white;background-color:black"
+            label="Registrarse"
+            icon="create"
+          />
         </div>
         <!--Imagen de perfil y Menu Desplegable -->
-        <div class="q-pa-md q-gutter-sm">
-          <q-btn-dropdown color="primary" unelevated label="CREAR POST" content-class="bg-grey-1">
+<!--         <div class="q-pa-md q-gutter-sm">
+          <q-btn-dropdown
+            color="primary"
+            unelevated
+            label="CREAR POST"
+            content-class="bg-grey-1"
+          >
             <q-list>
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item
+                clickable
+                v-close-popup
+                @click="onItemClick"
+              >
                 <q-item-section>
                   <q-item-label>Fotos</q-item-label>
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item
+                clickable
+                v-close-popup
+                @click="onItemClick"
+              >
                 <q-item-section>
                   <q-item-label>Videos</q-item-label>
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item
+                clickable
+                v-close-popup
+                @click="onItemClick"
+              >
                 <q-item-section>
                   <q-item-label>Artículos</q-item-label>
                 </q-item-section>
               </q-item>
             </q-list>
           </q-btn-dropdown>
-          <q-avatar @click="drawerRight = !drawerRight" style="cursor: pointer;">
+          <q-avatar
+            @click="drawerRight = !drawerRight"
+            style="cursor: pointer;"
+          >
             <img src="https://www.placecage.com/gif/200/200">
           </q-avatar>
-        </div>
+        </div> -->
       </q-toolbar>
     </q-header>
     <!-----------------Footer----------------------------------------->
@@ -96,66 +137,77 @@
       </q-toolbar>
     </q-footer>
     <!--Menu lateral Perfil de usuario-->
-      <q-drawer
-        elevated
-        content-class="bg-grey-1"
-        side="right"
-        v-model="drawerRight"
-        show-if-above
-        :width="260"
-        :breakpoint="600"
-        >
-        <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
-          <q-list padding>
-            <q-item clickable v-ripple>
-              <q-item-section avatar>
-                <q-icon name="inbox" />
-              </q-item-section>
+    <q-drawer
+      elevated
+      content-class="bg-grey-1"
+      side="right"
+      v-model="drawerRight"
+      show-if-above
+      :width="260"
+      :breakpoint="600"
+    >
+      <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
+        <q-list padding>
+          <q-item
+            clickable
+            v-ripple
+          >
+            <q-item-section avatar>
+              <q-icon name="inbox" />
+            </q-item-section>
 
-              <q-item-section>
-                Inbox
-              </q-item-section>
-            </q-item>
+            <q-item-section>
+              Inbox
+            </q-item-section>
+          </q-item>
 
-            <q-item active clickable v-ripple>
-              <q-item-section avatar>
-                <q-icon name="star" />
-              </q-item-section>
+          <q-item
+            active
+            clickable
+            v-ripple
+          >
+            <q-item-section avatar>
+              <q-icon name="star" />
+            </q-item-section>
 
-              <q-item-section>
-                Star
-              </q-item-section>
-            </q-item>
+            <q-item-section>
+              Star
+            </q-item-section>
+          </q-item>
 
-            <q-item clickable v-ripple>
-              <q-item-section avatar>
-                <q-icon name="send" />
-              </q-item-section>
+          <q-item
+            clickable
+            v-ripple
+          >
+            <q-item-section avatar>
+              <q-icon name="send" />
+            </q-item-section>
 
-              <q-item-section>
-                Send
-              </q-item-section>
-            </q-item>
+            <q-item-section>
+              Send
+            </q-item-section>
+          </q-item>
 
-            <q-item clickable v-ripple>
-              <q-item-section avatar>
-                <q-icon name="drafts" />
-              </q-item-section>
+          <q-item
+            clickable
+            v-ripple
+          >
 
-              <q-item-section>
-                Drafts
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </q-scroll-area>
+          </q-item>
+        </q-list>
+      </q-scroll-area>
 
-        <q-img class="absolute-top" src="https://media1.tenor.com/images/1bf691ff3daa369719b691ace708bf13/tenor.gif?itemid=14796708" style="height: 114px">
-          <div class="absolute-bottom bg-transparent">
-            <div class="text-weight-bold">@username?</div>
-            <div>user@mail?</div>
-          </div>
-        </q-img>
-      </q-drawer>
+      <q-img
+        class="absolute-top"
+        src="https://media1.tenor.com/images/1bf691ff3daa369719b691ace708bf13/tenor.gif?itemid=14796708"
+        style="height: 114px"
+      >
+        <div class="absolute-bottom bg-transparent">
+          <div class="text-weight-bold">@username?</div>
+          <div>user@mail?</div>
+        </div>
+      </q-img>
+    </q-drawer>
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -173,12 +225,23 @@ export default {
     }
   },
   methods: {
+    getCategory: async function () {
+      try {
+        const data = await fetch('http://localhost:8000/categories')
+        const response = await data.json()
+        console.log(response.data.id)
+        this.categories = response.data
+      } catch (error) {
+        console.error(error)
+      }
+    },
     onItemClick () {
       console.log('Clicked on an Item')
     }
   },
   data () {
     return {
+      categories: [],
       drawerRight: false
     }
   }
