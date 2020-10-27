@@ -58,7 +58,7 @@
       />
       <q-toggle v-model="accept" label="Yo acepto los términos y condiciones" />
       <div>
-        <q-btn label="Enviar" type="submit" color="primary"/>
+        <q-btn label="Enviar" type="submit" color="primary" @click="register"/>
         <q-btn label="Borrar" type="reset" color="primary" flat class="q-ml-sm" />
       </div>
     </q-form>
@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import * as axios from 'axios'
+
 export default {
   name: 'PageIndex',
   data () {
@@ -83,6 +85,18 @@ export default {
   },
 
   methods: {
+    register () {
+      axios.post('http://localhost:8000/users', {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        birthDate: this.birthDate
+      })
+        .then((response) => {
+          console.log(response)
+        })
+    },
+
     onSubmit () {
       if (this.accept !== true) {
         this.$q.notify({
