@@ -43,21 +43,26 @@ export default {
   name: 'PageIndex',
   data () {
     return {
-      email: null,
-      password: '',
+      email: 'avery.stehr@example.com',
+      password: 'password',
       isPwd: true,
-      accept: false
+      accept: false,
+      apiToken: null
     }
   },
 
   methods: {
     login () {
-      axios.post('http://localhost:8000/login', {
+      axios.post('http://localhost:8888/login', {
         email: this.email,
         password: this.password
       })
         .then((response) => {
-          console.log(response)
+          console.log(response.data)
+          this.apiToken = response.data.tokenData
+        })
+        .catch(err => {
+          console.log(err.response.data)
         })
     },
 

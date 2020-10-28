@@ -70,7 +70,7 @@
             color="black"
             :stack-label="false"
             label="Buscá tu creador..."
-            v-model="text"
+            v-model="search"
             :options="filteredOptions"
             @filter="filter"
             style="width: 300px"
@@ -298,7 +298,7 @@ export default {
   methods: {
     getCreators: async function () {
       try {
-        const data = await fetch('http://localhost:8000/users')
+        const data = await fetch('http://localhost:8888/users')
         const response = await data.json()
         // console.log(response.data.id)
         this.users = response.data
@@ -308,7 +308,7 @@ export default {
     },
     getCategory: async function () {
       try {
-        const data = await fetch('http://localhost:8000/categories')
+        const data = await fetch('http://localhost:8888/categories')
         const response = await data.json()
         // console.log(response.data.id)
         this.categories = response.data
