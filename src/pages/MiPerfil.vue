@@ -6,6 +6,15 @@
 
 <script>
 export default {
-  name: 'MiPerfil'
+  name: 'MiPerfil',
+  mounted () {
+    // Verifico si hay una sesion iniciada
+    if (sessionStorage.getItem('apiToken')) {
+      // tengo un token guardado localmente
+    } else {
+      // sino redirecciono al login
+      this.$router.push(this.$route.query.redirect || '/Login')
+    }
+  }
 }
 </script>
