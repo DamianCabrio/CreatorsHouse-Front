@@ -7,6 +7,7 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'login', component: () => import('pages/Login.vue') },
       { path: 'help', component: () => import('pages/Help.vue') },
+      { path: 'miPerfil', component: () => import('pages/MiPerfil.vue') },
       { path: 'register', component: () => import('pages/Register.vue') }
     ]
   },

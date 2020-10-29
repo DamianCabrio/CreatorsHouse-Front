@@ -70,7 +70,7 @@
 import * as axios from 'axios'
 
 export default {
-  name: 'PageIndex',
+  name: 'Register',
   data () {
     return {
       username: null,
@@ -86,7 +86,7 @@ export default {
 
   methods: {
     register () {
-      axios.post('http://localhost:8888/users', {
+      axios.post('http://localhost:8000/users', {
         username: this.username,
         email: this.email,
         password: this.password,

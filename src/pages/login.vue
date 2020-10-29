@@ -40,29 +40,41 @@
 import * as axios from 'axios'
 
 export default {
-  name: 'PageIndex',
+  name: 'Login',
   data () {
     return {
       email: 'avery.stehr@example.com',
       password: 'password',
       isPwd: true,
-      accept: false,
-      apiToken: null
+      accept: false
+      // apiToken: null
     }
   },
-
+  mounted () {
+    // Verifico si hay una sesion iniciada
+    if (sessionStorage.getItem('apiToken')) {
+      // tengo un token guardado localmente
+      // redirecciono a la pagina de mi perfil
+      this.$router.push(this.$route.query.redirect || '/MiPerfil')
+    }
+  },
   methods: {
     login () {
-      axios.post('http://localhost:8888/login', {
+      axios.post('http://localhost:8000/login', {
         email: this.email,
         password: this.password
       })
         .then((response) => {
           console.log(response.data)
-          this.apiToken = response.data.tokenData
+          // this.apiToken = response.data.tokenData
+          sessionStorage.setItem('apiToken', response.data.tokenData.token)
+          // Si valido el login redirecciono a su perfil
+          this.$router.push(this.$route.query.redirect || '/MiPerfil')
         })
         .catch(err => {
-          console.log(err.response.data)
+          console.log(err.response)
+          // Si dio error el login muestro mensaje
+          // this.$router.push(this.$route.query.redirect || '/Login')
         })
     },
 

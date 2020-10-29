@@ -40,6 +40,13 @@ var routes = [{
       });
     }
   }, {
+    path: 'miPerfil',
+    component: function component() {
+      return Promise.resolve().then(function () {
+        return _interopRequireWildcard(require('pages/MiPerfil.vue'));
+      });
+    }
+  }, {
     path: 'register',
     component: function component() {
       return Promise.resolve().then(function () {
