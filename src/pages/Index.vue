@@ -171,7 +171,7 @@ export default {
     },
     getCreators: async function () {
       try {
-        const data = await fetch('http://localhost:8000/userCreators')
+        const data = await fetch('http://localhost:8000/userCreatorsHome')
         const response = await data.json()
         // console.log(response.data.id)
         this.users = response.data
