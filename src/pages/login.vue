@@ -15,10 +15,10 @@
         label="Email *"
         lazy-rules
         :rules="[
-          val => val !== null && val !== '' || 'Please type your age',
+          val => val !== null && val !== '' || 'Ingresa tu Email',
         ]"
       />
-      <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="Password with toggle">
+      <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="">
         <template v-slot:append>
           <q-icon
             :name="isPwd ? 'visibility_off' : 'visibility'"
