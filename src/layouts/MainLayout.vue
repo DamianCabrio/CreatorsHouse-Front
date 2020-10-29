@@ -18,12 +18,12 @@
           <!--Titulo Creator House -->
           <div class="q-pl-md">
             <q-toolbar-title>
-              Creator House
             </q-toolbar-title>
           </div>
 
           <!--Categorias-->
           <q-btn-dropdown
+          v-if="isLogin"
             color="primary"
             unelevated
             label="Categorías"
@@ -131,12 +131,14 @@
         <!--Boton Login-->
         <div class="q-pa-sm desktop-only">
           <router-link
+            v-if="!islogin"
             to="login"
             style="color:white;text-decoration:none"
           >Login</router-link>
         </div>
         <div class="q-pa-sm desktop-only">
           <q-btn
+            v-if="!islogin"
             to="register"
             unelevated
             style="color: white;background-color:black"
@@ -145,12 +147,13 @@
           />
         </div>
         <!--Imagen de perfil y Menu Desplegable -->
-        <!--         <div class="q-pa-md q-gutter-sm">
+        <div class="q-pa-md q-gutter-sm">
           <q-btn-dropdown
             color="primary"
             unelevated
             label="CREAR POST"
             content-class="bg-grey-1"
+            v-if="islogin"
           >
             <q-list>
               <q-item
@@ -187,10 +190,11 @@
           <q-avatar
             @click="drawerRight = !drawerRight"
             style="cursor: pointer;"
+            v-if="islogin"
           >
             <img src="https://www.placecage.com/gif/200/200">
           </q-avatar>
-        </div> -->
+        </div>
       </q-toolbar>
     </q-header>
     <!-----------------Footer----------------------------------------->
@@ -200,15 +204,14 @@
       </q-toolbar>
     </q-footer>
     <!--Menu lateral Perfil de usuario-->
-
-    <!--     <q-drawer
+    <q-drawer
       elevated
       content-class="bg-grey-1"
       side="right"
       v-model="drawerRight"
       show-if-above
       :width="260"
-      :breakpoint="600"
+      :breakpoint="10600"
     >
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
         <q-list padding>
@@ -271,7 +274,7 @@
           <div>user@mail?</div>
         </div>
       </q-img>
-    </q-drawer> -->
+    </q-drawer>
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -355,9 +358,25 @@ export default {
       search: '',
       options: null,
       filteredOptions: [],
-      drawerRight: false
+      drawerRight: false,
+      islogin: false
 
+    }
+  },
+  mounted () {
+    // Verifico si hay una sesion iniciada
+    if (sessionStorage.getItem('apiToken')) {
+      this.islogin = true
+      // tengo un token guardado localmente
+      // redirecciono a la pagina de mi perfil
+      // this.$router.push(this.$route.query.redirect || '/MiPerfil')
     }
   }
 }
 </script>
+<style lang="stylus">
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+</style>

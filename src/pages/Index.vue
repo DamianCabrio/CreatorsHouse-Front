@@ -10,7 +10,7 @@
             class="q-pl-xl q-pr-xl"
             style="text-align:left"
           >
-            <div class="text-white text-bold text-h2 q-mt-xl q-pt-xl q-pb-lg">Recibí donaciones y ofrecé contenido premium a tus fans.</div>
+            <div class="text-white text-bold text-h3 q-mt-xl q-pt-xl q-pb-lg">Recibí donaciones y ofrecé contenido premium a tus fans.</div>
             <div class="text-white text-bold text-h4 q-pr-lg q-pb-lg">Registrate para empezar ahora mismo.</div>
             <q-btn
               color="white"
