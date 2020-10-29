@@ -42,7 +42,7 @@
         >
           <div class="q-pa-md">
             <q-card>
-              <q-img v-bind:src="`http://localhost:8888/img/${user.avatar}`">
+              <q-img v-bind:src="`http://localhost:8000/img/${user.avatar}`">
                 <div class="absolute-bottom">
                   <div class="text-h6">@{{user.username}}</div>
                   <div class="text-subtitle2">{{user.name}}</div>
