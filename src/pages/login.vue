@@ -74,7 +74,13 @@ export default {
         .catch(err => {
           console.log(err.response)
           // Si dio error el login muestro mensaje
-          // this.$router.push(this.$route.query.redirect || '/Login')
+          // alert(err.response)
+          // this.$q.notify(err.response)
+          this.$q.notify({
+            message: 'Usuario o Password Invalidos.',
+            color: 'negative'
+          })
+          this.$q.notify('')
         })
     },
 
