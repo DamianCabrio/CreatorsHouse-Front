@@ -161,7 +161,7 @@ export default {
   methods: {
     getUser: async function () {
       try {
-        const data = await fetch('http://localhost:8888/users/2')
+        const data = await fetch('http://localhost:8000/users/2')
         const response = await data.json()
         console.log(response.data.id)
         this.user = response.data
@@ -171,7 +171,7 @@ export default {
     },
     getCreators: async function () {
       try {
-        const data = await fetch('http://localhost:8888/userCreators')
+        const data = await fetch('http://localhost:8000/userCreators')
         const response = await data.json()
         // console.log(response.data.id)
         this.users = response.data

@@ -33,6 +33,7 @@ export default {
     logout: async function () {
       sessionStorage.removeItem('apiToken')
       this.user = []
+      this.$router.push(this.$route.query.redirect || '/')
     }
     // Busco mis datos de usuario enviando mi token
     /* getUser: async function () {
