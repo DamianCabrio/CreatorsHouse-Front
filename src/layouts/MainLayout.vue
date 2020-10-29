@@ -23,7 +23,7 @@
 
           <!--Categorias-->
           <q-btn-dropdown
-          v-if="isLogin"
+            v-if="isLogin"
             color="primary"
             unelevated
             label="Categorías"
@@ -75,11 +75,6 @@
             @filter="filter"
             style="width: 300px"
           >
-
-            <template v-slot:append>
-              <img src="https://cdn.quasar.dev/img/layout-gallery/img-github-search-key-slash.svg">
-            </template>
-
             <template v-slot:no-option>
               <q-item>
                 <q-item-section>
@@ -99,9 +94,6 @@
                 v-on="scope.itemEvents"
                 class="GL__select-GL__menu-link"
               >
-                <q-item-section side>
-                  <q-icon name="collections_bookmark" />
-                </q-item-section>
                 <q-item-section>
                   <q-item-label v-html="scope.opt.label" />
                 </q-item-section>
@@ -109,20 +101,6 @@
                   side
                   :class="{ 'default-type': !scope.opt.type }"
                 >
-                  <q-btn
-                    outline
-                    dense
-                    no-caps
-                    text-color="blue-grey-5"
-                    size="12px"
-                    class="bg-grey-1 q-px-sm"
-                  >
-                    {{ scope.opt.type || 'Jump to' }}
-                    <q-icon
-                      name="subdirectory_arrow_left"
-                      size="14px"
-                    />
-                  </q-btn>
                 </q-item-section>
               </q-item>
             </template>
@@ -284,12 +262,6 @@
 
 <script>
 
-const stringOptions = [
-  'damián',
-  'norbert',
-  'laura'
-]
-
 import { date } from 'quasar'
 export default {
   computed: {
@@ -301,13 +273,20 @@ export default {
   methods: {
     getCreators: async function () {
       try {
-        const data = await fetch('http://localhost:8000/users')
+        const data = await fetch('http://localhost:8000/userCreators')
         const response = await data.json()
-        // console.log(response.data.id)
-        this.users = response.data
+        // console.log(response.data)
+        this.creators = response.data
+        this.getUsernames()
       } catch (error) {
         console.error(error)
       }
+    },
+    getUsernames: function () {
+      this.creators.forEach(element => {
+        this.creatorName.push(element.username)
+      })
+      console.log(this.creatorName)
     },
     getCategory: async function () {
       try {
@@ -326,7 +305,8 @@ export default {
       if (this.options === null) {
         // load data
         setTimeout(() => {
-          this.options = stringOptions
+          this.getCreators()
+          this.options = this.creatorName
           this.$refs.search.filter('')
         }, 100)
         update()
@@ -340,10 +320,6 @@ export default {
       }
       update(() => {
         this.filteredOptions = [
-          {
-            label: val,
-            type: 'In this repository'
-          },
           ...this.options
             .filter(op => op.toLowerCase().includes(val.toLowerCase()))
             .map(op => ({ label: op }))
@@ -354,7 +330,8 @@ export default {
   data () {
     return {
       categories: [],
-      // users: [],
+      creators: [],
+      creatorName: [],
       search: '',
       options: null,
       filteredOptions: [],
@@ -367,16 +344,10 @@ export default {
     // Verifico si hay una sesion iniciada
     if (sessionStorage.getItem('apiToken')) {
       this.islogin = true
-      // tengo un token guardado localmente
-      // redirecciono a la pagina de mi perfil
-      // this.$router.push(this.$route.query.redirect || '/MiPerfil')
+      // devuelve true si está la sesión iniciada
     }
+    this.getCreators()
+    // console.log(this.creators)
   }
 }
 </script>
-<style lang="stylus">
-.break {
-  flex-basis: 100%;
-  height: 0;
-}
-</style>
