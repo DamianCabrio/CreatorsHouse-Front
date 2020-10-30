@@ -23,7 +23,7 @@
 
           <!--Categorias-->
           <q-btn-dropdown
-            v-if="isLogin"
+            v-if="!isLogin"
             color="primary"
             unelevated
             label="Categorías"
