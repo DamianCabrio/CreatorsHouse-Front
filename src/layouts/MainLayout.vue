@@ -286,7 +286,7 @@ export default {
       this.creators.forEach(element => {
         this.creatorName.push(element.username)
       })
-      console.log(this.creatorName)
+      // console.log(this.creatorName)
     },
     getCategory: async function () {
       try {
@@ -337,7 +337,6 @@ export default {
       filteredOptions: [],
       drawerRight: false,
       islogin: false
-
     }
   },
   mounted () {

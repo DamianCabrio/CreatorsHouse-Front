@@ -3,8 +3,8 @@
     <h1>Bienvenido</h1>
     <div>
        <q-btn class="btn-xs" @click="logout">Cerrar Sesion</q-btn>
-      <div>{{user.data}}</div>
-      <div v-if="">{{creator.data}}</div>
+      <div>Datos del Usuario logueado ------------ {{user}}</div>
+      <div>Datos si es un creador ---------------- {{creator}}</div>
     </div>
 </q-page>
 </template>
@@ -16,7 +16,8 @@ export default {
   data () {
     return {
       user: [],
-      creator: []
+      creator: [],
+      isCreator: false
     }
   },
   mounted () {
@@ -24,8 +25,6 @@ export default {
     if (sessionStorage.getItem('apiToken')) {
       // tengo un token guardado localmente
       this.getUser()
-      // Si soy creator busco mis datos de creator
-      // this.getCreator()
     } else {
       // sino redirecciono al login
       this.$router.push(this.$route.query.redirect || '/Login')
@@ -50,22 +49,34 @@ export default {
           console.log(response.data)
           this.user = response.data
           // Buscar mis datos si soy creador
+          if (this.user.data.isCreator === 1) {
+            this.isCreator = true
+            this.getCreator()
+          }
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    // Busco mis datos si soy creator enviando mi id de usuario
+    getCreator () {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.get('http://localhost:8000/api/usercreator/' + this.user.data.id, {
+        // token: sessionStorage.getItem('apiToken'),
+        // idUser: this.user.data.id
+        // idUser: 1
+      })
+        .then((response) => {
+          console.log(response.data)
+          this.creator = response.data
         })
         .catch(err => {
           console.log(err.response)
         })
     }
-    // Busco mis datos si soy creator enviando mi id de usuario
-    /* getCreator() {
-      try {
-        const data = await fetch('http://localhost:8000/api/creator/idUser=' + )
-        const response = await data.json()
-        // console.log(response.data.id)
-        this.creator = response.data
-      } catch (error) {
-        console.error(error)
-      }
-    } */
   }
 }
 </script>
