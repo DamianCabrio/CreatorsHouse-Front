@@ -106,7 +106,7 @@
             </template>
           </q-select>
         </div>
-        <!--Boton Login-->
+        <!--Boton Login y Registrarse-->
         <div class="q-pa-sm desktop-only">
           <router-link
             v-if="!islogin"
@@ -160,7 +160,7 @@
                 @click="onItemClick"
               >
                 <q-item-section>
-                  <q-item-label>Artículos</q-item-label>
+                  <q-item-label>Cerrar Sesion</q-item-label>
                 </q-item-section>
               </q-item>
             </q-list>
@@ -344,6 +344,8 @@ export default {
     if (sessionStorage.getItem('apiToken')) {
       this.islogin = true
       // devuelve true si está la sesión iniciada
+    } else {
+      this.islogin = false
     }
     this.getCreators()
     // console.log(this.creators)
