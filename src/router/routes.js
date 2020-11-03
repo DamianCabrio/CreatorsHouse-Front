@@ -9,6 +9,7 @@ const routes = [
       { path: 'help', component: () => import('pages/Help.vue') },
       { path: 'miPerfil', component: () => import('pages/MiPerfil.vue') },
       { path: 'register', component: () => import('pages/Register.vue') },
+      { path: 'edituser', component: () => import('pages/EditUser.vue') },
       { path: 'filterCategory/:idCategory', component: () => import('pages/FilterCategory.vue') }
     ]
   },

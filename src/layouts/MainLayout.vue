@@ -200,11 +200,11 @@
             v-ripple
           >
             <q-item-section avatar>
-              <q-icon name="inbox" />
+              <q-icon name="home" />
             </q-item-section>
 
             <q-item-section>
-              Inbox
+              Inicio
             </q-item-section>
           </q-item>
 
@@ -214,11 +214,11 @@
             v-ripple
           >
             <q-item-section avatar>
-              <q-icon name="star" />
+              <q-icon name="account_circle" />
             </q-item-section>
 
             <q-item-section>
-              Star
+              Mi Perfil
             </q-item-section>
           </q-item>
 
@@ -227,11 +227,11 @@
             v-ripple
           >
             <q-item-section avatar>
-              <q-icon name="send" />
+              <q-icon name="logout" />
             </q-item-section>
 
             <q-item-section>
-              Send
+              Logout
             </q-item-section>
           </q-item>
 

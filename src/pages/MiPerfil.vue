@@ -293,6 +293,7 @@
                       style="width: 100%;"
                       color="primary"
                       label="Ser Creador"
+                      to="/EditUser"
                     />
                   </q-card-actions>
                 </q-card>
