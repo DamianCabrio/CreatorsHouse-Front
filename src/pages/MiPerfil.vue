@@ -15,7 +15,8 @@
                     </div>
                   </template>
                   <q-card-section align="center">
-                    <div class="text-h6 text-weight-light">username</div>
+                    <div class="text-h6 text-weight-light">{{user.data.username}}</div>
+                    <div>mis fans? </div>
                   </q-card-section>
                   <q-separator></q-separator>
                   <q-card-section>
@@ -93,8 +94,8 @@
                         narrow-indicator
                       >
                         <q-tab
-                          name="todos"
-                          label="Todos"
+                          name="publico"
+                          label="Público"
                         />
                         <q-tab
                           name="premium"
@@ -108,7 +109,7 @@
                         v-model="tab"
                         animated
                       >
-                        <q-tab-panel name="todos">
+                        <q-tab-panel name="publico">
                           <q-intersection
                             transition="scale"
                             once
@@ -259,12 +260,14 @@
                               </q-card-actions>
                             </q-card>
                           </q-intersection>
-                          <q-btn
-                            align="center"
-                            color="primary"
-                            label="Ver Más"
-                            size="lg"
-                          />
+                          <div align="center">
+                            <q-btn
+                              align="center"
+                              color="primary"
+                              label="Ver Más"
+                              size="lg"
+                            />
+                          </div>
                         </q-tab-panel>
                       </q-tab-panels>
                     </div>
@@ -277,9 +280,10 @@
                   class="q-ma-sm shadow-1"
                 >
                   <q-card-section>
-                    <div>En el card va un v-if o v-show="!creator"</div>
                     <div class="text-h6">Convertite en Creador</div>
+                    <q-separator></q-separator>
                     <div class="text-body2">Terminá de completar tu página y empezá a postear.</div>
+                    <div>En el card va un v-if o v-show="!creator"</div>
                   </q-card-section>
 
                   <q-separator />
@@ -298,14 +302,12 @@
         </div>
       </div>
     </template>
-    <h1>Bienvenido</h1>
     <div>
       <q-btn
         class="btn-xs"
         @click="logout"
       >Cerrar Sesion</q-btn>
-      <div>Datos del Usuario logueado ------------ {{user}}</div>
-      <div>Datos si es un creador ---------------- {{creator}}</div>
+
     </div>
   </q-page>
 </template>
@@ -319,7 +321,7 @@ export default {
       user: [],
       creator: [],
       isCreator: false,
-      tab: 'todos'
+      tab: 'publico'
     }
   },
   mounted () {
