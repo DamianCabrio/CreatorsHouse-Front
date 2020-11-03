@@ -212,6 +212,7 @@
             active
             clickable
             v-ripple
+            to='/User'
           >
             <q-item-section avatar>
               <q-icon name="account_circle" />

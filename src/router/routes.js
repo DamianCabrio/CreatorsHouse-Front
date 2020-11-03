@@ -10,6 +10,7 @@ const routes = [
       { path: 'home', component: () => import('pages/Home.vue') },
       { path: 'register', component: () => import('pages/Register.vue') },
       { path: 'edituser', component: () => import('pages/EditUser.vue') },
+      { path: 'user', component: () => import('pages/User.vue') },
       { path: 'filterCategory/:idCategory', component: () => import('pages/FilterCategory.vue') }
     ]
   },
