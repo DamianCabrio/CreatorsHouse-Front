@@ -6,7 +6,11 @@
           <div class="col-12 col-md-10 q-pa-md q-gutter-sm">
             <div class="row justify-center">
               <div class="col-12 col-md-3">
-                <q-card class="q-ma-sm shadow-1">
+                <q-card
+                  class="q-ma-sm"
+                  flat
+                  bordered
+                >
                   <template>
                     <div class="q-pa-md q-gutter-sm center  flex flex-center">
                       <q-avatar size="80px">
@@ -276,8 +280,10 @@
               </div>
               <div class="col-12 col-md-3">
                 <q-card
+                  flat
+                  bordered
                   v-show="creator"
-                  class="q-ma-sm shadow-1"
+                  class="q-ma-sm "
                 >
                   <q-card-section>
                     <div class="text-h6">Convertite en Creador</div>

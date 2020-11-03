@@ -10,7 +10,7 @@
           </q-responsive>
         </div>
         <div class="col-12 q-pa-xl text-center">
-          <div class="text-h4">Editar Mi Perfil</div>
+          <div class="text-h4 text-weight-bold">Editar Mi Perfil</div>
           <div>Configurá tus datos</div>
         </div>
         <div class="col-12 col-md-8 q-pa-md">
@@ -83,7 +83,7 @@
             class="q-mb-md"
           >
             <q-responsive :ratio="4/4">
-              <div class="rounded-borders bg-primary text-white flex flex-center">
+              <div class="rounded-borders flex flex-center">
                 Alguna cosa acá
               </div>
             </q-responsive>
