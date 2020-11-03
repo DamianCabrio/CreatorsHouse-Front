@@ -36,6 +36,8 @@
                 :key="category.id"
                 clickable
                 v-close-popup
+                :idCategory = "category.id"
+                v-bind:to = "`/FilterCategory/${category.id}`"
               >
                 <q-item-section>
                   <q-item-label>{{category.nameCategory}}</q-item-label>

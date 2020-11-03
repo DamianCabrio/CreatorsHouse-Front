@@ -53,6 +53,13 @@ var routes = [{
         return _interopRequireWildcard(require('pages/Register.vue'));
       });
     }
+  }, {
+    path: 'filterCategory/:idCategory',
+    component: function component() {
+      return Promise.resolve().then(function () {
+        return _interopRequireWildcard(require('pages/FilterCategory.vue'));
+      });
+    }
   }]
 }, // Always leave this as last one,
 // but you can also remove it
