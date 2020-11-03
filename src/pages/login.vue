@@ -55,7 +55,7 @@ export default {
     if (sessionStorage.getItem('apiToken')) {
       // tengo un token guardado localmente
       // redirecciono a la pagina de mi perfil
-      this.$router.push(this.$route.query.redirect || '/MiPerfil')
+      this.$router.push(this.$route.query.redirect || '/Home')
     }
   },
   methods: {
@@ -69,7 +69,7 @@ export default {
           // this.apiToken = response.data.tokenData
           sessionStorage.setItem('apiToken', response.data.tokenData.token)
           // Si valido el login redirecciono a su perfil
-          this.$router.push(this.$route.query.redirect || '/MiPerfil')
+          this.$router.push(this.$route.query.redirect || '/Home')
         })
         .catch(err => {
           console.log(err.response)

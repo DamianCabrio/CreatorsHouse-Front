@@ -3,7 +3,7 @@
     <template>
       <div>
         <div class="row justify-center">
-          <div class="col-12 col-md-10 q-pa-md q-gutter-sm">
+          <div class="col-12 col-md-8 q-pa-md q-gutter-sm">
             <div class="row justify-center">
               <div class="col-12 col-md-3">
                 <q-card
@@ -12,7 +12,7 @@
                   bordered
                 >
                   <template>
-                    <div class="q-pa-md q-gutter-sm center  flex flex-center">
+                    <div class="q-pa-md q-gutter-sm center flex flex-center">
                       <q-avatar size="80px">
                         <img src="https://www.placecage.com/gif/200/200">
                       </q-avatar>
@@ -81,12 +81,11 @@
                   </q-card-section>
                 </q-card>
               </div>
-              <div class="col-12 col-md-5">
+              <div class="col-12 col-md-6">
                 <template>
                   <div class="q-pa-md">
                     <div
                       class="q-gutter-y-md"
-                      style="max-width: 600px"
                     >
                       <q-tabs
                         v-model="tab"
@@ -322,7 +321,7 @@
 <script>
 import * as axios from 'axios'
 export default {
-  name: 'MiPerfil',
+  name: 'Home',
   data () {
     return {
       user: [],
