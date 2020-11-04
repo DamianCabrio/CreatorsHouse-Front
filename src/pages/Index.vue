@@ -16,6 +16,7 @@
               color="white"
               text-color="black"
               label="Registrarse"
+              to="/Register"
             />
           </div>
         </div>
