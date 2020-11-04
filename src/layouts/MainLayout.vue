@@ -112,14 +112,14 @@
         <div class="q-pa-sm desktop-only">
           <router-link
             v-if="!islogin"
-            to="login"
+            to="/login"
             style="color:white;text-decoration:none"
           >Login</router-link>
         </div>
         <div class="q-pa-sm desktop-only">
           <q-btn
             v-if="!islogin"
-            to="register"
+            to="/register"
             unelevated
             style="color: white;background-color:black"
             label="Registrarse"
