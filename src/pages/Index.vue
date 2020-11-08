@@ -1,13 +1,10 @@
 <template>
   <q-page class="bg-white">
     <div class="container">
-      <div
-        class="row bg-primary q-pb-xl"
-        style="padding-right:5vw;padding-left:5vw;"
-      >
-        <div class="col-md-6 col-sm-12">
+      <div class="row justify-center bg-primary q-pb-xl">
+        <div class="col-md-5 col-12">
           <div
-            class="q-pl-xl q-pr-xl"
+            class="q-pl-md q-pr-md q-pb-md"
             style="text-align:left"
           >
             <div class="text-white text-bold text-h3 q-mt-xl q-pt-xl q-pb-lg">Recibí donaciones y ofrecé contenido premium a tus fans.</div>
@@ -20,8 +17,8 @@
             />
           </div>
         </div>
-        <div class="col-md-6 col-sm-12">
-          <div class="q-pa-xl">
+        <div class="col-md-5 col-12">
+          <div class="q-pa-md q-pt-xl">
             <q-video
               :ratio="2/1"
               src="https://www.youtube.com/embed/6RdcVauc-64?rel=0"
@@ -29,49 +26,41 @@
           </div>
         </div>
       </div>
-      <div>
-        <h2 class="text-center">Creadores</h2>
-      </div>
-      <div
-        class="row"
-        style="padding-right:5vw;padding-left:5vw;"
-      >
-        <div
-          v-for='user in users'
-          class="my-card col-md-3"
-          :key="user.id"
-        >
-          <div class="q-pa-md">
-            <q-card>
-              <q-img v-bind:src="`http://localhost:8000/img/${user.avatar}`">
-                <div class="absolute-bottom">
-                  <div class="text-h6">@{{user.username}}</div>
-                  <div class="text-subtitle2">{{user.name}}</div>
-                  <div class="text-subtitle2">{{user.avatar}}</div>
-                </div>
-              </q-img>
+      <div class="row justify-center">
+        <div class="col-12 col-md-8">
+          <div class="text-h4 q-pa-lg text-bold text-center">Conocé nuevos creadores</div>
+          <div class="row">
+            <div
+              v-for='user in users'
+              class="col-12 col-md-4"
+              :key="user.id"
+            >
+              <div class="q-pa-lg">
+                <q-card>
+                  <q-img  :ratio="1.5/1" v-bind:src="`http://localhost:8000/img/${user.avatar}`">
+                    <div class="absolute-bottom">
+                      <div class="text-h6">@{{user.username}}</div>
+                      <div class="text-subtitle2">{{user.name}}</div>
+                    </div>
+                  </q-img>
 
-              <q-card-actions class="justify-around">
-                <q-btn
-                  flat
-                  round
-                  color="red"
-                  icon="favorite"
-                />
-                <q-btn
-                  flat
-                  round
-                  color="accent"
-                  icon="bookmark"
-                />
-                <q-btn
-                  flat
-                  round
-                  color="primary"
-                  icon="share"
-                />
-              </q-card-actions>
-            </q-card>
+                  <q-card-actions class="">
+                    <q-btn
+                      flat
+                      round
+                      color="red"
+                      icon="favorite"
+                    />
+                    <q-btn
+                      flat
+                      round
+                      color="primary"
+                      icon="share"
+                    />
+                  </q-card-actions>
+                </q-card>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -160,16 +149,6 @@ export default {
     this.getCreators()
   },
   methods: {
-    getUser: async function () {
-      try {
-        const data = await fetch('http://localhost:8000/users/2')
-        const response = await data.json()
-        console.log(response.data.id)
-        this.user = response.data
-      } catch (error) {
-        console.error(error)
-      }
-    },
     getCreators: async function () {
       try {
         const data = await fetch('http://localhost:8000/userCreatorsHome')
