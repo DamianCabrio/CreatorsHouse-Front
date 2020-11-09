@@ -178,10 +178,13 @@
       </q-toolbar>
     </q-header>
     <!-----------------Footer----------------------------------------->
-    <q-footer>
-      <q-toolbar>
-        <q-toolbar-title>Footer</q-toolbar-title>
+    <q-footer class="bg-secondary">
+      <div class="q-pb-md">
+      <q-card flat class="q-pt-md q-pb-md" style="background-color:#202032"></q-card>
+      <q-toolbar class="q-pt-md q-pb-md">
+        <q-toolbar-title class="text-weight-thin text-caption">CREATOR HOUSE ©2020</q-toolbar-title>
       </q-toolbar>
+      </div>
     </q-footer>
     <!--Menu lateral Perfil de usuario-->
     <q-drawer
