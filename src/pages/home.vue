@@ -84,9 +84,7 @@
               <div class="col-12 col-md-6">
                 <template>
                   <div class="q-pa-md">
-                    <div
-                      class="q-gutter-y-md"
-                    >
+                    <div class="q-gutter-y-md">
                       <q-tabs
                         v-model="tab"
                         dense
@@ -302,6 +300,8 @@
                     />
                   </q-card-actions>
                 </q-card>
+                <div class="q-pa-sm text-subtitle1">El creador random de hoy.</div>
+                <OneRandomCreator />
               </div>
             </div>
           </div>
@@ -320,8 +320,10 @@
 
 <script>
 import * as axios from 'axios'
+import OneRandomCreator from 'components/OneRandomCreator.vue'
 export default {
   name: 'Home',
+  components: { OneRandomCreator },
   data () {
     return {
       user: [],
