@@ -3,7 +3,11 @@
     <div
       v-for='user in users'
       :key="user.id"
+      clickable
+      v-close-popup
       class="col-12 col-md-4"
+      :idCreator = "user.idCreator"
+      v-bind:to = "`/Creator/${user.idCreator}`"
     >
       <div class="q-pa-lg">
         <q-card class="my-card">

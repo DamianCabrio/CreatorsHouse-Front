@@ -35,8 +35,40 @@
 </template>
 
 <script>
+import * as axios from 'axios'
+
 export default {
-  name: 'Creator'
+  name: 'Creator',
+  data () {
+    return {
+      postsCreator: []
+    }
+  },
+  mounted: function () {
+    this.getPostsCreator()
+  },
+  methods: {
+    // En postsCreator estan todos los posts de ese creator (con imagens videos y like si es que los tiene)
+    getPostsCreator: async function () {
+      var idCreator = this.$route.params.idCreator
+      alert(idCreator)
+      axios.get('http://localhost:8000/postscreator/' + idCreator)
+        .then((response) => {
+          this.postsCreator = response.data
+          console.log(this.postsCreator)
+          // alert(response.data[0].banner)
+        })
+        .catch((error) => {
+          console.log(error)
+          // alert(error)
+          this.$q.notify({
+            message: 'Lo sentimos, vuelva a intentarlo más tarde.',
+            color: 'warning'
+          })
+          this.$q.notify('')
+        })
+    }
+  }
 }
 </script>
 <style lang="stylus">
