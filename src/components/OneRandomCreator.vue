@@ -4,8 +4,12 @@
       v-for='user in users'
       :key="user.id"
     >
-      <div class="q-pa-lg">
-        <q-card class="my-card">
+      <div class="q-pa-sm">
+        <q-card
+          flat
+          bordered
+          class="my-card"
+        >
           <q-item>
             <q-item-section avatar>
               <q-btn
@@ -47,7 +51,7 @@ export default {
   methods: {
     getCreators: async function () {
       try {
-        const data = await fetch('http://localhost:8000/userCreatorsHome')
+        const data = await fetch('http://localhost:8000/userShowOneRandCreator')
         const response = await data.json()
         // console.log(response.data.id)
         this.users = response.data

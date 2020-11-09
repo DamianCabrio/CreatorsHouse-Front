@@ -94,21 +94,6 @@ export default {
       slide: 'style',
       lorem: 'I dun like carousels, but idk. Se ven raros los controles dots, con píxeles, wth? Los parallax son feos tmb. Todo plano if possible.'
     }
-  },
-  mounted () {
-    this.getCreators()
-  },
-  methods: {
-    getCreators: async function () {
-      try {
-        const data = await fetch('http://localhost:8000/userCreatorsHome')
-        const response = await data.json()
-        // console.log(response.data.id)
-        this.users = response.data
-      } catch (error) {
-        console.error(error)
-      }
-    }
   }
 }
 </script>
