@@ -16,24 +16,24 @@
         <div class="col-12 col-md-8 q-pa-md">
           <q-form>
             <q-card
-              flat
               bordered
               class="q-mb-md"
+              flat
             >
               <q-card-section>
                 <div class="text-caption q-pb-sm">Avatar</div>
                 <q-file
-                  outlined
                   v-model="avatar"
                   label="imagen avatar jpg/png/gif"
+                  outlined
                 />
               </q-card-section>
               <q-card-section>
                 <div class="text-caption q-pb-sm">Banner</div>
                 <q-file
-                  outlined
                   v-model="banner"
                   label="imagen banner en jpg/png/gif"
+                  outlined
                 />
               </q-card-section>
               <q-card-section>
@@ -50,39 +50,39 @@
               <q-card-section>
                 <div class="text-caption q-pb-sm">Link a Instagram</div>
                 <q-input
-                  type="url"
-                  hint="URL"
-                  outlined
                   v-model="instagram"
+                  hint="URL"
                   label="Instagram"
+                  outlined
+                  type="url"
                 />
               </q-card-section>
               <q-card-section>
                 <div class="text-caption q-pb-sm">Link a Youtube</div>
                 <q-input
-                  type="url"
-                  hint="URL"
-                  outlined
                   v-model="youtube"
+                  hint="URL"
                   label="Youtube"
+                  outlined
+                  type="url"
                 />
               </q-card-section>
               <q-card-section>
                 <div class="text-caption q-pb-sm">Valor membresia mensual Premium</div>
                 <q-input
-                  type="number"
-                  outlined
                   v-model="vipCost"
                   label="Costo Mensual $AR"
+                  outlined
+                  type="number"
                 />
               </q-card-section>
               <q-card-section>
                 <div class="text-caption q-pb-sm">Convertirme en creador</div>
                 <q-toggle
-                  size="xl"
                   v-model="becreator"
-                  val="xl"
                   label="Ser o no ser creador"
+                  size="xl"
+                  val="xl"
                 />
               </q-card-section>
             </q-card>
@@ -92,16 +92,16 @@
           <div class="q-pb-md">
             <q-btn
               color="accent"
-              text-color="white"
               label="Guardar Cambios"
-              style="width:100%"
               size="lg"
+              style="width:100%"
+              text-color="white"
             />
           </div>
           <q-card
-            flat
             bordered
             class="q-mb-md"
+            flat
           >
             <q-responsive :ratio="4/4">
               <div class="rounded-borders flex flex-center">
@@ -116,6 +116,7 @@
 </template>
 <script>
 import * as axios from 'axios'
+
 export default {
   data () {
     return {

@@ -1,7 +1,7 @@
 <template>
-<q-page class="flex flex-center">
+  <q-page class="flex flex-center">
     <h1>Help</h1>
-</q-page>
+  </q-page>
 </template>
 
 <script>

@@ -3,43 +3,43 @@
   <q-page class="flex flex-center">
     <div class="q-pa-md fit row wrap justify-start items-start content-start">
       <q-form
-        @submit="onSubmit"
-        @reset="onReset"
         class="q-gutter-md col-md-4 col-12 self-center offset-md-4"
+        @reset="onReset"
+        @submit="onSubmit"
       >
         <div class="text-h3 q-mb-none text-weight-thin">Registrarse</div>
         <q-input
-          filled
           v-model="username"
-          label="Username *"
-          hint="Tu nombre en Creator house"
-          lazy-rules
           :rules="[ val => val && val.length > 0 || 'Ingresa un nickname']"
+          filled
+          hint="Tu nombre en Creator house"
+          label="Username *"
+          lazy-rules
         />
 
         <q-input
-          filled
-          type="email"
           v-model="email"
-          hint="Ejemplo: usuario@mail.com"
-          label="Email *"
-          lazy-rules
           :rules="[
           val => val !== null && val !== '' || 'Ingresa tu email'
         ]"
+          filled
+          hint="Ejemplo: usuario@mail.com"
+          label="Email *"
+          lazy-rules
+          type="email"
         />
         <q-input
           v-model="password"
-          filled
-          :type="isPwd ? 'password' : 'text'"
-          hint=""
-          label="Contraseña *"
-          lazy-rules
           :rules="[
           val => val !== null && val !== '' || 'Contraseña requerida',
           val => val && val.length >= 8 || 'Ingresa una contraseña con al menos 8 carcateres',
           isValidPassword
         ]"
+          :type="isPwd ? 'password' : 'text'"
+          filled
+          hint=""
+          label="Contraseña *"
+          lazy-rules
         >
           <template v-slot:append>
             <q-icon
@@ -51,11 +51,11 @@
         </q-input>
         <q-input
           v-model="password2"
-          filled
-          :type="isPwd ? 'password' : 'text'"
-          label="Confirmar Contraseña *"
-          error-message="Contraseña no coincide."
           :error="!confirmPassword"
+          :type="isPwd ? 'password' : 'text'"
+          error-message="Contraseña no coincide."
+          filled
+          label="Confirmar Contraseña *"
         >
           <template v-slot:append>
             <q-icon
@@ -66,15 +66,15 @@
           </template>
         </q-input>
         <q-input
-          filled
-          type="date"
           v-model="birthDate"
-          label=""
-          hint="Fecha de nacimiento"
-          lazy-rules
           :rules="[
           val => val !== null && val !== '' || 'Ingrese su fecha de nacimiento'
         ]"
+          filled
+          hint="Fecha de nacimiento"
+          label=""
+          lazy-rules
+          type="date"
         />
         <q-toggle
           v-model="accept"
@@ -82,17 +82,17 @@
         />
         <div>
           <q-btn
+            color="primary"
             label="Enviar"
             type="submit"
-            color="primary"
             @click="register"
           />
           <q-btn
-            label="Borrar"
-            type="reset"
+            class="q-ml-sm"
             color="primary"
             flat
-            class="q-ml-sm"
+            label="Borrar"
+            type="reset"
           />
         </div>
       </q-form>

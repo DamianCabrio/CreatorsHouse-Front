@@ -18,9 +18,7 @@ module.exports = function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
-    boot: [
-
-    ],
+    boot: [],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
@@ -84,7 +82,7 @@ module.exports = function (/* ctx */) {
       iconSet: 'material-icons', // Quasar icon set
       lang: 'en-us', // Quasar language pack
       config: {
-        notify: { /* look at QUASARCONFOPTIONS from the API card (bottom of page) */ }
+        notify: { /* look at QUASARCONFOPTIONS from the API card (bottom of page) */}
       },
 
       // Possible values for "importStrategy":

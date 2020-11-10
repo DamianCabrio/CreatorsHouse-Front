@@ -7,9 +7,9 @@
             <div class="row justify-center">
               <div class="col-12 col-md-3">
                 <q-card
+                  bordered
                   class="q-ma-sm"
                   flat
-                  bordered
                 >
                   <template>
                     <div class="q-pa-md q-gutter-sm center flex flex-center">
@@ -19,8 +19,8 @@
                     </div>
                   </template>
                   <q-card-section align="center">
-                    <div class="text-h6 text-weight-light">{{user.data.username}}</div>
-                    <div>mis fans? </div>
+                    <div class="text-h6 text-weight-light">{{ user.data.username }}</div>
+                    <div>mis fans?</div>
                   </q-card-section>
                   <q-separator></q-separator>
                   <q-card-section>
@@ -32,8 +32,8 @@
                           separator
                         >
                           <q-item
-                            clickable
                             v-ripple
+                            clickable
                           >
                             <q-item-section avatar>
                               <q-avatar>
@@ -47,8 +47,8 @@
                           </q-item>
 
                           <q-item
-                            clickable
                             v-ripple
+                            clickable
                           >
                             <q-item-section avatar>
                               <q-avatar>
@@ -62,8 +62,8 @@
                           </q-item>
 
                           <q-item
-                            clickable
                             v-ripple
+                            clickable
                           >
                             <q-item-section avatar>
                               <q-avatar>
@@ -87,24 +87,24 @@
                     <div class="q-gutter-y-md">
                       <q-tabs
                         v-model="tab"
-                        dense
-                        class="text-grey"
                         active-color="primary"
-                        indicator-color="primary"
                         align="justify"
+                        class="text-grey"
+                        dense
+                        indicator-color="primary"
                         narrow-indicator
                       >
                         <q-tab
-                          name="publico"
                           label="Público"
+                          name="publico"
                         />
                         <q-tab
-                          name="premium"
                           label="Premium"
+                          name="premium"
                         />
                       </q-tabs>
 
-                      <q-separator />
+                      <q-separator/>
 
                       <q-tab-panels
                         v-model="tab"
@@ -112,13 +112,13 @@
                       >
                         <q-tab-panel name="publico">
                           <q-intersection
-                            transition="scale"
                             once
+                            transition="scale"
                           >
                             <q-card
-                              clickable
                               v-ripple
                               class="my-card q-ma-sm q-mb-lg"
+                              clickable
                             >
                               <q-card-section>
                                 <q-item>
@@ -144,28 +144,28 @@
                               </q-card-section>
                               <q-card-actions align="right">
                                 <q-btn
-                                  flat
-                                  round
                                   color="red"
+                                  flat
                                   icon="favorite"
+                                  round
                                 />
                                 <q-btn
-                                  flat
-                                  round
                                   color="primary"
+                                  flat
                                   icon="share"
+                                  round
                                 />
                               </q-card-actions>
                             </q-card>
                           </q-intersection>
                           <q-intersection
-                            transition="scale"
                             once
+                            transition="scale"
                           >
                             <q-card
-                              clickable
                               v-ripple
                               class="my-card q-ma-sm q-mb-lg"
+                              clickable
                             >
                               <q-card-section>
                                 <q-item>
@@ -191,16 +191,16 @@
                               </q-card-section>
                               <q-card-actions align="right">
                                 <q-btn
-                                  flat
-                                  round
                                   color="red"
+                                  flat
                                   icon="favorite"
+                                  round
                                 />
                                 <q-btn
-                                  flat
-                                  round
                                   color="primary"
+                                  flat
                                   icon="share"
+                                  round
                                 />
                               </q-card-actions>
                             </q-card>
@@ -215,13 +215,13 @@
                         </q-tab-panel>
                         <q-tab-panel name="premium">
                           <q-intersection
-                            transition="scale"
                             once
+                            transition="scale"
                           >
                             <q-card
-                              clickable
                               v-ripple
                               class="my-card q-ma-sm q-mb-lg"
+                              clickable
                             >
                               <q-card-section>
                                 <q-item>
@@ -247,16 +247,16 @@
                               </q-card-section>
                               <q-card-actions align="right">
                                 <q-btn
-                                  flat
-                                  round
                                   color="red"
+                                  flat
                                   icon="favorite"
+                                  round
                                 />
                                 <q-btn
-                                  flat
-                                  round
                                   color="primary"
+                                  flat
                                   icon="share"
+                                  round
                                 />
                               </q-card-actions>
                             </q-card>
@@ -277,10 +277,10 @@
               </div>
               <div class="col-12 col-md-3">
                 <q-card
-                  flat
-                  bordered
                   v-show="creator"
+                  bordered
                   class="q-ma-sm "
+                  flat
                 >
                   <q-card-section>
                     <div class="text-h6">Convertite en Creador</div>
@@ -289,19 +289,19 @@
                     <div>En el card va un v-if o v-show="!creator"</div>
                   </q-card-section>
 
-                  <q-separator />
+                  <q-separator/>
 
                   <q-card-actions vertical>
                     <q-btn
-                      style="width: 100%;"
                       color="primary"
                       label="Ser Creador"
+                      style="width: 100%;"
                       to="/EditUser"
                     />
                   </q-card-actions>
                 </q-card>
                 <div class="q-pa-sm text-subtitle1">El creador random de hoy.</div>
-                <OneRandomCreator />
+                <OneRandomCreator/>
               </div>
             </div>
           </div>
@@ -312,7 +312,8 @@
       <q-btn
         class="btn-xs"
         @click="logout"
-      >Cerrar Sesion</q-btn>
+      >Cerrar Sesion
+      </q-btn>
 
     </div>
   </q-page>
@@ -321,6 +322,7 @@
 <script>
 import * as axios from 'axios'
 import OneRandomCreator from 'components/OneRandomCreator.vue'
+
 export default {
   name: 'Home',
   components: { OneRandomCreator },

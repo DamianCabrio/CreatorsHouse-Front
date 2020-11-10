@@ -5,8 +5,8 @@
         <div class="row items-start">
           <template class="card">
             <q-img
-              src="https://images.pexels.com/photos/6992/forest-trees-northwestisbest-exploress.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
               class="banner"
+              src="https://images.pexels.com/photos/6992/forest-trees-northwestisbest-exploress.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
             >
               <div class="absolute-bottom text-subtitle1 text-center">
                 <q-avatar

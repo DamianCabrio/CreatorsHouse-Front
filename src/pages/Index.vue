@@ -7,15 +7,17 @@
             class="q-pl-md q-pr-md q-pb-md"
             style="text-align:left"
           >
-            <div class="text-white text-bold text-h3 index-title q-mt-xl q-pt-xl q-pb-lg">Recibí donaciones y ofrecé contenido premium a tus fans.</div>
+            <div class="text-white text-bold text-h3 index-title q-mt-xl q-pt-xl q-pb-lg">Recibí donaciones y ofrecé
+              contenido premium a tus fans.
+            </div>
             <div class="text-white text-bold text-h4 q-pr-lg q-pb-xl">Registrate para empezar ahora mismo.</div>
             <div class="q-pt-xl">
               <q-btn
                 color="white"
-                text-color="black"
                 label="Registrarse"
-                to="/Register"
                 size="lg"
+                text-color="black"
+                to="/Register"
               />
             </div>
           </div>
@@ -31,7 +33,7 @@
       </div>
       <div class="row justify-center bg-three-creators q-pt-xl q-pb-xl">
         <div class="col-12 col-md-8">
-          <ShowThreeCreatorsHome />
+          <ShowThreeCreatorsHome/>
         </div>
       </div>
     </div>
@@ -40,12 +42,12 @@
         <div class="row justify-center q-pt-xl q-pb-xl">
           <div class="col-12 col-md-10">
             <q-card
-              flat
               bordered
+              flat
             >
               <q-card-section
-                style="min-height:20vh;background-color:#EDEFF3"
                 class="no-padding"
+                style="min-height:20vh;background-color:#EDEFF3"
               >
                 <div class="row">
                   <div
@@ -53,16 +55,19 @@
                     style="align-items: center;"
                   >
                     <div class="q-pa-lg">
-                      <div class="text-h4 text-weight-light">También podés apoyar a tus creadores favoritos y alentarlos para que sigan haciendo lo que aman.</div>
+                      <div class="text-h4 text-weight-light">También podés apoyar a tus creadores favoritos y alentarlos
+                        para que sigan haciendo lo que aman.
+                      </div>
                     </div>
                   </div>
                   <div class="col-12 col-md-6">
                     <q-img
-                      src="https://images.pexels.com/photos/374068/pexels-photo-374068.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
                       :ratio="16/9"
+                      src="https://images.pexels.com/photos/374068/pexels-photo-374068.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
                     />
                   </div>
                 </div>
+
               </q-card-section>
               <q-card-section class="bg-secondary text-white q-pa-lg flex">
                 <div class="text-h5 text-weight-light q-pr-md">
@@ -70,8 +75,8 @@
                 </div>
                 <q-btn
                   color="white"
-                  text-color="black"
                   label="Registrarse"
+                  text-color="black"
                   to="/Register"
                 />
               </q-card-section>
@@ -84,6 +89,7 @@
 </template>
 <script>
 import ShowThreeCreatorsHome from 'components/ShowThreeCreatorsHome.vue'
+
 export default {
   name: 'PageIndex',
   components: { ShowThreeCreatorsHome },
@@ -102,8 +108,8 @@ export default {
 .index-title {
   span {
     background-image: linear-gradient(
-      transparent calc(65% - 5px),
-      darken($accent, 15%) 5px
+        transparent calc(65% - 5px),
+        darken($accent, 15%) 5px
     );
     background-size: 0;
     background-repeat: no-repeat;
@@ -117,6 +123,7 @@ export default {
     }
   }
 }
+
 .bg-three-creators {
   background-image: linear-gradient($primary 50%, #ffffff 0%);
 }

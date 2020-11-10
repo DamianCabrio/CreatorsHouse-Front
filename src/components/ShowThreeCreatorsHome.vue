@@ -3,27 +3,27 @@
     <div
       v-for='user in users'
       :key="user.id"
-      clickable
       v-close-popup
+      :idCreator="user.idCreator"
       class="col-12 col-md-4"
-      :idCreator = "user.idCreator"
-      v-bind:to = "`/Creator/${user.idCreator}`"
+      clickable
+      v-bind:to="`/Creator/${user.idCreator}`"
     >
       <div class="q-pa-lg">
         <q-card class="my-card">
           <q-item>
             <q-item-section avatar>
               <q-btn
-                flat
-                round
                 color="secondary"
+                flat
                 icon="share"
+                round
               />
             </q-item-section>
 
             <q-item-section>
-              <q-item-label>@{{user.username}}</q-item-label>
-              <q-item-label caption>{{user.name}}</q-item-label>
+              <q-item-label>@{{ user.username }}</q-item-label>
+              <q-item-label caption>{{ user.name }}</q-item-label>
             </q-item-section>
           </q-item>
 

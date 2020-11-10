@@ -1,5 +1,5 @@
 <template>
-<q-page class="flex flex-center">
+  <q-page class="flex flex-center">
     <h1>Creadores x Categorias</h1>
     <q-list id="creadoresXCategoria">
       <q-item
@@ -7,11 +7,11 @@
         :key="creator.id"
       >
         <q-item-section>
-          <q-item-label>Creador: ---- {{creator}}</q-item-label>
+          <q-item-label>Creador: ---- {{ creator }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
-</q-page>
+  </q-page>
 </template>
 
 <script>

@@ -2,16 +2,16 @@
   <q-layout view="hHr LpR ffr">
     <!---------------- Inicia el encabezado -------------------------->
     <q-header
-      elevated
       class="q-pt-sm q-pb-sm"
+      elevated
     >
       <q-toolbar>
         <router-link to="/">
           <!--Icono de CreatorHouse-->
           <img
-            style="height: 40px; max-width: 150px"
             alt="Creator House logo"
             src="~assets/creator-house-icon.svg"
+            style="height: 40px; max-width: 150px"
           >
         </router-link>
         <div class="self-strech row no-wrap">
@@ -25,22 +25,22 @@
           <q-btn-dropdown
             v-if="!isLogin"
             color="primary"
-            unelevated
-            label="Categorías"
             content-class="bg-grey-1"
+            label="Categorías"
+            unelevated
             @click="getCategory"
           >
             <q-list>
               <q-item
                 v-for='category in categories'
                 :key="category.id"
-                clickable
                 v-close-popup
-                :idCategory = "category.id"
-                v-bind:to = "`/FilterCategory/${category.id}`"
+                :idCategory="category.id"
+                clickable
+                v-bind:to="`/FilterCategory/${category.id}`"
               >
                 <q-item-section>
-                  <q-item-label>{{category.nameCategory}}</q-item-label>
+                  <q-item-label>{{ category.nameCategory }}</q-item-label>
                 </q-item-section>
               </q-item>
             </q-list>
@@ -48,9 +48,10 @@
           <!--Link al blog-->
           <div class="q-pa-sm desktop-only">
             <router-link
-              to=""
               style="color:white;text-decoration:none"
-            >Blog</router-link>
+              to=""
+            >Blog
+            </router-link>
           </div>
         </div>
         <div class="q-space"></div>
@@ -63,19 +64,19 @@
         >
           <q-select
             ref="search"
-            dark
-            dense
-            standout
-            use-input
-            hide-selected
-            class="GL__toolbar-select"
-            color="black"
-            :stack-label="false"
-            label="Buscá tu creador..."
             v-model="search"
             :options="filteredOptions"
-            @filter="filter"
+            :stack-label="false"
+            class="GL__toolbar-select"
+            color="black"
+            dark
+            dense
+            hide-selected
+            label="Buscá tu creador..."
+            standout
             style="width: 300px"
+            use-input
+            @filter="filter"
           >
             <template v-slot:no-option>
               <q-item>
@@ -97,11 +98,11 @@
                 class="GL__select-GL__menu-link"
               >
                 <q-item-section>
-                  <q-item-label v-html="scope.opt.label" />
+                  <q-item-label v-html="scope.opt.label"/>
                 </q-item-section>
                 <q-item-section
-                  side
                   :class="{ 'default-type': !scope.opt.type }"
+                  side
                 >
                 </q-item-section>
               </q-item>
@@ -112,33 +113,34 @@
         <div class="q-pa-sm desktop-only">
           <router-link
             v-if="!islogin"
-            to="/login"
             style="color:white;text-decoration:none"
-          >Login</router-link>
+            to="/login"
+          >Login
+          </router-link>
         </div>
         <div class="q-pa-sm desktop-only">
           <q-btn
             v-if="!islogin"
+            icon="create"
+            label="Registrarse"
+            style="color: white;background-color:black"
             to="/register"
             unelevated
-            style="color: white;background-color:black"
-            label="Registrarse"
-            icon="create"
           />
         </div>
         <!--Imagen de perfil y Menu Desplegable -->
         <div class="q-pa-md q-gutter-sm">
           <q-btn-dropdown
-            color="primary"
-            unelevated
-            label="CREAR POST"
-            content-class="bg-grey-1"
             v-if="islogin"
+            color="primary"
+            content-class="bg-grey-1"
+            label="CREAR POST"
+            unelevated
           >
             <q-list>
               <q-item
-                clickable
                 v-close-popup
+                clickable
                 @click="onItemClick"
               >
                 <q-item-section>
@@ -147,8 +149,8 @@
               </q-item>
 
               <q-item
-                clickable
                 v-close-popup
+                clickable
                 @click="onItemClick"
               >
                 <q-item-section>
@@ -157,8 +159,8 @@
               </q-item>
 
               <q-item
-                clickable
                 v-close-popup
+                clickable
                 @click="onItemClick"
               >
                 <q-item-section>
@@ -168,9 +170,9 @@
             </q-list>
           </q-btn-dropdown>
           <q-avatar
-            @click="drawerRight = !drawerRight"
-            style="cursor: pointer;"
             v-if="islogin"
+            style="cursor: pointer;"
+            @click="drawerRight = !drawerRight"
           >
             <img src="https://www.placecage.com/gif/200/200">
           </q-avatar>
@@ -180,30 +182,30 @@
     <!-----------------Footer----------------------------------------->
     <q-footer class="bg-secondary">
       <div class="q-pb-md">
-      <q-card flat class="q-pt-md q-pb-md" style="background-color:#202032"></q-card>
-      <q-toolbar class="q-pt-md q-pb-md">
-        <q-toolbar-title class="text-weight-thin text-caption">CREATOR HOUSE ©2020</q-toolbar-title>
-      </q-toolbar>
+        <q-card class="q-pt-md q-pb-md" flat style="background-color:#202032"></q-card>
+        <q-toolbar class="q-pt-md q-pb-md">
+          <q-toolbar-title class="text-weight-thin text-caption">CREATOR HOUSE ©2020</q-toolbar-title>
+        </q-toolbar>
       </div>
     </q-footer>
     <!--Menu lateral Perfil de usuario-->
     <q-drawer
-      elevated
-      content-class="bg-grey-1"
-      side="right"
       v-model="drawerRight"
-      show-if-above
-      :width="260"
       :breakpoint="10600"
+      :width="260"
+      content-class="bg-grey-1"
+      elevated
+      show-if-above
+      side="right"
     >
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
         <q-list padding>
           <q-item
-            clickable
             v-ripple
+            clickable
           >
             <q-item-section avatar>
-              <q-icon name="home" />
+              <q-icon name="home"/>
             </q-item-section>
 
             <q-item-section>
@@ -212,13 +214,13 @@
           </q-item>
 
           <q-item
+            v-ripple
             active
             clickable
-            v-ripple
             to='/User'
           >
             <q-item-section avatar>
-              <q-icon name="account_circle" />
+              <q-icon name="account_circle"/>
             </q-item-section>
 
             <q-item-section>
@@ -227,11 +229,11 @@
           </q-item>
 
           <q-item
-            clickable
             v-ripple
+            clickable
           >
             <q-item-section avatar>
-              <q-icon name="logout" />
+              <q-icon name="logout"/>
             </q-item-section>
 
             <q-item-section>
@@ -240,8 +242,8 @@
           </q-item>
 
           <q-item
-            clickable
             v-ripple
+            clickable
           >
 
           </q-item>
@@ -260,7 +262,7 @@
       </q-img>
     </q-drawer>
     <q-page-container>
-      <router-view />
+      <router-view/>
     </q-page-container>
 
   </q-layout>
@@ -269,6 +271,7 @@
 <script>
 
 import { date } from 'quasar'
+
 export default {
   computed: {
     todaysDate () {

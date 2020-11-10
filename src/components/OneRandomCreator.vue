@@ -6,23 +6,23 @@
     >
       <div class="q-pa-sm">
         <q-card
-          flat
           bordered
           class="my-card"
+          flat
         >
           <q-item>
             <q-item-section avatar>
               <q-btn
-                flat
-                round
                 color="secondary"
+                flat
                 icon="share"
+                round
               />
             </q-item-section>
 
             <q-item-section>
-              <q-item-label>@{{user.username}}</q-item-label>
-              <q-item-label caption>{{user.name}}</q-item-label>
+              <q-item-label>@{{ user.username }}</q-item-label>
+              <q-item-label caption>{{ user.name }}</q-item-label>
             </q-item-section>
           </q-item>
 
