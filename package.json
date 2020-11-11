@@ -12,7 +12,7 @@
   "dependencies": {
     "@morioh/v-lightbox": "^1.0.3",
     "@quasar/extras": "^1.0.0",
-    "core-js": "^3.6.5",
+    "core-js": "^3.7.0",
     "quasar": "^1.0.0"
   },
   "devDependencies": {
@@ -25,7 +25,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-vue": "^6.1.2"
   },
   "browserslist": [
