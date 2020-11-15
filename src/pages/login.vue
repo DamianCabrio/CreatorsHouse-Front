@@ -1,13 +1,13 @@
 <template>
 
-  <q-page class="flex flex-center">
+  <q-page class="flex flex-center" style="min-height:90vh">
     <div class="q-pa-md fit row wrap justify-start items-start content-start">
       <q-form
         class="q-gutter-md col-md-4 col-12 self-center offset-md-4  "
         @reset="onReset"
         @submit="onSubmit"
       >
-        <div class="text-h3 text-center">Iniciar Sesión</div>
+        <div class="text-h3 text-weight-thin text-center">Iniciar Sesión</div>
         <q-input
           v-model="email"
           :rules="[
