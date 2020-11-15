@@ -1,6 +1,9 @@
 <template>
 
-  <q-page class="flex flex-center">
+  <q-page
+    class="flex flex-center q-pb-xl q-pt-xl"
+    style="min-height:90vh"
+  >
     <div class="q-pa-md fit row wrap justify-start items-start content-start">
       <q-form
         class="q-gutter-md col-md-4 col-12 self-center offset-md-4"
@@ -156,13 +159,14 @@ export default {
           message: 'Debes aceptar los términos y condiciones'
         })
       } else {
+        this.$q.notify({
+          color: 'green-4',
+          textColor: 'white',
+          icon: 'cloud_done',
+          message: 'Verifique su email para confirmar el registro!'
+        })
         setTimeout(function () {
-          this.$q.notify({
-            color: 'green-4',
-            textColor: 'white',
-            icon: 'cloud_done',
-            message: 'Verifique su email para confirmar el registro!'
-          })
+          this.$router.push('/login')
         }.bind(this), 3000)
         // this.$router.push('/login')
       }

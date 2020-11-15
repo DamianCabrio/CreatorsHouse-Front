@@ -330,6 +330,7 @@ export default {
     return {
       user: [],
       creator: [],
+      postsCreators: [],
       isCreator: false,
       tab: 'publico'
     }
@@ -339,6 +340,7 @@ export default {
     if (sessionStorage.getItem('apiToken')) {
       // tengo un token guardado localmente
       this.getUser()
+      this.getPostsCreators()
     } else {
       // sino redirecciono al login
       this.$router.push(this.$route.query.redirect || '/Login')
@@ -386,6 +388,23 @@ export default {
         .then((response) => {
           console.log(response.data)
           this.creator = response.data
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    // Busco todos los post de los creadores a los que sigo
+    getPostsCreators () {
+      // alert('busca los posts creators')
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.get('http://localhost:8000/api/follow/' + this.user.data.id + '/posts', {
+      })
+        .then((response) => {
+          console.log(response.data)
+          this.postsCreators = response.data
         })
         .catch(err => {
           console.log(err.response)
