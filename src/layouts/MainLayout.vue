@@ -1,10 +1,7 @@
 <template>
   <q-layout view="hHr LpR ffr">
     <!---------------- Inicia el encabezado -------------------------->
-    <q-header
-      class="q-pt-sm q-pb-sm"
-      elevated
-    >
+    <q-header class="q-pt-sm q-pb-sm" elevated>
       <q-toolbar>
         <router-link to="/">
           <!--Icono de CreatorHouse-->
@@ -12,13 +9,12 @@
             alt="Creator House logo"
             src="~assets/creator-house-icon.svg"
             style="height: 40px; max-width: 150px"
-          >
+          />
         </router-link>
         <div class="self-strech row no-wrap">
           <!--Titulo Creator House -->
           <div class="q-pl-md">
-            <q-toolbar-title>
-            </q-toolbar-title>
+            <q-toolbar-title> </q-toolbar-title>
           </div>
 
           <!--Categorias-->
@@ -32,7 +28,7 @@
           >
             <q-list>
               <q-item
-                v-for='category in categories'
+                v-for="category in categories"
                 :key="category.id"
                 v-close-popup
                 :idCategory="category.id"
@@ -47,10 +43,8 @@
           </q-btn-dropdown>
           <!--Link al blog-->
           <div class="q-pa-sm desktop-only">
-            <router-link
-              style="color:white;text-decoration:none"
-              to=""
-            >Blog
+            <router-link style="color:white;text-decoration:none" to=""
+              >Blog
             </router-link>
           </div>
         </div>
@@ -58,10 +52,7 @@
         <!--Agregar Fecha Actual
         <div class="text-subtitle1 q-pl-xl desktop-only">{{todaysDate}}</div>-->
         <!--Combo de busqueda-->
-        <div
-          class=" column desktop-only"
-          style="min-width: 400px"
-        >
+        <div class=" column desktop-only" style="min-width: 400px">
           <q-select
             ref="search"
             v-model="search"
@@ -82,10 +73,7 @@
               <q-item>
                 <q-item-section>
                   <div class="text-center">
-                    <q-spinner-pie
-                      color="grey-5"
-                      size="24px"
-                    />
+                    <q-spinner-pie color="grey-5" size="24px" />
                   </div>
                 </q-item-section>
               </q-item>
@@ -98,7 +86,7 @@
                 class="GL__select-GL__menu-link"
               >
                 <q-item-section>
-                  <q-item-label v-html="scope.opt.label"/>
+                  <q-item-label v-html="scope.opt.label" />
                 </q-item-section>
                 <q-item-section
                   :class="{ 'default-type': !scope.opt.type }"
@@ -115,7 +103,7 @@
             v-if="!islogin"
             style="color:white;text-decoration:none"
             to="/login"
-          >Login
+            >Login
           </router-link>
         </div>
         <div class="q-pa-sm desktop-only">
@@ -138,31 +126,19 @@
             unelevated
           >
             <q-list>
-              <q-item
-                v-close-popup
-                clickable
-                @click="onItemClick"
-              >
+              <q-item v-close-popup clickable @click="onItemClick">
                 <q-item-section>
                   <q-item-label>Fotos</q-item-label>
                 </q-item-section>
               </q-item>
 
-              <q-item
-                v-close-popup
-                clickable
-                @click="onItemClick"
-              >
+              <q-item v-close-popup clickable @click="onItemClick">
                 <q-item-section>
                   <q-item-label>Videos</q-item-label>
                 </q-item-section>
               </q-item>
 
-              <q-item
-                v-close-popup
-                clickable
-                @click="onItemClick"
-              >
+              <q-item v-close-popup clickable @click="onItemClick">
                 <q-item-section>
                   <q-item-label>Cerrar Sesion</q-item-label>
                 </q-item-section>
@@ -174,17 +150,44 @@
             style="cursor: pointer;"
             @click="drawerRight = !drawerRight"
           >
-            <img src="https://www.placecage.com/gif/200/200">
+            <img src="https://www.placecage.com/gif/200/200" />
           </q-avatar>
         </div>
       </q-toolbar>
     </q-header>
     <!-----------------Footer----------------------------------------->
     <q-footer class="bg-secondary">
-      <div class="q-pb-md">
-        <q-card class="q-pt-md q-pb-md" flat style="background-color:#202032"></q-card>
+      <div class="container q-pb-md">
+        <div class="row justify-center q-pt-md q-pb-md text-dark bg-blue-grey-1">
+          <div class="col-12 col-md-8 q-pa-xl">
+            <div class="row">
+              <div class="col-12 col-md-3">
+                <img
+                  alt="Creator House logo"
+                  src="~assets/creator-house.png"
+                  style="width: 100%"
+                />
+              </div>
+              <div class="col-12 col-md-1">
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="text-h6 text-weight-light q-pb-md">Contacto</div>
+                <div class="text-body2 text-weight-light">Tel : +64 21 087 97516</div>
+                <div class="text-body2 text-weight-light q-pt-md">info@creatorhouse.media</div>
+                <div class="text-body2 text-weight-light q-pt-md">Kita-Kokubun Station, Ichikawa, Chiba, Japón,</div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="text-h6 text-weight-light q-pb-md">Media</div>
+                <div class="text-body2 text-weight-light"><a href="https://creatorhouse.media" class="text-primary" style="text-decoration:none">Blog Creator House</a></div>
+                <div class="text-body2 text-weight-light q-pt-md">Instagram</div>
+              </div>
+            </div>
+          </div>
+        </div>
         <q-toolbar class="q-pt-md q-pb-md">
-          <q-toolbar-title class="text-weight-thin text-caption">CREATOR HOUSE ©2020</q-toolbar-title>
+          <q-toolbar-title class="text-weight-thin text-center text-caption q-pt-sm"
+            >CREATOR HOUSE ©2020 - Made With &#10084;</q-toolbar-title
+          >
         </q-toolbar>
       </div>
     </q-footer>
@@ -198,14 +201,13 @@
       show-if-above
       side="right"
     >
-      <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
+      <q-scroll-area
+        style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd"
+      >
         <q-list padding>
-          <q-item
-            v-ripple
-            clickable
-          >
+          <q-item v-ripple clickable>
             <q-item-section avatar>
-              <q-icon name="home"/>
+              <q-icon name="home" />
             </q-item-section>
 
             <q-item-section>
@@ -213,14 +215,9 @@
             </q-item-section>
           </q-item>
 
-          <q-item
-            v-ripple
-            active
-            clickable
-            to='/User'
-          >
+          <q-item v-ripple active clickable to="/User">
             <q-item-section avatar>
-              <q-icon name="account_circle"/>
+              <q-icon name="account_circle" />
             </q-item-section>
 
             <q-item-section>
@@ -228,12 +225,9 @@
             </q-item-section>
           </q-item>
 
-          <q-item
-            v-ripple
-            clickable
-          >
+          <q-item v-ripple clickable>
             <q-item-section avatar>
-              <q-icon name="logout"/>
+              <q-icon name="logout" />
             </q-item-section>
 
             <q-item-section>
@@ -241,12 +235,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item
-            v-ripple
-            clickable
-          >
-
-          </q-item>
+          <q-item v-ripple clickable> </q-item>
         </q-list>
       </q-scroll-area>
 
@@ -262,9 +251,8 @@
       </q-img>
     </q-drawer>
     <q-page-container>
-      <router-view/>
+      <router-view />
     </q-page-container>
-
   </q-layout>
 </template>
 
