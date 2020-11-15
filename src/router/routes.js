@@ -11,6 +11,8 @@ const routes = [
       { path: 'edituser', component: () => import('pages/EditUser.vue') },
       { path: 'creator/:idCreator', component: () => import('pages/Creator.vue') },
       { path: 'filterCategory/:idCategory', component: () => import('pages/FilterCategory.vue') }
+      { path: 'emailVerified', component: () => import('pages/EmailVerified.vue') },
+      
     ]
   },
 
