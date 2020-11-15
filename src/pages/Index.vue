@@ -35,65 +35,15 @@
       <div class="row justify-center bg-three-creators q-pt-xl q-pb-xl">
         <div class="col-12 col-md-8">
           <ShowThreeCreatorsHome />
+          <div class="text-center text-h4 text-weight-light q-pa-xl">Conocé nuestros creadores</div>
+          <q-separator></q-separator>
         </div>
       </div>
     </div>
-    <template>
+        <template>
       <div class="container">
         <div class="row justify-center q-pt-xl q-pb-xl">
           <div class="col-12 col-md-8">
-            <div class="text-center text-h4 text-weight-light q-pa-xl">¿Cómo empezar?</div>
-            <div bordered flat class="q-ma-md">
-              <q-stepper flat v-model="step" ref="stepper" color="primary" animated>
-                <q-step
-                  :name="1"
-                  title="Registrate en Creator House"
-                  icon="person_add"
-                  :done="step > 1"
-                >
-                  En menos de 1 minuto podés crear una cuenta siguiendo desde el botón "Registrarse". Después de este paso, ya estás listo para seguir y ver el contenido de otros.
-                </q-step>
-
-                <q-step
-                  :name="2"
-                  title="Ser creador"
-                  caption="Opcional"
-                  icon="person_add"
-                  :done="step > 2"
-                >
-                  Luego de crearte una cuenta, en tu home, hacés click en "Ser creador" y terminás de completar los datos para ser creador y subir contenido.
-                </q-step>
-                <q-step :name="3" title="Subí contenido" icon="cloud_upload" :done="step > 3">
-                  El último paso es empezar a crear posts públicos y premium para que las personas vean lo que hacés y también puedan acceder a tu contenido exclusivo.
-                </q-step>
-
-                <template v-slot:navigation>
-                  <q-stepper-navigation>
-                    <q-btn
-                      @click="$refs.stepper.next()"
-                      color="primary"
-                      :label="step === 3 ? 'Listo' : 'Continuar'"
-                    />
-                    <q-btn
-                      v-if="step > 1"
-                      flat
-                      color="primary"
-                      @click="$refs.stepper.previous()"
-                      label="Atrás"
-                      class="q-ml-sm"
-                    />
-                  </q-stepper-navigation>
-                </template>
-              </q-stepper>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-    <template>
-      <div class="container">
-        <div class="row justify-center q-pt-xl q-pb-xl">
-          <div class="col-12 col-md-10">
             <q-card bordered flat class="q-ma-md">
               <q-card-section
                 class="no-padding"
@@ -131,6 +81,61 @@
                 />
               </q-card-section>
             </q-card>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template>
+      <div class="container">
+        <div class="row justify-center q-pt-xl q-pb-xl">
+          <div class="col-12 col-md-8">
+            <q-separator></q-separator>
+            <div class="text-center text-h4 text-weight-light q-pa-xl">¿Cómo empezar?</div>
+            <div bordered flat class="q-ma-md">
+              <q-stepper flat v-model="step" ref="stepper" color="secondary" animated>
+                <q-step
+                  :name="1"
+                  title="Registrate en Creator House"
+                  icon="person_add"
+                  :done="step > 1"
+                  color="secondary" class="text-h6 text-weight-light"
+                >
+                  En menos de 1 minuto podés crear una cuenta siguiendo desde el botón "Registrarse". Después de este paso, ya estás listo para seguir y ver el contenido de otros.
+                </q-step>
+
+                <q-step
+                  :name="2"
+                  title="Ser creador"
+                  caption="Opcional"
+                  icon="person_add"
+                  :done="step > 2"
+                  color="secondary" class="text-h6 text-weight-light"
+                >
+                  Luego de crearte una cuenta, en tu home, hacés click en "Ser creador" y terminás de completar los datos para ser creador y subir contenido.
+                </q-step>
+                <q-step :name="3" title="Subí contenido" icon="cloud_upload" :done="step > 3" color="secondary" class="text-h6 text-weight-light">
+                  El último paso es empezar a crear posts públicos y premium para que las personas vean lo que hacés y también puedan acceder a tu contenido exclusivo.
+                </q-step>
+
+                <template v-slot:navigation>
+                  <q-stepper-navigation>
+                    <q-btn
+                      @click="$refs.stepper.next()"
+                      color="primary"
+                      :label="step === 3 ? 'Listo' : 'Continuar'"
+                    />
+                    <q-btn
+                      v-if="step > 1"
+                      flat
+                      color="primary"
+                      @click="$refs.stepper.previous()"
+                      label="Atrás"
+                      class="q-ml-sm"
+                    />
+                  </q-stepper-navigation>
+                </template>
+              </q-stepper>
+            </div>
           </div>
         </div>
       </div>
