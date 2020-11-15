@@ -46,6 +46,7 @@ export default {
   },
   mounted: function () {
     this.getPostsCreator()
+    this.getAllCreator()
   },
   methods: {
     // En postsCreator estan todos los posts de ese creator (con imagens videos y like si es que los tiene)
@@ -56,6 +57,25 @@ export default {
         .then((response) => {
           this.postsCreator = response.data
           console.log(this.postsCreator)
+          // alert(response.data[0].banner)
+        })
+        .catch((error) => {
+          console.log(error)
+          // alert(error)
+          this.$q.notify({
+            message: 'Lo sentimos, vuelva a intentarlo más tarde.',
+            color: 'warning'
+          })
+          this.$q.notify('')
+        })
+    },
+    getAllCreator: async function () {
+      var idCreator = this.$route.params.idCreator
+      alert(idCreator)
+      axios.get('http://localhost:8000/creator/' + idCreator)
+        .then((response) => {
+          this.allCreator = response.data
+          console.log(this.allCreator)
           // alert(response.data[0].banner)
         })
         .catch((error) => {
