@@ -138,6 +138,12 @@ export default {
       })
         .then((response) => {
           console.log(response)
+          this.$q.notify({
+            color: 'danger',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'Error, intente nuevamente!'
+          })
         })
     },
 
@@ -150,12 +156,15 @@ export default {
           message: 'Debes aceptar los términos y condiciones'
         })
       } else {
-        this.$q.notify({
-          color: 'green-4',
-          textColor: 'white',
-          icon: 'cloud_done',
-          message: 'Bienvenido a Crator House'
-        })
+        setTimeout(function () {
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'Verifique su email para confirmar el registro!'
+          })
+        }.bind(this), 3000)
+        // this.$router.push('/login')
       }
     },
 
