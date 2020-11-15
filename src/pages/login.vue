@@ -7,7 +7,7 @@
         @reset="onReset"
         @submit="onSubmit"
       >
-        <div class="text-h3">Log In</div>
+        <div class="text-h3 text-center">Iniciar Sesión</div>
         <q-input
           v-model="email"
           :rules="[
@@ -27,9 +27,9 @@
             />
           </template>
         </q-input>
-        <div>
-          <q-btn color="primary" label="Submit" type="submit" @click="login"/>
-          <q-btn class="q-ml-sm" color="primary" flat label="Reset" type="reset"/>
+        <div class="text-center">
+          <q-btn color="primary" label="Ingresar" type="submit" @click="login"/>
+          <q-btn class="q-ml-sm" color="primary" flat label="Borrar" type="reset"/>
         </div>
       </q-form>
     </div>
