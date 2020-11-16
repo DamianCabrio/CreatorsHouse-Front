@@ -395,7 +395,7 @@ export default {
     },
     // Busco todos los post de los creadores a los que sigo
     getPostsCreators () {
-      alert(this.user.data)
+      // alert(this.user.data)
       axios.defaults.headers = {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
@@ -405,12 +405,12 @@ export default {
       })
         .then((response) => {
           console.log(response.data)
-          alert('ok')
+          // alert('ok')
           this.postsCreators = response.data
         })
         .catch(err => {
           console.log(err.response)
-          alert('error')
+          // alert('error')
         })
     }
   }
