@@ -6,32 +6,32 @@
       v-close-popup
       :idCreator="user.idCreator"
       class="col-12 col-md-4"
-      clickable
-      v-bind:to="`/Creator/${user.idCreator}`"
     >
       <div class="q-pa-lg">
         <q-card class="my-card">
-          <q-item>
-            <q-item-section avatar>
-              <q-btn
-                color="secondary"
-                flat
-                icon="share"
-                round
-              />
-            </q-item-section>
+          <div v-ripple @click="goHomeCreator(user.idCreator[0].id)" class="cursor-pointer relative-position">
+            <q-item>
+              <q-item-section avatar>
+                <q-btn
+                  color="secondary"
+                  flat
+                  icon="share"
+                  round
+                />
+              </q-item-section>
 
-            <q-item-section>
-              <q-item-label>@{{ user.username }}</q-item-label>
-              <q-item-label caption>{{ user.name }}</q-item-label>
-            </q-item-section>
-          </q-item>
+              <q-item-section>
+                <q-item-label>@{{ user.username }}</q-item-label>
+                <q-item-label caption>{{ user.name }}</q-item-label>
+              </q-item-section>
+            </q-item>
 
-          <q-img
-            :ratio="1.8/1"
-            v-bind:src="`http://localhost:8000/img/${user.avatar}`"
-          >
-          </q-img>
+            <q-img
+              :ratio="1.8/1"
+              v-bind:src="`http://localhost:8000/img/${user.avatar}`"
+            >
+            </q-img>
+          </div>
         </q-card>
       </div>
     </div>
@@ -59,6 +59,12 @@ export default {
       } catch (error) {
         console.error(error)
       }
+    },
+    goHomeCreator ($idCreator) {
+      // this.$q.notify('Ir a Creator Home!')
+      // alert($idCreator)
+      // this.$router.push({ name: 'Creator', params: { $idCreator } })
+      this.$router.push(this.$route.query.redirect || '/Creator/' + $idCreator)
     }
   }
 }
