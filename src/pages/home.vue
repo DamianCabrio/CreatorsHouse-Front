@@ -340,7 +340,6 @@ export default {
     if (sessionStorage.getItem('apiToken')) {
       // tengo un token guardado localmente
       this.getUser()
-      this.getPostsCreators()
     } else {
       // sino redirecciono al login
       this.$router.push(this.$route.query.redirect || '/Login')
@@ -364,6 +363,7 @@ export default {
         .then((response) => {
           console.log(response.data)
           this.user = response.data
+          this.getPostsCreators()
           // Buscar mis datos si soy creador
           if (this.user.data.isCreator === 1) {
             this.isCreator = true
@@ -395,19 +395,22 @@ export default {
     },
     // Busco todos los post de los creadores a los que sigo
     getPostsCreators () {
-      // alert('busca los posts creators')
+      // alert(this.user.data)
       axios.defaults.headers = {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
       }
-      axios.get('http://localhost:8000/api/follow/' + this.user.data.id + '/posts', {
+      axios.get('http://localhost:8000/api/following/' + this.user.data.id, {
+        token: sessionStorage.getItem('apiToken')
       })
         .then((response) => {
           console.log(response.data)
+          // alert('ok')
           this.postsCreators = response.data
         })
         .catch(err => {
           console.log(err.response)
+          // alert('error')
         })
     }
   }
