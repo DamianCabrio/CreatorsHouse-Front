@@ -7,7 +7,6 @@
       :idCreator="user.idCreator"
       class="col-12 col-md-4"
       clickable
-      v-bind:to="`/Creator/${user.idCreator}`"
     >
       <div class="q-pa-lg">
         <q-card class="my-card">
@@ -16,9 +15,11 @@
               <q-btn
                 color="secondary"
                 flat
-                icon="share"
+                icon="call_made"
                 round
-              />
+                type="a"
+                v-bind:href="`#/Creator/${user.id}`"
+              /> <!-- -->
             </q-item-section>
 
             <q-item-section>
@@ -26,12 +27,17 @@
               <q-item-label caption>{{ user.name }}</q-item-label>
             </q-item-section>
           </q-item>
-
-          <q-img
-            :ratio="1.8/1"
-            v-bind:src="`http://localhost:8000/img/${user.avatar}`"
+          <a
+            type="a"
+            v-bind:href="`#/Creator/${user.id}`"
           >
-          </q-img>
+            <q-img
+              class="cursor-pointer"
+              :ratio="1.8/1"
+              v-bind:src="`http://localhost:8000/img/${user.avatar}`"
+            >
+            </q-img>
+          </a>
         </q-card>
       </div>
     </div>
