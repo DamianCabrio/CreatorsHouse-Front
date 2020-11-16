@@ -10,7 +10,7 @@
         @reset="onReset"
         @submit="onSubmit"
       >
-        <div class="text-h3 q-mb-none text-weight-thin  text-center">Registrarse</div>
+        <div class="text-h3 text-center">Registrarse</div>
         <q-input
           v-model="username"
           :rules="[ val => val && val.length > 0 || 'Ingresa un nickname']"
