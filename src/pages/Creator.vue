@@ -14,7 +14,10 @@
       </div>
     </template>
     <div class="container">
-      <div class="row justify-center q-pt-md q-pb-md text-dark" style="background-color:#fafbfc">
+      <div
+        class="row justify-center q-pt-md q-pb-md text-dark"
+        style="background-color:#f7f7f7"
+      >
         <div class="col-12 col-md-8 q-pa-sm">
           <div class="row flex justify-center">
             <div class="col-12 col-md-6">
@@ -30,7 +33,14 @@
                     >
                   </q-avatar>
                   <div class="text-h4 text-weight-bold">{{allCreator.data.user[0].username}}</div>
-                  <q-btn v-if="isCreator" to="/edituser" label="Editar Mi Perfil" icon-right="edit" outline color="primary" />
+                  <q-btn
+                    v-if="isCreator"
+                    to="/edituser"
+                    label="Editar Mi Perfil"
+                    icon-right="edit"
+                    outline
+                    color="primary"
+                  />
                   <div class="text-subtitle1 text-weight-light">Seguidores: </div>
                   <div class="text-h6 text-weight-bold">{{allCreator.data.cantFollowers}}</div>
                   <div class="row justify-center">
@@ -95,64 +105,190 @@
                 v-for="post in postsCreator"
                 :key="post.id"
               >
-                <q-card class="q-mb-md q-ma-sm">
-                  <q-item>
-                    <q-item-section avatar>
-                      <q-avatar>
-                        <img v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`">
-                      </q-avatar>
-                    </q-item-section>
+                <div v-if="post.id === 1">
+                  <q-card class="q-mb-md q-ma-sm">
+                    <q-item>
+                      <q-item-section avatar>
+                        <q-avatar>
+                          <img v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`">
+                        </q-avatar>
+                      </q-item-section>
 
-                    <q-item-section>
-                      <q-item-label>{{allCreator.data.user[0].username}}</q-item-label>
-                      <q-item-label caption>{{post.date}}</q-item-label>
-                    </q-item-section>
-                  </q-item>
-                  <q-item>{{post.content}}</q-item>
-                  <q-item
-                    v-for="image in post.images"
-                    :key="image.id"
-                  >
-                    <q-img
-                      v-bind:src="`${image.image}`"
-                      ratio="1"
-                    ></q-img>
-                  </q-item>
-                  <q-separator></q-separator>
-                  <q-item
-                    v-for="video in post.videos"
-                    :key="video.id"
-                  >
-                    <iframe
-                      v-bind:src="`http://localhost:8000/videos/${video.video}`"
-                      width="100%"
-                      height="360"
-                      frameborder="0"
-                    ></iframe>
-                  </q-item>
-                  <q-separator></q-separator>
-                  <q-card-actions align="right">
-                    <q-btn
-                      v-if="!post.isPublic"
-                      outline
-                      color="secondary"
-                      icon-right="lock_outline"
-                      label="Desbloquear"
-                    />
-                    <q-btn
-                      flat
-                      color="primary"
-                      round
-                      icon="favorite"
-                      class="q-ml-md"
+                      <q-item-section>
+                        <q-item-label>{{allCreator.data.user[0].username}}</q-item-label>
+                        <q-item-label caption>{{post.date}}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-separator></q-separator>
+                    <q-card-section>
+                      <div class="text-overline text-primary">Texto</div>
+                      <div class="text-h5 q-mt-sm q-mb-xs">{{post.title}}</div>
+                      <div class="text-body1 text-dark">
+                        {{post.content}} </div>
+                    </q-card-section>
+                    <q-separator></q-separator>
+                    <q-card-actions align="right">
+                      <q-btn
+                        v-if="!post.isPublic"
+                        outline
+                        color="primary"
+                        icon-right="lock_outline"
+                        label="Desbloquear"
+                      />
+                      <q-btn
+                        flat
+                        color="primary"
+                        round
+                        icon="favorite"
+                        class="q-ml-md"
+                      >
+                        <q-badge
+                          color="secondary"
+                          floating
+                        >{{post.cantLikes}}</q-badge>
+                      </q-btn>
+                    </q-card-actions>
+                  </q-card>
+                </div>
+                <div v-elseif="post.id === 2">
+                  <q-card class="q-mb-md q-ma-sm">
+                    <q-item>
+                      <q-item-section avatar>
+                        <q-avatar>
+                          <img v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`">
+                        </q-avatar>
+                      </q-item-section>
+
+                      <q-item-section>
+                        <q-item-label>{{allCreator.data.user[0].username}}</q-item-label>
+                        <q-item-label caption>{{post.date}}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-separator></q-separator>
+                    <q-card-section>
+                      <div class="text-overline text-primary">Imágenes</div>
+                      <div class="text-h5 q-mt-sm q-mb-xs">{{post.title}}</div>
+                      <div class="text-body1 text-dark">
+                        {{post.content}} </div>
+                    </q-card-section>
+                    <q-separator></q-separator>
+                    <q-card-actions align="right">
+                      <q-btn
+                        v-if="!post.isPublic"
+                        outline
+                        color="primary"
+                        icon-right="lock_outline"
+                        label="Desbloquear"
+                      />
+                      <q-btn
+                        flat
+                        color="primary"
+                        round
+                        icon="favorite"
+                        class="q-ml-md"
+                      >
+                        <q-badge
+                          color="secondary"
+                          floating
+                        >{{post.cantLikes}}</q-badge>
+                      </q-btn>
+                    </q-card-actions>
+                    <q-card-actions>
+                      <q-btn
+                        flat
+                        color="dark"
+                        label="Ver Imágenes"
+                        @click="expanded = !expanded"
+                      />
+
+                      <q-space />
+
+                      <q-btn
+                        color="grey"
+                        round
+                        flat
+                        dense
+                        :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
+                        @click="expanded = !expanded"
+                      />
+                    </q-card-actions>
+
+                    <q-slide-transition>
+                      <div v-show="expanded">
+                        <q-separator />
+                        <q-card-section class="text-subitle2 no-padding">
+                          <div
+                            v-for="image in post.images"
+                            :key="image.id"
+                          >
+                            <q-img
+                              class="no-margin"
+                              v-bind:src="`${image.image}`"
+                              ratio="1"
+                            ></q-img>
+                          </div>
+                        </q-card-section>
+                      </div>
+                    </q-slide-transition>
+                  </q-card>
+                </div>
+                <div v-elseif="post.id === 3">
+                  <q-card class="q-mb-md q-ma-sm">
+                    <q-item>
+                      <q-item-section avatar>
+                        <q-avatar>
+                          <img v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`">
+                        </q-avatar>
+                      </q-item-section>
+
+                      <q-item-section>
+                        <q-item-label>{{allCreator.data.user[0].username}}</q-item-label>
+                        <q-item-label caption>{{post.date}}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-separator></q-separator>
+                    <q-card-section>
+                      <div class="text-overline text-primary">Videos</div>
+                      <div class="text-h5 q-mt-sm q-mb-xs">{{post.title}}</div>
+                      <div class="text-body1 text-dark">
+                        {{post.content}} </div>
+                    </q-card-section>
+                    <q-separator></q-separator>
+                    <q-item
+                      v-for="video in post.videos"
+                      :key="video.id"
                     >
-                      <q-badge
-                        color="secondary"
-                        floating
-                      >{{post.cantLikes}}</q-badge>
-                    </q-btn>
-                  </q-card-actions>
-                </q-card>
+                      <iframe
+                        v-bind:src="`http://localhost:8000/videos/${video.video}`"
+                        width="100%"
+                        height="360"
+                        frameborder="0"
+                      ></iframe>
+                    </q-item>
+                    <q-separator></q-separator>
+                    <q-card-actions align="right">
+                      <q-btn
+                        v-if="!post.isPublic"
+                        outline
+                        color="primary"
+                        icon-right="lock_outline"
+                        label="Desbloquear"
+                      />
+                      <q-btn
+                        flat
+                        color="primary"
+                        round
+                        icon="favorite"
+                        class="q-ml-md"
+                      >
+                        <q-badge
+                          color="secondary"
+                          floating
+                        >{{post.cantLikes}}</q-badge>
+                      </q-btn>
+                    </q-card-actions>
+                  </q-card>
+                </div>
               </div>
             </div>
           </div>
@@ -170,7 +306,8 @@ export default {
   data () {
     return {
       postsCreator: [],
-      allCreator: []
+      allCreator: [],
+      expanded: false
     }
   },
   mounted: function () {
@@ -225,6 +362,6 @@ export default {
 }
 
 .link-sm:hover {
-  color: red!important;
+  color: red !important;
 }
 </style>
