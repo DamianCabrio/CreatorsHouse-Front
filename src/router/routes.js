@@ -8,6 +8,7 @@ const routes = [
       { path: 'help', component: () => import('pages/Help.vue') },
       { path: 'home', component: () => import('pages/Home.vue') },
       { path: 'register', component: () => import('pages/Register.vue') },
+      { path: 'createpost', component: () => import('pages/CreatePost.vue') },
       { path: 'edituser', component: () => import('pages/EditUser.vue') },
       { path: 'creator/:idCreator', component: () => import('pages/Creator.vue') },
       { path: 'filterCategory/:idCategory', component: () => import('pages/FilterCategory.vue') }
