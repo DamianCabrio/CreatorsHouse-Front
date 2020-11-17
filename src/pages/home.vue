@@ -14,13 +14,12 @@
                   <template>
                     <div class="q-pa-md q-gutter-sm center flex flex-center">
                       <q-avatar size="80px">
-                        <img src="https://www.placecage.com/gif/200/200">
+                        <img v-bind:src="`http://localhost:8000/img/${user.data.avatar}`">
                       </q-avatar>
                     </div>
                   </template>
                   <q-card-section align="center">
                     <div class="text-h6 text-weight-light">{{ user.data.username }}</div>
-                    <div>mis fans?</div>
                   </q-card-section>
                   <q-separator></q-separator>
                   <q-card-section>
@@ -111,53 +110,6 @@
                         animated
                       >
                         <q-tab-panel name="publico">
-                          <q-intersection
-                            once
-                            transition="scale"
-                          >
-                            <q-card
-                              v-ripple
-                              class="my-card q-ma-sm q-mb-lg"
-                              clickable
-                            >
-                              <q-card-section>
-                                <q-item>
-                                  <q-item-section avatar>
-                                    <q-avatar>
-                                      <img src="https://cdn.quasar.dev/img/avatar5.jpg">
-                                    </q-avatar>
-                                  </q-item-section>
-                                  <q-item-section>By Algunnombre</q-item-section>
-                                </q-item>
-                              </q-card-section>
-                              <img src="https://cdn.quasar.dev/img/mountains.jpg">
-                              <q-card-section class="q-pb-none">
-                                10/26/2020
-                              </q-card-section>
-                              <q-card-section>
-                                <div class="text-h6">Our Changing Planet</div>
-                              </q-card-section>
-
-                              <q-card-section class="q-pt-none">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                              </q-card-section>
-                              <q-card-actions align="right">
-                                <q-btn
-                                  color="red"
-                                  flat
-                                  icon="favorite"
-                                  round
-                                />
-                                <q-btn
-                                  color="primary"
-                                  flat
-                                  icon="share"
-                                  round
-                                />
-                              </q-card-actions>
-                            </q-card>
-                          </q-intersection>
                           <q-intersection
                             once
                             transition="scale"
@@ -277,7 +229,7 @@
               </div>
               <div class="col-12 col-md-3">
                 <q-card
-                  v-show="creator"
+                  v-show="!creator"
                   bordered
                   class="q-ma-sm "
                   flat
@@ -300,7 +252,7 @@
                     />
                   </q-card-actions>
                 </q-card>
-                <div class="q-pa-sm text-subtitle1">El creador random de hoy.</div>
+                <div class="q-pa-sm text-overline text-center">El creador random de hoy.</div>
                 <OneRandomCreator/>
               </div>
             </div>
