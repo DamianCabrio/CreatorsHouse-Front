@@ -183,6 +183,7 @@ export default {
     },
     submitPost () {
       var idCreator = this.$route.params.idCreator
+      // NOTE: hay que ponerlo dentro de /api
       axios.post('http://localhost:8000/creators/posts/' + idCreator, {
 
         content: this.content,

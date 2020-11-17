@@ -149,6 +149,7 @@ export default {
           console.log(err.response)
         })
     },
+    // NOTE: hacerle el post
     // Busco mis datos si soy creator enviando mi id de usuario
     getCreator () {
       axios.defaults.headers = {
