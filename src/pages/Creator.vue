@@ -33,14 +33,16 @@
                     >
                   </q-avatar>
                   <div class="text-h4 text-weight-bold">{{allCreator.data.user[0].username}}</div>
-                  <q-btn
-                    v-if="user.data.id == allCreator.data.idUser"
-                    to="/edituser"
-                    label="Editar Mi Perfil"
-                    icon-right="edit"
-                    outline
-                    color="primary"
-                  />
+                  <!--  botón editar perfil -->
+                  <!--                   <div v-show="user.data.id == allCreator.data.idUser">
+                    <q-btn
+                      to="/edituser"
+                      label="Editar Mi Perfil"
+                      icon-right="edit"
+                      outline
+                      color="primary"
+                    />
+                  </div> -->
                   <div class="text-subtitle1 text-weight-light">Seguidores: </div>
                   <div class="text-h6 text-weight-bold">{{allCreator.data.cantFollowers}}</div>
                   <div class="row justify-center">
@@ -105,7 +107,73 @@
                 v-for="post in postsCreator"
                 :key="post.id"
               >
-                <div v-if="post.id === 1">
+                <q-card class="q-mb-md q-ma-sm">
+                  <q-item>
+                    <q-item-section avatar>
+                      <q-avatar>
+                        <img v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`">
+                      </q-avatar>
+                    </q-item-section>
+
+                    <q-item-section>
+                      <q-item-label>{{allCreator.data.user[0].username}}</q-item-label>
+                      <q-item-label caption>{{post.date}}</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                  <q-separator></q-separator>
+                  <q-card-section>
+                    <div class="text-h5 q-mt-sm q-mb-xs">{{post.title}}</div>
+                    <div class="text-body1 text-dark">
+                      {{post.content}} </div>
+                  </q-card-section>
+                  <q-separator></q-separator>
+                  <q-card-section class="text-subitle2 no-padding">
+                    <div
+                      v-for="image in post.images"
+                      :key="image.id"
+                    >
+                      <q-img
+                        class="no-margin"
+                        v-bind:src="`${image.image}`"
+                        ratio="1"
+                      ></q-img>
+                    </div>
+                  </q-card-section>
+                  <q-separator></q-separator>
+                  <q-item
+                    v-for="video in post.videos"
+                    :key="video.id"
+                  >
+                    <iframe
+                      v-bind:src="video.video"
+                      width="100%"
+                      height="360"
+                      frameborder="0"
+                    ></iframe>
+                  </q-item>
+                  <q-card-actions align="right">
+                    <q-btn
+                      v-if="post.isPublic"
+                      outline
+                      color="primary"
+                      icon-right="lock_outline"
+                      label="Desbloquear"
+                    />
+                    <q-btn
+                      flat
+                      color="primary"
+                      round
+                      icon="favorite"
+                      class="q-ml-md"
+                    >
+                      <q-badge
+                        color="secondary"
+                        floating
+                      >{{post.cantLikes}}</q-badge>
+                    </q-btn>
+                  </q-card-actions>
+                </q-card>
+                <!--                 <div v-if="post.tipo === 1">
                   <q-card class="q-mb-md q-ma-sm">
                     <q-item>
                       <q-item-section avatar>
@@ -150,7 +218,7 @@
                     </q-card-actions>
                   </q-card>
                 </div>
-                <div v-elseif="post.id === 2">
+                <div v-elseif="post.tipo === 2">
                   <q-card class="q-mb-md q-ma-sm">
                     <q-item>
                       <q-item-section avatar>
@@ -232,7 +300,7 @@
                     </q-slide-transition>
                   </q-card>
                 </div>
-                <div v-elseif="post.id === 3">
+                <div v-elseif="post.tipo === 3">
                   <q-card class="q-mb-md q-ma-sm">
                     <q-item>
                       <q-item-section avatar>
@@ -288,7 +356,7 @@
                       </q-btn>
                     </q-card-actions>
                   </q-card>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

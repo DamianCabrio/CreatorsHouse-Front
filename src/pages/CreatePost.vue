@@ -45,14 +45,13 @@
               <div v-if="postType == 3">
                 <q-card-section>
                   <div class="text-caption q-pb-sm">Subir Video</div>
-                  <q-file
+                  <q-input
                     outlined
+                    type="url"
+                    hint="Pon un link de un vídeo"
                     v-model="video"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon name="attach_file" />
-                    </template>
-                  </q-file>
+                    label="URL YouTube"
+                  />
                 </q-card-section>
               </div>
             </q-card>
@@ -65,7 +64,7 @@
                 <div class="text-caption q-pb-sm">Título</div>
                 <q-input
                   outlined
-                  v-model="text"
+                  v-model="postTitle"
                   label="Título"
                 />
               </q-card-section>
@@ -98,6 +97,7 @@
                   label="Publicar"
                   size="lg"
                   spread
+                  @click="submitPost"
                 />
               </q-card-section>
             </q-card>
@@ -114,6 +114,7 @@ export default {
   data () {
     return {
       postType: '',
+      postTitle: '',
       content: '',
       images: '',
       video: '',
@@ -178,6 +179,35 @@ export default {
         })
         .catch(err => {
           console.log(err.response)
+        })
+    },
+    submitPost () {
+      var idCreator = this.$route.params.idCreator
+      axios.post('http://localhost:8000/creators/posts/' + idCreator, {
+
+        content: this.content,
+        tipo: this.postType,
+        title: this.postTitle,
+        isPublic: this.postVisibility,
+        video: this.video,
+        imagenes: this.images
+      })
+        .then((response) => {
+          console.log(response)
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'El post fue guardado con éxito!'
+          })
+        }, (error) => {
+          console.log(error)
+          this.$q.notify({
+            color: 'danger',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'Error, intente nuevamente!'
+          })
         })
     }
   }

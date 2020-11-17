@@ -48,7 +48,8 @@
           <div class="q-pa-sm desktop-only">
             <router-link
               style="color:white;text-decoration:none"
-              to=""
+              href="https://creatorhouse.media"
+              target="_blank"
             >Blog
             </router-link>
           </div>
@@ -130,15 +131,6 @@
         </div>
         <!--Imagen de perfil y Menu Desplegable -->
         <div class="q-pa-md q-gutter-sm">
-          <q-btn
-            v-if="islogin"
-            color="primary"
-            content-class="bg-grey-1"
-            label="CREAR POST"
-            to="/CreatePost"
-            unelevated
-          >
-          </q-btn>
           <q-avatar
             v-if="islogin"
             style="cursor: pointer;"
@@ -197,7 +189,7 @@
       show-if-above
       side="right"
     >
-      <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
+      <q-scroll-area style="height: calc(100% - 150px); margin-top: 0px; border-right: 1px solid #ddd">
         <q-list padding>
           <q-item
             v-ripple
@@ -244,6 +236,7 @@
           <q-item
             v-ripple
             clickable
+            @click="logout"
           >
             <q-item-section avatar>
               <q-icon name="logout" />
@@ -255,17 +248,6 @@
           </q-item>
         </q-list>
       </q-scroll-area>
-
-      <q-img
-        class="absolute-top"
-        src="https://media1.tenor.com/images/1bf691ff3daa369719b691ace708bf13/tenor.gif?itemid=14796708"
-        style="height: 114px"
-      >
-        <div class="absolute-bottom bg-transparent">
-          <div class="text-weight-bold">@username?</div>
-          <div>user@mail?</div>
-        </div>
-      </q-img>
     </q-drawer>
     <q-page-container>
       <router-view />
@@ -285,6 +267,11 @@ export default {
     }
   },
   methods: {
+    logout: async function () {
+      sessionStorage.removeItem('apiToken')
+      this.user = []
+      this.$router.push(this.$route.query.redirect || '/')
+    },
     getCreators: async function () {
       try {
         const data = await fetch('http://localhost:8000/userCreators')

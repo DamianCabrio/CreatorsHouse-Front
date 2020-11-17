@@ -13,9 +13,16 @@
                 >
                   <template>
                     <div class="q-pa-md q-gutter-sm center flex flex-center">
-                      <q-avatar size="80px">
-                        <img v-bind:src="`http://localhost:8000/img/${user.data.avatar}`">
-                      </q-avatar>
+                      <div v-if="user.data.avatar">
+                        <q-avatar size="80px">
+                          <img v-bind:src="`http://localhost:8000/img/${user.data.avatar}`">
+                        </q-avatar>
+                      </div>
+                      <div v-else>
+                        <q-avatar size="80px">
+                          <img src="https://www.placecage.com/c/100/100" />
+                        </q-avatar>
+                      </div>
                     </div>
                   </template>
                   <q-card-section align="center">
@@ -103,7 +110,7 @@
                         />
                       </q-tabs>
 
-                      <q-separator/>
+                      <q-separator />
 
                       <q-tab-panels
                         v-model="tab"
@@ -229,7 +236,7 @@
               </div>
               <div class="col-12 col-md-3">
                 <q-card
-                  v-show="!creator"
+                  v-if="!isCreator"
                   bordered
                   class="q-ma-sm "
                   flat
@@ -241,7 +248,7 @@
                     <div>En el card va un v-if o v-show="!creator"</div>
                   </q-card-section>
 
-                  <q-separator/>
+                  <q-separator />
 
                   <q-card-actions vertical>
                     <q-btn
@@ -252,8 +259,32 @@
                     />
                   </q-card-actions>
                 </q-card>
+                <q-card
+                  v-if="isCreator"
+                  bordered
+                  class="q-ma-sm "
+                  flat
+                >
+                  <q-card-section>
+                    <div class="text-h6">Vas a publicar hoy?</div>
+                  </q-card-section>
+
+                  <q-separator />
+
+                  <q-card-actions vertical>
+                    <q-btn
+                      color="primary"
+                      content-class="bg-grey-1"
+                      label="CREAR POST"
+                      v-bind:to="`/CreatePost/${creator.data[0].id}`"
+                      unelevated
+                      spread
+                    >
+                    </q-btn>
+                  </q-card-actions>
+                </q-card>
                 <div class="q-pa-sm text-overline text-center">El creador random de hoy.</div>
-                <OneRandomCreator/>
+                <OneRandomCreator />
               </div>
             </div>
           </div>

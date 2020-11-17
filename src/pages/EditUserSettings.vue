@@ -38,7 +38,7 @@
                   size="lg"
                   text-color="dark"
                   type="a"
-                  href="https://auth.mercadopago.com.ar/authorization?client_id=7896672689628001&response_type=code&platform_id=mp&redirect_uri=http://localhost"
+                  href="https://auth.mercadopago.com.ar/authorization?client_id=7896672689628001&response_type=code&platform_id=mp&redirect_uri=http://localhost:8080"
                 />
               </q-card-section>
             </q-card>
