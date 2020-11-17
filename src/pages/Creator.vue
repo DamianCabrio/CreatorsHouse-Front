@@ -34,7 +34,7 @@
                   </q-avatar>
                   <div class="text-h4 text-weight-bold">{{allCreator.data.user[0].username}}</div>
                   <q-btn
-                    v-if="isCreator"
+                    v-if="user.data.id == allCreator.data.idUser"
                     to="/edituser"
                     label="Editar Mi Perfil"
                     icon-right="edit"
@@ -307,14 +307,43 @@ export default {
     return {
       postsCreator: [],
       allCreator: [],
+      user: [],
+      isCreator: false,
       expanded: false
     }
   },
   mounted: function () {
     this.getPostsCreator()
     this.getAllCreator()
+    // Verifico si hay una sesion iniciada
+    if (sessionStorage.getItem('apiToken')) {
+      // tengo un token guardado localmente
+      this.getUser()
+    }
   },
   methods: {
+    // Busco mis datos de usuario enviando mi token
+    getUser () {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.get('http://localhost:8000/api/users/me', {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          console.log(response.data)
+          this.user = response.data
+          // Buscar mis datos si soy creador
+          if (this.user.data.isCreator === 1) {
+            this.isCreator = true
+            this.getCreator()
+          }
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
     // En postsCreator estan todos los posts de ese creator (con imagens videos y like si es que los tiene)
     getPostsCreator: async function () {
       var idCreator = this.$route.params.idCreator
@@ -337,6 +366,7 @@ export default {
     },
     getAllCreator: async function () {
       var idCreator = this.$route.params.idCreator
+      this.idCreator = idCreator
       // alert(idCreator)
       axios.get('http://localhost:8000/creator/' + idCreator)
         .then((response) => {
