@@ -56,6 +56,7 @@
           <q-select
             ref="search"
             v-model="search"
+            @input= "goCreator(search['label'])"
             :options="filteredOptions"
             :stack-label="false"
             class="GL__toolbar-select"
@@ -284,6 +285,24 @@ export default {
         this.creatorName.push(element.username)
       })
       // console.log(this.creatorName)
+    },
+    goCreator ($username) {
+      // this.$q.notify('elegi un creator!')
+      // alert($username)
+      // Buscar el id correspondiente en el array creators
+      var $id = ''
+      this.creators.forEach(element => {
+        // this.creatorName.push(element.username)
+        if (element.username === $username) {
+          $id = element.idCreator[0].id
+        }
+      })
+      // alert($id)
+      if ($id === '') {
+        // nada
+      } else {
+        this.$router.push(this.$route.query.redirect || '/Creator/' + $id)
+      }
     },
     getCategory: async function () {
       try {
