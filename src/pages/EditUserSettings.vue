@@ -64,6 +64,7 @@ export default {
   data () {
     return {
       username: '',
+      email: '',
       user: [],
       creator: [],
       isCreator: false
