@@ -1,7 +1,10 @@
 <template>
   <q-layout view="hHr LpR ffr">
     <!---------------- Inicia el encabezado -------------------------->
-    <q-header class="q-pt-sm q-pb-sm" elevated>
+    <q-header
+      class="q-pt-sm q-pb-sm"
+      elevated
+    >
       <q-toolbar>
         <router-link to="/">
           <!--Icono de CreatorHouse-->
@@ -43,8 +46,10 @@
           </q-btn-dropdown>
           <!--Link al blog-->
           <div class="q-pa-sm desktop-only">
-            <router-link style="color:white;text-decoration:none" to=""
-              >Blog
+            <router-link
+              style="color:white;text-decoration:none"
+              to=""
+            >Blog
             </router-link>
           </div>
         </div>
@@ -52,11 +57,14 @@
         <!--Agregar Fecha Actual
         <div class="text-subtitle1 q-pl-xl desktop-only">{{todaysDate}}</div>-->
         <!--Combo de busqueda-->
-        <div class=" column desktop-only" style="min-width: 400px">
+        <div
+          class=" column desktop-only"
+          style="min-width: 400px"
+        >
           <q-select
             ref="search"
             v-model="search"
-            @input= "goCreator(search['label'])"
+            @input="goCreator(search['label'])"
             :options="filteredOptions"
             :stack-label="false"
             class="GL__toolbar-select"
@@ -74,7 +82,10 @@
               <q-item>
                 <q-item-section>
                   <div class="text-center">
-                    <q-spinner-pie color="grey-5" size="24px" />
+                    <q-spinner-pie
+                      color="grey-5"
+                      size="24px"
+                    />
                   </div>
                 </q-item-section>
               </q-item>
@@ -104,7 +115,7 @@
             v-if="!islogin"
             style="color:white;text-decoration:none"
             to="/login"
-            >Login
+          >Login
           </router-link>
         </div>
         <div class="q-pa-sm desktop-only">
@@ -119,33 +130,15 @@
         </div>
         <!--Imagen de perfil y Menu Desplegable -->
         <div class="q-pa-md q-gutter-sm">
-          <q-btn-dropdown
+          <q-btn
             v-if="islogin"
             color="primary"
             content-class="bg-grey-1"
             label="CREAR POST"
+            to="/CreatePost"
             unelevated
           >
-            <q-list>
-              <q-item v-close-popup clickable @click="onItemClick">
-                <q-item-section>
-                  <q-item-label>Fotos</q-item-label>
-                </q-item-section>
-              </q-item>
-
-              <q-item v-close-popup clickable @click="onItemClick">
-                <q-item-section>
-                  <q-item-label>Videos</q-item-label>
-                </q-item-section>
-              </q-item>
-
-              <q-item v-close-popup clickable @click="onItemClick">
-                <q-item-section>
-                  <q-item-label>Cerrar Sesion</q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </q-btn-dropdown>
+          </q-btn>
           <q-avatar
             v-if="islogin"
             style="cursor: pointer;"
@@ -179,16 +172,18 @@
               </div>
               <div class="col-12 col-md-4">
                 <div class="text-h6 text-weight-light q-pb-md">Media</div>
-                <div class="text-body2 text-weight-light"><a href="https://creatorhouse.media" class="text-primary" style="text-decoration:none">Blog Creator House</a></div>
+                <div class="text-body2 text-weight-light"><a
+                    href="https://creatorhouse.media"
+                    class="text-primary"
+                    style="text-decoration:none"
+                  >Blog Creator House</a></div>
                 <div class="text-body2 text-weight-light q-pt-md">Instagram</div>
               </div>
             </div>
           </div>
         </div>
         <q-toolbar class="q-pt-md q-pb-md">
-          <q-toolbar-title class="text-weight-thin text-center text-caption q-pt-sm"
-            >CREATOR HOUSE ©2020 - Made With &#10084;</q-toolbar-title
-          >
+          <q-toolbar-title class="text-weight-thin text-center text-caption q-pt-sm">CREATOR HOUSE ©2020 - Made With &#10084;</q-toolbar-title>
         </q-toolbar>
       </div>
     </q-footer>
@@ -202,11 +197,13 @@
       show-if-above
       side="right"
     >
-      <q-scroll-area
-        style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd"
-      >
+      <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
         <q-list padding>
-          <q-item v-ripple clickable>
+          <q-item
+            v-ripple
+            clickable
+            to="/home"
+          >
             <q-item-section avatar>
               <q-icon name="home" />
             </q-item-section>
@@ -216,7 +213,11 @@
             </q-item-section>
           </q-item>
 
-          <q-item v-ripple active clickable to="/User">
+          <q-item
+            v-ripple
+            clickable
+            to="/EditUser"
+          >
             <q-item-section avatar>
               <q-icon name="account_circle" />
             </q-item-section>
@@ -226,7 +227,24 @@
             </q-item-section>
           </q-item>
 
-          <q-item v-ripple clickable>
+          <q-item
+            v-ripple
+            clickable
+            to="/EditUserSettings"
+          >
+            <q-item-section avatar>
+              <q-icon name="settings" />
+            </q-item-section>
+
+            <q-item-section>
+              Mi Cuenta
+            </q-item-section>
+          </q-item>
+
+          <q-item
+            v-ripple
+            clickable
+          >
             <q-item-section avatar>
               <q-icon name="logout" />
             </q-item-section>
@@ -235,8 +253,6 @@
               Logout
             </q-item-section>
           </q-item>
-
-          <q-item v-ripple clickable> </q-item>
         </q-list>
       </q-scroll-area>
 

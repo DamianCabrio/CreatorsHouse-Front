@@ -2,16 +2,8 @@
   <div class="row justify-center">
     <div class="col-12 col-md-8 q-pa-md q-gutter-sm">
       <div class="row justify-center">
-        <div class="col-12 q-pa-md text-center">
-          <q-responsive :ratio="16/2">
-            <div class="rounded-borders bg-secondary text-white flex flex-center">
-              Alguna cosa acá?
-            </div>
-          </q-responsive>
-        </div>
         <div class="col-12 q-pa-xl text-center">
           <div class="text-h4 text-weight-bold">Editar Mi Perfil</div>
-          <div>Configurá tus datos</div>
         </div>
         <div class="col-12 col-md-8 q-pa-md">
           <q-form>
@@ -87,28 +79,15 @@
               </q-card-section>
             </q-card>
           </q-form>
-        </div>
-        <div class="col-12 col-md-4 q-pa-md">
           <div class="q-pb-md">
             <q-btn
-              color="accent"
+              color="primary"
               label="Guardar Cambios"
               size="lg"
               style="width:100%"
               text-color="white"
             />
           </div>
-          <q-card
-            bordered
-            class="q-mb-md"
-            flat
-          >
-            <q-responsive :ratio="4/4">
-              <div class="rounded-borders flex flex-center">
-                Alguna cosa acá
-              </div>
-            </q-responsive>
-          </q-card>
         </div>
       </div>
     </div>
