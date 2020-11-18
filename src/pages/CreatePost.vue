@@ -51,6 +51,7 @@
                     hint="Pon un link de un vídeo"
                     v-model="video"
                     label="URL YouTube"
+                    @input="changeWatchForEmbed()"
                   />
                 </q-card-section>
               </div>
@@ -139,6 +140,9 @@ export default {
       sessionStorage.removeItem('apiToken')
       this.user = []
       this.$router.push(this.$route.query.redirect || '/')
+    },
+    changeWatchForEmbed: function () {
+      this.video = this.video.replace('watch?v=', 'embed/')
     },
     // Busco mis datos de usuario enviando mi token
     getUser () {
