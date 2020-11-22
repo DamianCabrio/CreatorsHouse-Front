@@ -3,7 +3,7 @@
     <div class="col-12 col-md-8 q-pa-md q-gutter-sm">
       <div class="row justify-center">
         <div class="col-12 q-pa-xl text-center">
-          <div class="text-h4 text-weight-bold">Editar Mi Perfil</div>
+          <div class="text-h3 text-weight-thin text-center">Editar Mi Perfil</div>
         </div>
         <div class="col-12 col-md-8 q-pa-md">
           <q-form>
@@ -38,6 +38,16 @@
                     />
                   </div>
                 </template>
+              </q-card-section>
+              <q-card-section>
+                <div class="text-caption q-pb-sm">Categoría</div>
+                <q-select
+                  v-model="category"
+                  outlined
+                  float-label="Is Quasar Awesome?"
+                  radio
+                  :options="selectOptions"
+                />
               </q-card-section>
               <q-card-section>
                 <div class="text-caption q-pb-sm">Link a Instagram</div>
@@ -105,10 +115,33 @@ export default {
       instagram: '',
       youtube: '',
       vipCost: '',
+      category: '',
       becreator: false,
       user: [],
       creator: [],
-      isCreator: false
+      isCreator: false,
+      selectOptions: [
+        {
+          label: 'YouTube',
+          value: '1'
+        },
+        {
+          label: 'Tutoriales',
+          value: '2'
+        },
+        {
+          label: 'Dibujos',
+          value: '3'
+        },
+        {
+          label: 'Música',
+          value: '4'
+        },
+        {
+          label: 'Otros',
+          value: '5'
+        }
+      ]
     }
   },
   mounted () {
@@ -116,12 +149,33 @@ export default {
     if (sessionStorage.getItem('apiToken')) {
       // tengo un token guardado localmente
       this.getUser()
+      this.getCategory()
     } else {
       // sino redirecciono al login
       this.$router.push(this.$route.query.redirect || '/Login')
     }
   },
   methods: {
+    register () {
+      axios.post('http://localhost:8000/creator', {
+        avatar: this.avatar,
+        banner: this.banner,
+        description: this.description,
+        instagram: this.instagram,
+        youtube: this.youtube,
+        costVip: this.vipCost,
+        becreator: this.becreator // cómo era el breator acá?
+      })
+        .then((response) => {
+          console.log(response)
+          this.$q.notify({
+            color: 'danger',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'Error, intente nuevamente!'
+          })
+        })
+    },
     logout: async function () {
       sessionStorage.removeItem('apiToken')
       this.user = []
