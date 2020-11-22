@@ -46,6 +46,11 @@
           </q-btn-dropdown>
           <!--Link al blog-->
           <div class="q-pa-sm desktop-only">
+            <a
+              href="https://creatorhouse.media"
+              style="color:white;text-decoration:none"
+              target="_blank"
+            >Blog</a>
             <router-link
               style="color:white;text-decoration:none"
               href="https://creatorhouse.media"
@@ -136,7 +141,10 @@
             style="cursor: pointer;"
             @click="drawerRight = !drawerRight"
           >
-            <img src="https://www.placecage.com/gif/200/200" />
+            <q-icon
+              size="30px"
+              name="account_circle"
+            />
           </q-avatar>
         </div>
       </q-toolbar>
