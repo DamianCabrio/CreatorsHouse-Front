@@ -122,7 +122,8 @@ export default {
       postVisibility: '',
       user: [],
       creator: [],
-      isCreator: false
+      isCreator: false,
+      creatorId: ''
     }
   },
   mounted () {
@@ -130,9 +131,21 @@ export default {
     if (sessionStorage.getItem('apiToken')) {
       // tengo un token guardado localmente
       this.getUser()
+      this.creatorId = this.$route.params.idCreator
     } else {
       // sino redirecciono al login
       this.$router.push(this.$route.query.redirect || '/Login')
+    }
+  },
+  beforeUpdate () {
+    // Verifico que el creator sea el mismo que esta logueado
+    alert(this.creatorId + '=' + this.creator.data[0].id)
+    if (parseInt(this.creatorId) === parseInt(this.creator.data[0].id)) {
+      // correcto
+      // alert('correcto')
+    } else {
+      // alert('incorrecto ')
+      this.$router.push(this.$route.query.redirect || '/Home')
     }
   },
   methods: {
@@ -160,6 +173,7 @@ export default {
           if (this.user.data.isCreator === 1) {
             this.isCreator = true
             this.getCreator()
+            // alert('es creator')
           }
         })
         .catch(err => {
