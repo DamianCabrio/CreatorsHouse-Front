@@ -33,28 +33,34 @@
                     <div class="text-overline">SIGUIENDO</div>
                     <template>
                       <div style="max-width: 350px">
-                        <q-list
-                          bordered
-                          separator
-                          v-for="followedCreator in postsCreators"
-                          :key="followedCreator.id"
+                        <q-scroll-area
+                          :thumb-style="thumbStyle"
+                          :bar-style="barStyle"
+                          style="height: 500px; max-width: 350px;"
                         >
-                          <q-item
-                            v-ripple
-                            clickable
-                            @click="goHomeCreator(followedCreator.creator.id)"
+                          <q-list
+                            bordered
+                            separator
+                            v-for="followedCreator in postsCreators"
+                            :key="followedCreator.id"
                           >
-                            <q-item-section avatar>
-                              <q-avatar>
-                                <img v-bind:src="`http://localhost:8000/img/${followedCreator.user[0].avatar}`">
-                              </q-avatar>
-                            </q-item-section>
+                            <q-item
+                              v-ripple
+                              clickable
+                              @click="goHomeCreator(followedCreator.creator.id)"
+                            >
+                              <q-item-section avatar>
+                                <q-avatar>
+                                  <img v-bind:src="`http://localhost:8000/img/${followedCreator.user[0].avatar}`">
+                                </q-avatar>
+                              </q-item-section>
 
-                            <q-item-section>
-                              <q-item-label>{{followedCreator.user[0].username}}</q-item-label>
-                            </q-item-section>
-                          </q-item>
-                        </q-list>
+                              <q-item-section>
+                                <q-item-label>{{followedCreator.user[0].username}}</q-item-label>
+                              </q-item-section>
+                            </q-item>
+                          </q-list>
+                        </q-scroll-area>
                       </div>
                     </template>
                   </q-card-section>
