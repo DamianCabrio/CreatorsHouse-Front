@@ -3,7 +3,7 @@
     <div class="col-12 col-md-8 q-pa-md q-gutter-sm">
       <div class="row justify-center">
         <div class="col-12 q-pa-xl text-center">
-          <div class="text-h4 text-weight-bold">Mi Cuenta</div>
+          <div class="text-h3 text-weight-thin text-center">Convertirme en Creador</div>
         </div>
         <div class="col-12 col-md-8 q-pa-md">
           <q-form>
@@ -13,32 +13,61 @@
               flat
             >
               <q-card-section>
-                <div class="text-caption q-pb-sm">Username</div>
-                <q-input
+                <div class="text-caption q-pb-sm">Banner</div>
+                <q-file
+                  v-model="banner"
+                  label="imagen banner en jpg/png/gif"
                   outlined
-                  v-model="username"
-                  :key=user.id
-                  :placeholder=user.data.username
                 />
               </q-card-section>
               <q-card-section>
-                <div class="text-caption q-pb-sm">Email</div>
-                <q-input
+                <div class="text-caption q-pb-sm">Descripción de mi perfil</div>
+                <template>
+                  <div>
+                    <q-editor
+                      v-model="description"
+                      min-height="10rem"
+                    />
+                  </div>
+                </template>
+              </q-card-section>
+              <q-card-section>
+                <div class="text-caption q-pb-sm">Categoría</div>
+                <q-select
+                  v-model="category"
                   outlined
-                  v-model="email"
-                  :key=user.id
-                  :placeholder=user.data.email
+                  float-label="Is Quasar Awesome?"
+                  radio
+                  :options="selectOptions"
                 />
               </q-card-section>
               <q-card-section>
-                <div class="text-caption q-pb-sm">Vincular Mercado Pago</div>
-                <q-btn
-                  label="Vincular Mercado Pago"
-                  style="width:100%;background-color:#FFF159"
-                  size="lg"
-                  text-color="dark"
-                  type="a"
-                  href="https://auth.mercadopago.com.ar/authorization?client_id=7896672689628001&response_type=code&platform_id=mp&redirect_uri=http://localhost:8080"
+                <div class="text-caption q-pb-sm">Link a Instagram</div>
+                <q-input
+                  v-model="instagram"
+                  hint="URL"
+                  label="Instagram"
+                  outlined
+                  type="url"
+                />
+              </q-card-section>
+              <q-card-section>
+                <div class="text-caption q-pb-sm">Link a Youtube</div>
+                <q-input
+                  v-model="youtube"
+                  hint="URL"
+                  label="Youtube"
+                  outlined
+                  type="url"
+                />
+              </q-card-section>
+              <q-card-section>
+                <div class="text-caption q-pb-sm">Valor membresia mensual Premium</div>
+                <q-input
+                  v-model="vipCost"
+                  label="Costo Mensual $AR"
+                  outlined
+                  type="number"
                 />
               </q-card-section>
             </q-card>
@@ -52,6 +81,21 @@
               text-color="white"
             />
           </div>
+          <q-separator class="q-mt-md q-mb-lg"/>
+          <q-card class="q-mt-md">
+            <q-card-section>
+              <div class="text-caption q-pb-sm">Vincular Mercado Pago</div>
+              <q-btn
+                class="text-white"
+                label="Vincular Mercado Pago"
+                style="width:100%;background-color:#009FE3"
+                size="lg"
+                text-color="dark"
+                type="a"
+                href="https://auth.mercadopago.com.ar/authorization?client_id=7896672689628001&response_type=code&platform_id=mp&redirect_uri=http://localhost:8080"
+              />
+            </q-card-section>
+          </q-card>
         </div>
       </div>
     </div>
@@ -64,10 +108,38 @@ export default {
   data () {
     return {
       username: '',
-      email: '',
+      avatar: '',
+      banner: '',
+      description: '',
+      instagram: '',
+      youtube: '',
+      vipCost: '',
+      category: '',
       user: [],
       creator: [],
-      isCreator: false
+      isCreator: false,
+      selectOptions: [
+        {
+          label: 'YouTube',
+          value: '1'
+        },
+        {
+          label: 'Tutoriales',
+          value: '2'
+        },
+        {
+          label: 'Dibujos',
+          value: '3'
+        },
+        {
+          label: 'Música',
+          value: '4'
+        },
+        {
+          label: 'Otros',
+          value: '5'
+        }
+      ]
     }
   },
   mounted () {

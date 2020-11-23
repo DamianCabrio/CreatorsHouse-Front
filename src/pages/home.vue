@@ -36,7 +36,7 @@
                         <q-scroll-area
                           :thumb-style="thumbStyle"
                           :bar-style="barStyle"
-                          style="height: 500px; max-width: 350px;"
+                          style="height: 400px; max-width: 350px;"
                         >
                           <q-list
                             bordered
@@ -279,7 +279,7 @@
                       color="primary"
                       label="Ser Creador"
                       style="width: 100%;"
-                      to="/EditUser"
+                      to="/RegisterCreator"
                     />
                   </q-card-actions>
                 </q-card>
