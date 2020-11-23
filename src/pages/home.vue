@@ -94,10 +94,12 @@
                       <q-tab-panels
                         v-model="tab"
                         animated
-                        v-for="(allPublicPost) in publicPosts"
-                        v-bind:key="`${allPublicPost.idUser}/${allPublicPost.idCreator}`"
                       >
-                        <q-tab-panel name="publico">
+                        <q-tab-panel
+                          name="publico"
+                          v-for="(allPublicPost) in publicPosts"
+                          v-bind:key="`${allPublicPost.idUser}/${allPublicPost.idCreator}`"
+                        >
                           <q-intersection
                             v-for="onePublicPost in allPublicPost.posts"
                             :key="onePublicPost.id"
@@ -172,11 +174,83 @@
                             </q-card>
                           </q-intersection>
                         </q-tab-panel>
-                        <q-tab-panel name="premium">
+                        <q-tab-panel
+                          name="premium"
+                          v-for="(allPrivatePost) in privatePosts"
+                          v-bind:key="`${allPrivatePost.idUser}/${allPrivatePost.idCreator}`"
+                        >
                           <q-intersection
+                            v-for="onePrivatePost in allPrivatePost.posts"
+                            :key="onePrivatePost.id"
                             once
                             transition="scale"
                           >
+                            <q-card class="q-ma-sm q-mb-lg">
+                              <q-item
+                                v-ripple
+                                clickable
+                                @click="goHomeCreator(onePrivatePost.idCreator)"
+                              >
+                                <q-item-section avatar>
+                                  <q-avatar>
+                                    <img v-bind:src="`http://localhost:8000/img/${onePrivatePost.user[0].avatar}`">
+                                  </q-avatar>
+                                </q-item-section>
+                                <q-item-section>
+                                  <q-item-label>{{onePrivatePost.user[0].username}}</q-item-label>
+                                  <q-item-label caption>{{onePrivatePost.date}}</q-item-label>
+                                </q-item-section>
+                              </q-item>
+                              <q-separator />
+                              <q-card-section>
+                                <div
+                                  v-if="onePrivatePost.tipo == 1"
+                                  class="text-overline text-primary"
+                                >Texto</div>
+                                <div
+                                  v-if="onePrivatePost.tipo == 2"
+                                  class="text-overline text-primary"
+                                >Imágenes</div>
+                                <div
+                                  v-if="onePrivatePost.tipo == 3"
+                                  class="text-overline text-primary"
+                                >Video</div>
+                                <div class="text-h5 q-mt-sm q-mb-xs">{{onePrivatePost.title}}</div>
+                                <div class="text-body1 text-dark">{{onePrivatePost.content}}</div>
+                              </q-card-section>
+                              <div
+                                v-for="image in onePrivatePost.images"
+                                :key="image.id"
+                              >
+                                <q-img
+                                  :ratio="4/3"
+                                  v-bind:src="`${image.image}`"
+                                />
+                              </div>
+                              <div v-if="onePrivatePost.videos.length > 0">
+                                <iframe
+                                  class="no-margin no-padding"
+                                  v-bind:src="onePrivatePost.videos[0].video"
+                                  width="100%"
+                                  height="360px"
+                                  frameborder="0"
+                                ></iframe>
+                              </div>
+                              <q-separator></q-separator>
+                              <q-card-actions align="right">
+                                <q-btn
+                                  color="red"
+                                  flat
+                                  icon="favorite"
+                                  round
+                                >
+                                  <q-badge
+                                    color="secondary"
+                                    floating
+                                  >{{onePrivatePost.cantLikes}}</q-badge>
+                                </q-btn>
+                              </q-card-actions>
+                            </q-card>
                           </q-intersection>
                         </q-tab-panel>
                       </q-tab-panels>
@@ -260,6 +334,7 @@ export default {
       creator: [],
       postsCreators: [],
       publicPosts: [],
+      privatePosts: [],
       isCreator: false,
       tab: 'publico'
     }
@@ -294,6 +369,7 @@ export default {
           this.user = response.data
           this.getPostsCreators()
           this.getPublicPosts()
+          this.getPrivatePosts()
           // Buscar mis datos si soy creador
           if (this.user.data.isCreator === 1) {
             this.isCreator = true
@@ -356,6 +432,25 @@ export default {
           console.log(response.data)
           // alert('ok')
           this.publicPosts = response.data
+        })
+        .catch(err => {
+          console.log(err.response)
+          // alert('error')
+        })
+    },
+    getPrivatePosts () {
+      // alert(this.user.data)
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.get('http://localhost:8000/postsPremium/' + this.user.data.id, {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          console.log(response.data)
+          // alert('ok')
+          this.privatePosts = response.data
         })
         .catch(err => {
           console.log(err.response)
