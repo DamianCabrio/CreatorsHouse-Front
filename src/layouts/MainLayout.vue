@@ -176,21 +176,6 @@
                     Mi Perfil
                   </q-item-section>
                 </q-item>
-
-                <q-item
-                  v-ripple
-                  clickable
-                  to="/EditUserSettings"
-                >
-                  <q-item-section avatar>
-                    <q-icon name="settings" />
-                  </q-item-section>
-
-                  <q-item-section>
-                    Mi Cuenta
-                  </q-item-section>
-                </q-item>
-
                 <q-item
                   v-ripple
                   clickable
@@ -261,76 +246,6 @@
         </q-toolbar>
       </div>
     </q-footer>
-    <!--Menu lateral Perfil de usuario-->
-    <q-drawer
-      v-model="drawerRight"
-      :breakpoint="10600"
-      :width="260"
-      content-class="bg-grey-1"
-      elevated
-      show-if-above
-      side="right"
-    >
-      <q-scroll-area style="height: calc(100% - 150px); margin-top: 0px; border-right: 1px solid #ddd">
-        <q-list padding>
-          <q-item
-            v-ripple
-            clickable
-            to="/home"
-          >
-            <q-item-section avatar>
-              <q-icon name="home" />
-            </q-item-section>
-
-            <q-item-section>
-              Inicio
-            </q-item-section>
-          </q-item>
-
-          <q-item
-            v-ripple
-            clickable
-            to="/EditUser"
-          >
-            <q-item-section avatar>
-              <q-icon name="account_circle" />
-            </q-item-section>
-
-            <q-item-section>
-              Mi Perfil
-            </q-item-section>
-          </q-item>
-
-          <q-item
-            v-ripple
-            clickable
-            to="/EditUserSettings"
-          >
-            <q-item-section avatar>
-              <q-icon name="settings" />
-            </q-item-section>
-
-            <q-item-section>
-              Mi Cuenta
-            </q-item-section>
-          </q-item>
-
-          <q-item
-            v-ripple
-            clickable
-            @click="logout"
-          >
-            <q-item-section avatar>
-              <q-icon name="logout" />
-            </q-item-section>
-
-            <q-item-section>
-              Logout
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-scroll-area>
-    </q-drawer>
     <q-page-container>
       <router-view />
     </q-page-container>
