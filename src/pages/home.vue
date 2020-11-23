@@ -42,6 +42,7 @@
                           <q-item
                             v-ripple
                             clickable
+                            @click="goHomeCreator(followedCreator.creator.id)"
                           >
                             <q-item-section avatar>
                               <q-avatar>
@@ -97,26 +98,47 @@
                             once
                             transition="scale"
                           >
-                            <q-card
-                              v-ripple
-                              class="my-card q-ma-sm q-mb-lg"
-                              clickable
-                            >
+                            <q-card class="q-ma-sm q-mb-lg">
+                              <q-item
+                                v-ripple
+                                clickable
+                                @click="goHomeCreator(onePublicPost.idCreator)"
+                              >
+                                <q-item-section avatar>
+                                  <q-avatar>
+                                    <img v-bind:src="`http://localhost:8000/img/${onePublicPost.user[0].avatar}`">
+                                  </q-avatar>
+                                </q-item-section>
+                                <q-item-section>
+                                  <q-item-label>{{onePublicPost.user[0].username}}</q-item-label>
+                                  <q-item-label caption>{{onePublicPost.date}}</q-item-label>
+                                </q-item-section>
+                              </q-item>
+                              <q-separator />
                               <q-card-section>
-                                <q-item>
-                                  <q-item-section avatar>
-                                    <q-avatar>
-                                      <img v-bind:src="`http://localhost:8000/img/${onePublicPost.user[0].avatar}`">
-                                    </q-avatar>
-                                  </q-item-section>
-                                  <q-item-section>{{onePublicPost.user[0].username}}</q-item-section>
-                                </q-item>
+                                <div
+                                  v-if="onePublicPost.tipo == 1"
+                                  class="text-overline text-primary"
+                                >Texto</div>
+                                <div
+                                  v-if="onePublicPost.tipo == 2"
+                                  class="text-overline text-primary"
+                                >Imágenes</div>
+                                <div
+                                  v-if="onePublicPost.tipo == 3"
+                                  class="text-overline text-primary"
+                                >Video</div>
+                                <div class="text-h5 q-mt-sm q-mb-xs">{{onePublicPost.title}}</div>
+                                <div class="text-body1 text-dark">{{onePublicPost.content}}</div>
                               </q-card-section>
                               <div
                                 v-for="image in onePublicPost.images"
                                 :key="image.id"
                               >
-                                <img v-bind:src="`${image.image}`">
+                                <q-img
+                                  :ratio="4/3"
+                                  v-bind:src="`${image.image}`"
+                                />
                               </div>
                               <div v-if="onePublicPost.videos.length > 0">
                                 <iframe
@@ -127,16 +149,7 @@
                                   frameborder="0"
                                 ></iframe>
                               </div>
-                              <q-card-section class="q-pb-none">
-                                {{onePublicPost.date}}
-                              </q-card-section>
-                              <q-card-section>
-                                <div class="text-h6">{{onePublicPost.title}}</div>
-                              </q-card-section>
-
-                              <q-card-section class="q-pt-none">
-                                {{onePublicPost.content}}
-                              </q-card-section>
+                              <q-separator></q-separator>
                               <q-card-actions align="right">
                                 <q-btn
                                   color="red"
@@ -149,12 +162,6 @@
                                     floating
                                   >{{onePublicPost.cantLikes}}</q-badge>
                                 </q-btn>
-                                <q-btn
-                                  color="primary"
-                                  flat
-                                  icon="share"
-                                  round
-                                />
                               </q-card-actions>
                             </q-card>
                           </q-intersection>
@@ -222,9 +229,9 @@
                 </q-card>
                 <div class="q-pa-sm text-overline text-center">El creador random de hoy.</div>
                 <OneRandomCreator />
-                <div>
+                <!--                 <div>
                   <pre>{{publicPosts}}</pre>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -348,6 +355,9 @@ export default {
           console.log(err.response)
           // alert('error')
         })
+    },
+    goHomeCreator ($idCreator) {
+      this.$router.push(this.$route.query.redirect || '/Creator/' + $idCreator)
     }
   }
 }
