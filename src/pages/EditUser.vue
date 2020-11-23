@@ -1,11 +1,11 @@
 <template>
   <div class="row justify-center">
     <div class="col-12 col-md-8 q-pa-md q-gutter-sm">
-      <div class="row justify-center">
+      <div class="row">
         <div class="col-12 q-pa-xl text-center">
-          <div class="text-h3 text-weight-thin text-center">Editar Mi Perfil</div>
+          <div class="text-h3 text-weight-thin text-center">Mi Cuenta</div>
         </div>
-        <div class="col-12 col-md-8 q-pa-md">
+        <div class="col-12 col-md-6 q-pa-md">
           <q-form>
             <q-card
               bordered
@@ -18,8 +18,77 @@
                   v-model="avatar"
                   label="imagen avatar jpg/png/gif"
                   outlined
+                  @change="onFileChange"
                 />
               </q-card-section>
+              <q-card-section>
+                <div class="text-caption q-pb-sm">Username</div>
+                <q-input
+                  outlined
+                  v-model="username"
+                  :key=user.id
+                  :placeholder=user.data.username
+                />
+              </q-card-section>
+              <q-card-section>
+                <q-input
+                  v-model="password"
+                  :rules="[
+          val => val !== null && val !== '' || 'Contraseña requerida',
+          val => val && val.length >= 8 || 'Ingresa una contraseña con al menos 8 carcateres',
+          isValidPassword
+        ]"
+                  :type="isPwd ? 'password' : 'text'"
+                  outlined
+                  hint=""
+                  label="Contraseña *"
+                  lazy-rules
+                >
+                  <template v-slot:append>
+                    <q-icon
+                      :name="isPwd ? 'visibility_off' : 'visibility'"
+                      class="cursor-pointer"
+                      @click="isPwd = !isPwd"
+                    />
+                  </template>
+                </q-input>
+                <q-input
+                  v-model="password2"
+                  :error="!confirmPassword"
+                  :type="isPwd ? 'password' : 'text'"
+                  error-message="Contraseña no coincide."
+                  outlined
+                  label="Confirmar Contraseña *"
+                >
+                  <template v-slot:append>
+                    <q-icon
+                      :name="isPwd ? 'visibility_off' : 'visibility'"
+                      class="cursor-pointer"
+                      @click="isPwd = !isPwd"
+                    />
+                  </template>
+                </q-input>
+              </q-card-section>
+            </q-card>
+          </q-form>
+          <div class="q-pb-md">
+            <q-btn
+              color="primary"
+              label="Guardar Cambios"
+              size="lg"
+              style="width:100%"
+              text-color="white"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 q-pa-md">
+          <q-form>
+            <q-card
+              bordered
+              class="q-mb-md"
+              flat
+            >
               <q-card-section>
                 <div class="text-caption q-pb-sm">Banner</div>
                 <q-file
@@ -78,15 +147,6 @@
                   type="number"
                 />
               </q-card-section>
-              <q-card-section>
-                <div class="text-caption q-pb-sm">Convertirme en creador</div>
-                <q-toggle
-                  v-model="becreator"
-                  label="Ser o no ser creador"
-                  size="xl"
-                  val="xl"
-                />
-              </q-card-section>
             </q-card>
           </q-form>
           <div class="q-pb-md">
@@ -109,6 +169,7 @@ import * as axios from 'axios'
 export default {
   data () {
     return {
+      username: '',
       avatar: '',
       banner: '',
       description: '',
@@ -116,7 +177,6 @@ export default {
       youtube: '',
       vipCost: '',
       category: '',
-      becreator: false,
       user: [],
       creator: [],
       isCreator: false,
@@ -142,6 +202,17 @@ export default {
           value: '5'
         }
       ]
+    }
+  },
+  computed: {
+    confirmPassword () {
+      return this.password === this.password2
+    },
+    isValidPassword (val) {
+      // no funca
+      // >80 https://digitalfortress.tech/tricks/top-15-commonly-used-regex/
+      const passwordPattern = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/
+      return passwordPattern.test(val) || 'La constraseña debe tener al menos una letra mayúscula, un número y un caracter especial.'
     }
   },
   mounted () {
