@@ -5,10 +5,16 @@
         <div class="row items-start">
           <template class="card">
             <q-img
+              v-show="allCreator.data.banner"
               :src=allCreator.data.banner
               class="banner"
             >
             </q-img>
+            <q-img
+              v-show="!allCreator.data.banner"
+              src='https://i.pinimg.com/originals/65/f7/07/65f707e5eb6ccc0f1e0db053ac84a9d7.jpg'
+              class="banner"
+            ></q-img>
           </template>
         </div>
       </div>
@@ -32,9 +38,8 @@
                       v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`"
                     >
                   </q-avatar>
-                  <div class="text-h4 text-weight-bold">{{allCreator.data.user[0].username}}</div>
                   <!--  botón editar perfil -->
-                  <!--                   <div v-show="user.data.id == allCreator.data.idUser">
+                  <div v-show="user.data.id == allCreator.data.idUser">
                     <q-btn
                       to="/edituser"
                       label="Editar Mi Perfil"
@@ -42,7 +47,9 @@
                       outline
                       color="primary"
                     />
-                  </div> -->
+                  </div>
+                  <div class="text-h4 text-weight-bold">{{allCreator.data.user[0].username}}</div>
+                  <div class="text-h4 text-overline">{{allCreator.data.user[0].name}}</div>
                   <div class="text-subtitle1 text-weight-light">Seguidores: </div>
                   <div class="text-h6 text-weight-bold">{{allCreator.data.cantFollowers}}</div>
                   <div class="row justify-center">
@@ -88,7 +95,7 @@
                 </div>
               </template>
             </div>
-            <div class="col-12 text-center">
+            <div class="col-12 col-md-8 text-center">
               <div class="text-body1 text-bold q-pa-md">Sobre Mí<div class="text-weight-light">{{allCreator.data.description}}</div>
               </div>
             </div>
@@ -100,14 +107,38 @@
         <div class="text-h5 text-weight-light">Posts</div>
       </div>
       <div class="row justify-center">
-        <div class="col-12 col-md-8 q-pt-lg q-pb-lg">
+        <div class="col-12 col-md-10 q-pt-lg q-pb-lg">
           <div class="row justify-center">
             <div class="col-12 col-md-6">
+              <div v-if="!postsCreator.length">
+                <q-card class="q-mb-md q-mb-xl q-ma-sm">
+                  <q-item>
+                    <q-item-section avatar>
+                      <q-avatar>
+                        <img v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`">
+                      </q-avatar>
+                    </q-item-section>
+
+                    <q-item-section>
+                      <q-item-label>{{allCreator.data.user[0].username}}</q-item-label>
+                      <q-item-label caption>Oh Oh, no hay posts todavía.</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                  <q-separator></q-separator>
+                  <q-card-section class="no-padding">
+                    <q-img
+                      class="no-margin"
+                      src="https://31.media.tumblr.com/2e8986a1b1c062623cea1b9edaddcc52/tumblr_mup3qzOPsX1rk0k2jo1_500.gif"
+                      ratio="1"
+                    ></q-img>
+                  </q-card-section>
+                </q-card>
+              </div>
               <div
                 v-for="post in postsCreator"
                 :key="post.id"
               >
-                <q-card class="q-mb-md q-ma-sm">
+                <q-card class="q-mb-md q-mb-xl q-ma-sm">
                   <q-item>
                     <q-item-section avatar>
                       <q-avatar>
@@ -122,32 +153,45 @@
                   </q-item>
                   <q-separator></q-separator>
                   <q-card-section>
+                    <div
+                      v-if="post.tipo == 1"
+                      class="text-overline text-primary"
+                    >Texto</div>
+                    <div
+                      v-if="post.tipo == 2"
+                      class="text-overline text-primary"
+                    >Imágenes</div>
+                    <div
+                      v-if="post.tipo == 3"
+                      class="text-overline text-primary"
+                    >Video</div>
                     <div class="text-h5 q-mt-sm q-mb-xs">{{post.title}}</div>
                     <div class="text-body1 text-dark">
                       {{post.content}} </div>
                   </q-card-section>
                   <q-separator></q-separator>
-                  <q-card-section class="text-subitle2 no-padding">
+                  <q-card-section class="no-padding">
                     <div
                       v-for="image in post.images"
                       :key="image.id"
                     >
                       <q-img
-                        class="no-margin"
+                        :ratio="4/3"
                         v-bind:src="`${image.image}`"
-                        ratio="1"
-                      ></q-img>
+                      />
                     </div>
                   </q-card-section>
                   <q-separator></q-separator>
                   <q-item
+                    class="no-margin no-padding"
                     v-for="video in post.videos"
                     :key="video.id"
                   >
                     <iframe
+                      class="no-margin no-padding"
                       v-bind:src="video.video"
                       width="100%"
-                      height="360"
+                      height="360px"
                       frameborder="0"
                     ></iframe>
                   </q-item>
@@ -173,190 +217,6 @@
                     </q-btn>
                   </q-card-actions>
                 </q-card>
-                <!--                 <div v-if="post.tipo === 1">
-                  <q-card class="q-mb-md q-ma-sm">
-                    <q-item>
-                      <q-item-section avatar>
-                        <q-avatar>
-                          <img v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`">
-                        </q-avatar>
-                      </q-item-section>
-
-                      <q-item-section>
-                        <q-item-label>{{allCreator.data.user[0].username}}</q-item-label>
-                        <q-item-label caption>{{post.date}}</q-item-label>
-                      </q-item-section>
-                    </q-item>
-                    <q-separator></q-separator>
-                    <q-card-section>
-                      <div class="text-overline text-primary">Texto</div>
-                      <div class="text-h5 q-mt-sm q-mb-xs">{{post.title}}</div>
-                      <div class="text-body1 text-dark">
-                        {{post.content}} </div>
-                    </q-card-section>
-                    <q-separator></q-separator>
-                    <q-card-actions align="right">
-                      <q-btn
-                        v-if="!post.isPublic"
-                        outline
-                        color="primary"
-                        icon-right="lock_outline"
-                        label="Desbloquear"
-                      />
-                      <q-btn
-                        flat
-                        color="primary"
-                        round
-                        icon="favorite"
-                        class="q-ml-md"
-                      >
-                        <q-badge
-                          color="secondary"
-                          floating
-                        >{{post.cantLikes}}</q-badge>
-                      </q-btn>
-                    </q-card-actions>
-                  </q-card>
-                </div>
-                <div v-elseif="post.tipo === 2">
-                  <q-card class="q-mb-md q-ma-sm">
-                    <q-item>
-                      <q-item-section avatar>
-                        <q-avatar>
-                          <img v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`">
-                        </q-avatar>
-                      </q-item-section>
-
-                      <q-item-section>
-                        <q-item-label>{{allCreator.data.user[0].username}}</q-item-label>
-                        <q-item-label caption>{{post.date}}</q-item-label>
-                      </q-item-section>
-                    </q-item>
-                    <q-separator></q-separator>
-                    <q-card-section>
-                      <div class="text-overline text-primary">Imágenes</div>
-                      <div class="text-h5 q-mt-sm q-mb-xs">{{post.title}}</div>
-                      <div class="text-body1 text-dark">
-                        {{post.content}} </div>
-                    </q-card-section>
-                    <q-separator></q-separator>
-                    <q-card-actions align="right">
-                      <q-btn
-                        v-if="!post.isPublic"
-                        outline
-                        color="primary"
-                        icon-right="lock_outline"
-                        label="Desbloquear"
-                      />
-                      <q-btn
-                        flat
-                        color="primary"
-                        round
-                        icon="favorite"
-                        class="q-ml-md"
-                      >
-                        <q-badge
-                          color="secondary"
-                          floating
-                        >{{post.cantLikes}}</q-badge>
-                      </q-btn>
-                    </q-card-actions>
-                    <q-card-actions>
-                      <q-btn
-                        flat
-                        color="dark"
-                        label="Ver Imágenes"
-                        @click="expanded = !expanded"
-                      />
-
-                      <q-space />
-
-                      <q-btn
-                        color="grey"
-                        round
-                        flat
-                        dense
-                        :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-                        @click="expanded = !expanded"
-                      />
-                    </q-card-actions>
-
-                    <q-slide-transition>
-                      <div v-show="expanded">
-                        <q-separator />
-                        <q-card-section class="text-subitle2 no-padding">
-                          <div
-                            v-for="image in post.images"
-                            :key="image.id"
-                          >
-                            <q-img
-                              class="no-margin"
-                              v-bind:src="`${image.image}`"
-                              ratio="1"
-                            ></q-img>
-                          </div>
-                        </q-card-section>
-                      </div>
-                    </q-slide-transition>
-                  </q-card>
-                </div>
-                <div v-elseif="post.tipo === 3">
-                  <q-card class="q-mb-md q-ma-sm">
-                    <q-item>
-                      <q-item-section avatar>
-                        <q-avatar>
-                          <img v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`">
-                        </q-avatar>
-                      </q-item-section>
-
-                      <q-item-section>
-                        <q-item-label>{{allCreator.data.user[0].username}}</q-item-label>
-                        <q-item-label caption>{{post.date}}</q-item-label>
-                      </q-item-section>
-                    </q-item>
-                    <q-separator></q-separator>
-                    <q-card-section>
-                      <div class="text-overline text-primary">Videos</div>
-                      <div class="text-h5 q-mt-sm q-mb-xs">{{post.title}}</div>
-                      <div class="text-body1 text-dark">
-                        {{post.content}} </div>
-                    </q-card-section>
-                    <q-separator></q-separator>
-                    <q-item
-                      v-for="video in post.videos"
-                      :key="video.id"
-                    >
-                      <iframe
-                        v-bind:src="`http://localhost:8000/videos/${video.video}`"
-                        width="100%"
-                        height="360"
-                        frameborder="0"
-                      ></iframe>
-                    </q-item>
-                    <q-separator></q-separator>
-                    <q-card-actions align="right">
-                      <q-btn
-                        v-if="!post.isPublic"
-                        outline
-                        color="primary"
-                        icon-right="lock_outline"
-                        label="Desbloquear"
-                      />
-                      <q-btn
-                        flat
-                        color="primary"
-                        round
-                        icon="favorite"
-                        class="q-ml-md"
-                      >
-                        <q-badge
-                          color="secondary"
-                          floating
-                        >{{post.cantLikes}}</q-badge>
-                      </q-btn>
-                    </q-card-actions>
-                  </q-card>
-                </div> -->
               </div>
             </div>
           </div>
@@ -376,8 +236,7 @@ export default {
       postsCreator: [],
       allCreator: [],
       user: [],
-      isCreator: false,
-      expanded: false
+      isCreator: false
     }
   },
   mounted: function () {
@@ -388,6 +247,10 @@ export default {
       // tengo un token guardado localmente
       this.getUser()
     }
+    // NOTE: YA CARGA EL SCRIPT, FALTA AGREGAR EL ID DE PREFERENCE
+    const mercadopago = document.createElement('script')
+    mercadopago.setAttribute('src', 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js')
+    document.head.appendChild(mercadopago)
   },
   methods: {
     // Busco mis datos de usuario enviando mi token
