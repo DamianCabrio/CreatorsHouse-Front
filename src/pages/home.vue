@@ -36,6 +36,8 @@
                         <q-list
                           bordered
                           separator
+                          v-for="followedCreator in postsCreators"
+                          :key="followedCreator.id"
                         >
                           <q-item
                             v-ripple
@@ -43,42 +45,12 @@
                           >
                             <q-item-section avatar>
                               <q-avatar>
-                                <img src="https://cdn.quasar.dev/img/avatar5.jpg">
+                                <img v-bind:src="`http://localhost:8000/img/${followedCreator.user[0].avatar}`">
                               </q-avatar>
                             </q-item-section>
 
                             <q-item-section>
-                              <q-item-label>username</q-item-label>
-                            </q-item-section>
-                          </q-item>
-
-                          <q-item
-                            v-ripple
-                            clickable
-                          >
-                            <q-item-section avatar>
-                              <q-avatar>
-                                <img src="https://cdn.quasar.dev/img/avatar3.jpg">
-                              </q-avatar>
-                            </q-item-section>
-
-                            <q-item-section>
-                              <q-item-label>username</q-item-label>
-                            </q-item-section>
-                          </q-item>
-
-                          <q-item
-                            v-ripple
-                            clickable
-                          >
-                            <q-item-section avatar>
-                              <q-avatar>
-                                <img src="https://cdn.quasar.dev/img/avatar4.jpg">
-                              </q-avatar>
-                            </q-item-section>
-
-                            <q-item-section>
-                              <q-item-label>username</q-item-label>
+                              <q-item-label>{{followedCreator.user[0].username}}</q-item-label>
                             </q-item-section>
                           </q-item>
                         </q-list>
@@ -115,9 +87,13 @@
                       <q-tab-panels
                         v-model="tab"
                         animated
+                        v-for="(allPublicPost) in publicPosts"
+                        v-bind:key="`${allPublicPost.idUser}/${allPublicPost.idCreator}`"
                       >
                         <q-tab-panel name="publico">
                           <q-intersection
+                            v-for="onePublicPost in allPublicPost.posts"
+                            :key="onePublicPost.id"
                             once
                             transition="scale"
                           >
@@ -130,23 +106,36 @@
                                 <q-item>
                                   <q-item-section avatar>
                                     <q-avatar>
-                                      <img src="https://cdn.quasar.dev/img/avatar3.jpg">
+                                      <img v-bind:src="`http://localhost:8000/img/${onePublicPost.user[0].avatar}`">
                                     </q-avatar>
                                   </q-item-section>
-                                  <q-item-section>Lily</q-item-section>
+                                  <q-item-section>{{onePublicPost.user[0].username}}</q-item-section>
                                 </q-item>
                               </q-card-section>
-                              <img src="https://cdn.quasar.dev/img/mountains.jpg">
+                              <div
+                                v-for="image in onePublicPost.images"
+                                :key="image.id"
+                              >
+                                <img v-bind:src="`${image.image}`">
+                              </div>
+                              <div v-if="onePublicPost.videos.length > 0">
+                                <iframe
+                                  class="no-margin no-padding"
+                                  v-bind:src="onePublicPost.videos[0].video"
+                                  width="100%"
+                                  height="360px"
+                                  frameborder="0"
+                                ></iframe>
+                              </div>
                               <q-card-section class="q-pb-none">
-                                10/26/2020
+                                {{onePublicPost.date}}
                               </q-card-section>
                               <q-card-section>
-                                <div class="text-h6">Our Changing Planet</div>
+                                <div class="text-h6">{{onePublicPost.title}}</div>
                               </q-card-section>
 
                               <q-card-section class="q-pt-none">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                {{onePublicPost.content}}
                               </q-card-section>
                               <q-card-actions align="right">
                                 <q-btn
@@ -154,7 +143,12 @@
                                   flat
                                   icon="favorite"
                                   round
-                                />
+                                >
+                                  <q-badge
+                                    color="secondary"
+                                    floating
+                                  >{{onePublicPost.cantLikes}}</q-badge>
+                                </q-btn>
                                 <q-btn
                                   color="primary"
                                   flat
@@ -164,70 +158,13 @@
                               </q-card-actions>
                             </q-card>
                           </q-intersection>
-                          <div align="center">
-                            <q-btn
-                              color="primary"
-                              label="Ver Más"
-                              size="lg"
-                            />
-                          </div>
                         </q-tab-panel>
                         <q-tab-panel name="premium">
                           <q-intersection
                             once
                             transition="scale"
                           >
-                            <q-card
-                              v-ripple
-                              class="my-card q-ma-sm q-mb-lg"
-                              clickable
-                            >
-                              <q-card-section>
-                                <q-item>
-                                  <q-item-section avatar>
-                                    <q-avatar>
-                                      <img src="https://cdn.quasar.dev/img/avatar5.jpg">
-                                    </q-avatar>
-                                  </q-item-section>
-                                  <q-item-section>By Algunnombre</q-item-section>
-                                </q-item>
-                              </q-card-section>
-                              <img src="https://cdn.quasar.dev/img/mountains.jpg">
-                              <q-card-section class="q-pb-none">
-                                10/26/2020
-                              </q-card-section>
-                              <q-card-section>
-                                <div class="text-h6">Our Changing Planet</div>
-                              </q-card-section>
-
-                              <q-card-section class="q-pt-none">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                              </q-card-section>
-                              <q-card-actions align="right">
-                                <q-btn
-                                  color="red"
-                                  flat
-                                  icon="favorite"
-                                  round
-                                />
-                                <q-btn
-                                  color="primary"
-                                  flat
-                                  icon="share"
-                                  round
-                                />
-                              </q-card-actions>
-                            </q-card>
                           </q-intersection>
-                          <div align="center">
-                            <q-btn
-                              align="center"
-                              color="primary"
-                              label="Ver Más"
-                              size="lg"
-                            />
-                          </div>
                         </q-tab-panel>
                       </q-tab-panels>
                     </div>
@@ -285,20 +222,15 @@
                 </q-card>
                 <div class="q-pa-sm text-overline text-center">El creador random de hoy.</div>
                 <OneRandomCreator />
+                <div>
+                  <pre>{{publicPosts}}</pre>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </template>
-    <div>
-      <q-btn
-        class="btn-xs"
-        @click="logout"
-      >Cerrar Sesion
-      </q-btn>
-
-    </div>
   </q-page>
 </template>
 
@@ -314,6 +246,7 @@ export default {
       user: [],
       creator: [],
       postsCreators: [],
+      publicPosts: [],
       isCreator: false,
       tab: 'publico'
     }
@@ -347,6 +280,7 @@ export default {
           console.log(response.data)
           this.user = response.data
           this.getPostsCreators()
+          this.getPublicPosts()
           // Buscar mis datos si soy creador
           if (this.user.data.isCreator === 1) {
             this.isCreator = true
@@ -390,6 +324,25 @@ export default {
           console.log(response.data)
           // alert('ok')
           this.postsCreators = response.data
+        })
+        .catch(err => {
+          console.log(err.response)
+          // alert('error')
+        })
+    },
+    getPublicPosts () {
+      // alert(this.user.data)
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.get('http://localhost:8000/postsPublic/' + this.user.data.id, {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          console.log(response.data)
+          // alert('ok')
+          this.publicPosts = response.data
         })
         .catch(err => {
           console.log(err.response)
