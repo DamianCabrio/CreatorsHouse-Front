@@ -8,14 +8,14 @@
       class="col-12 col-md-4"
     >
       <div class="q-pa-lg">
-        <q-card class="my-card">
+        <q-card>
           <div v-ripple @click="goHomeCreator(user.idCreator[0].id)" class="cursor-pointer relative-position">
             <q-item>
               <q-item-section avatar>
                 <q-btn
                   color="secondary"
                   flat
-                  icon="share"
+                  icon="call_made"
                   round
                 />
               </q-item-section>
