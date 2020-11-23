@@ -139,12 +139,86 @@
           <q-avatar
             v-if="islogin"
             style="cursor: pointer;"
-            @click="drawerRight = !drawerRight"
           >
             <q-icon
               size="30px"
               name="account_circle"
             />
+            <q-menu>
+              <q-list
+                padding
+                style="min-width: 250px"
+              >
+                <q-item
+                  v-ripple
+                  clickable
+                  to="/home"
+                >
+                  <q-item-section avatar>
+                    <q-icon name="home" />
+                  </q-item-section>
+
+                  <q-item-section>
+                    Inicio
+                  </q-item-section>
+                </q-item>
+
+                <q-item
+                  v-ripple
+                  clickable
+                  to="/EditUser"
+                >
+                  <q-item-section avatar>
+                    <q-icon name="account_circle" />
+                  </q-item-section>
+
+                  <q-item-section>
+                    Mi Perfil
+                  </q-item-section>
+                </q-item>
+
+                <q-item
+                  v-ripple
+                  clickable
+                  to="/EditUserSettings"
+                >
+                  <q-item-section avatar>
+                    <q-icon name="settings" />
+                  </q-item-section>
+
+                  <q-item-section>
+                    Mi Cuenta
+                  </q-item-section>
+                </q-item>
+
+                <q-item
+                  v-ripple
+                  clickable
+                  @click="logout"
+                >
+                  <q-item-section avatar>
+                    <q-icon name="logout" />
+                  </q-item-section>
+
+                  <q-item-section>
+                    Logout
+                  </q-item-section>
+                </q-item>
+                <q-separator />
+                <q-item
+                  clickable
+                  v-close-popup
+                  to="/help"
+                >
+                  <q-item-section avatar>
+                    <q-icon name="help_outline" />
+                  </q-item-section>
+                  <q-item-section>
+                    Ayuda y Feedback
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
           </q-avatar>
         </div>
       </q-toolbar>
@@ -354,6 +428,7 @@ export default {
       })
     }
   },
+  name: 'MainLayout',
   data () {
     return {
       categories: [],
