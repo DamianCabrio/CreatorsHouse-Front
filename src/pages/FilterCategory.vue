@@ -1,16 +1,67 @@
 <template>
-  <q-page class="flex flex-center">
-    <h1>Creadores x Categorias</h1>
-    <q-list id="creadoresXCategoria">
-      <q-item
-        v-for="creator in creatorsXCat"
-        :key="creator.id"
-      >
-        <q-item-section>
-          <q-item-label>Creador: ---- {{ creator }}</q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
+  <q-page>
+    <div
+      class="bg-primary q-pa-xl"
+      style="min-height:20vh;margin-top:-5px"
+    >
+      <div class="text-h3 text-center text-white q-pa-xl text-weight-light">{{creatorsXCat.nameCategory[0].nameCategory}}</div>
+    </div>
+    <div class="container">
+      <div class="row justify-center q-pt-xl q-pb-xl">
+        <div class="col-12 col-md-8">
+          <div class="row">
+            <div
+              v-for="creator in creatorsXCat"
+              :key="creator.id"
+              class="col-12 col-md-4"
+            >
+              <div
+                v-for="user in creator.User"
+                :key="user.id"
+              >
+                <div class="q-pa-lg">
+                  <q-card
+                    bordered
+                    flat
+                  >
+                    <div
+                      v-ripple
+                      @click="goHomeCreator(creator.id)"
+                      class="cursor-pointer relative-position"
+                    >
+                      <q-item>
+                        <q-item-section avatar>
+                          <q-btn
+                            color="secondary"
+                            flat
+                            icon="share"
+                            round
+                          />
+                        </q-item-section>
+
+                        <q-item-section>
+                          <q-item-label>@{{ user.username }}</q-item-label>
+                          <q-item-label caption>{{ user.name }}</q-item-label>
+                        </q-item-section>
+                      </q-item>
+
+                      <q-img
+                        :ratio="1.8/1"
+                        v-bind:src="`http://localhost:8000/img/${user.avatar}`"
+                      >
+                      </q-img>
+                    </div>
+                  </q-card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--     <div>
+      <pre> {{ creatorsXCat }}</pre>
+    </div> -->
   </q-page>
 </template>
 
@@ -49,6 +100,12 @@ export default {
           })
           this.$q.notify('')
         })
+    },
+    goHomeCreator ($idCreator) {
+      // this.$q.notify('Ir a Creator Home!')
+      // alert($idCreator)
+      // this.$router.push({ name: 'Creator', params: { $idCreator } })
+      this.$router.push(this.$route.query.redirect || '/Creator/' + $idCreator)
     }
   }
 }
