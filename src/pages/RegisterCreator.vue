@@ -81,19 +81,23 @@
               text-color="white"
             />
           </div>
-          <q-separator class="q-mt-md q-mb-lg"/>
-          <q-card class="q-mt-md">
+          <q-separator class="q-mt-md q-mb-lg" />
+          <q-card class="q-mt-md" bordered flat>
             <q-card-section>
-              <div class="text-caption q-pb-sm">Vincular Mercado Pago</div>
+              <div class="text-caption q-pb-sm">Vincular Mercado Pago
+              </div>
               <q-btn
-                class="text-white"
-                label="Vincular Mercado Pago"
-                style="width:100%;background-color:#009FE3"
+                label="Vincular"
+                style="width:100%;color:#00238C"
                 size="lg"
-                text-color="dark"
                 type="a"
                 href="https://auth.mercadopago.com.ar/authorization?client_id=7896672689628001&response_type=code&platform_id=mp&redirect_uri=http://localhost:8080"
-              />
+              > <img
+                  src="mp/mp-logo.svg"
+                  spinner-color="white"
+                  style="width:100px"
+                  class="q-ma-md"
+                /></q-btn>
             </q-card-section>
           </q-card>
         </div>
