@@ -64,8 +64,8 @@
         <div class="text-subtitle1 q-pl-xl desktop-only">{{todaysDate}}</div>-->
         <!--Combo de busqueda-->
         <div
-          class=" column desktop-only"
-          style="min-width: 400px"
+          class="desktop-only"
+          style="min-width: 300px"
         >
           <q-select
             ref="search"
@@ -73,7 +73,7 @@
             @input="goCreator(search['label'])"
             :options="filteredOptions"
             :stack-label="false"
-            class="GL__toolbar-select"
+            class=""
             color="black"
             dark
             dense

@@ -3,10 +3,11 @@
     <div class="container">
       <div class="row justify-center bg-primary q-pb-xl">
         <div class="col-md-5 col-12">
-          <div class="q-pl-md q-pr-md q-pb-md" style="text-align:left">
-            <div
-              class="text-white text-bold text-h3 index-title q-mt-xl q-pt-xl q-pb-lg"
-            >
+          <div
+            class="q-pl-md q-pr-md q-pb-md"
+            style="text-align:left"
+          >
+            <div class="text-white text-bold text-h3 index-title q-mt-xl q-pt-xl q-pb-lg">
               Recibí donaciones y ofrecé contenido premium a tus fans.
             </div>
             <div class="text-white text-bold text-h4 q-pr-lg q-pb-xl">
@@ -25,7 +26,10 @@
         </div>
         <div class="col-md-5 col-12">
           <div class="q-pa-md q-pt-xl">
-            <q-video
+            <iframe
+              width="100%"
+              height="360px"
+              frameborder="0"
               :ratio="2 / 1"
               src="https://www.youtube.com/embed/6RdcVauc-64?rel=0"
             />
@@ -36,15 +40,19 @@
         <div class="col-12 col-md-8">
           <ShowThreeCreatorsHome />
           <div class="text-center text-h4 text-weight-light q-pa-xl">Conocé nuestros creadores</div>
-          <q-separator></q-separator>
+          <q-separator/>
         </div>
       </div>
     </div>
-        <template>
+    <template>
       <div class="container">
         <div class="row justify-center q-pt-xl q-pb-xl">
           <div class="col-12 col-md-8">
-            <q-card bordered flat class="q-ma-md">
+            <q-card
+              bordered
+              flat
+              class="q-ma-md"
+            >
               <q-card-section
                 class="no-padding"
                 style="min-height:20vh;background-color:#EDEFF3"
@@ -91,14 +99,25 @@
           <div class="col-12 col-md-8">
             <q-separator></q-separator>
             <div class="text-center text-h4 text-weight-light q-pa-xl">¿Cómo empezar?</div>
-            <div bordered flat class="q-ma-md">
-              <q-stepper flat v-model="step" ref="stepper" color="secondary" animated>
+            <div
+              bordered
+              flat
+              class="q-ma-md"
+            >
+              <q-stepper
+                flat
+                v-model="step"
+                ref="stepper"
+                color="secondary"
+                animated
+              >
                 <q-step
                   :name="1"
                   title="Registrate en Creator House"
                   icon="person_add"
                   :done="step > 1"
-                  color="secondary" class="text-h6 text-weight-light"
+                  color="secondary"
+                  class="text-h6 text-weight-light"
                 >
                   En menos de 1 minuto podés crear una cuenta siguiendo desde el botón "Registrarse". Después de este paso, ya estás listo para seguir y ver el contenido de otros.
                 </q-step>
@@ -109,11 +128,19 @@
                   caption="Opcional"
                   icon="person_add"
                   :done="step > 2"
-                  color="secondary" class="text-h6 text-weight-light"
+                  color="secondary"
+                  class="text-h6 text-weight-light"
                 >
                   Luego de crearte una cuenta, en tu home, hacés click en "Ser creador" y terminás de completar los datos para ser creador y subir contenido.
                 </q-step>
-                <q-step :name="3" title="Subí contenido" icon="cloud_upload" :done="step > 3" color="secondary" class="text-h6 text-weight-light">
+                <q-step
+                  :name="3"
+                  title="Subí contenido"
+                  icon="cloud_upload"
+                  :done="step > 3"
+                  color="secondary"
+                  class="text-h6 text-weight-light"
+                >
                   El último paso es empezar a crear posts públicos y premium para que las personas vean lo que hacés y también puedan acceder a tu contenido exclusivo.
                 </q-step>
 
@@ -179,6 +206,6 @@ export default {
 }
 
 .bg-three-creators {
-  background-image: linear-gradient($primary 50%, #ffffff 0%);
+  background-image: linear-gradient($primary 37%, #ffffff 0%);
 }
 </style>
