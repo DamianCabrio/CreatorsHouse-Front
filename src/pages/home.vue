@@ -15,7 +15,7 @@
                     <div class="q-pa-md q-gutter-sm center flex flex-center">
                       <div v-if="user.data.avatar">
                         <q-avatar size="80px">
-                          <img v-bind:src="`http://localhost:8000/img/${user.data.avatar}`">
+                          <img v-bind:src="`http://localhost:8000/${user.data.avatar}`">
                         </q-avatar>
                       </div>
                       <div v-else>
@@ -36,7 +36,7 @@
                         <q-scroll-area
                           :thumb-style="thumbStyle"
                           :bar-style="barStyle"
-                          style="height: 400px; max-width: 350px;"
+                          style="height: 300px; max-width: 350px;"
                         >
                           <q-list
                             bordered
@@ -51,7 +51,7 @@
                             >
                               <q-item-section avatar>
                                 <q-avatar>
-                                  <img v-bind:src="`http://localhost:8000/img/${followedCreator.user[0].avatar}`">
+                                  <img v-bind:src="`http://localhost:8000/${followedCreator.user[0].avatar}`">
                                 </q-avatar>
                               </q-item-section>
 
@@ -68,7 +68,7 @@
               </div>
               <div class="col-12 col-md-6">
                 <template>
-                  <div class="q-pa-md">
+                  <div class="q-pa-sm">
                     <div class="q-gutter-y-md">
                       <q-tabs
                         v-model="tab"
@@ -106,7 +106,7 @@
                             once
                             transition="scale"
                           >
-                            <q-card class="q-ma-sm q-mb-lg">
+                            <q-card class="q-mb-lg">
                               <q-item
                                 v-ripple
                                 clickable
@@ -114,7 +114,7 @@
                               >
                                 <q-item-section avatar>
                                   <q-avatar>
-                                    <img v-bind:src="`http://localhost:8000/img/${onePublicPost.user[0].avatar}`">
+                                    <img v-bind:src="`http://localhost:8000/${onePublicPost.user[0].avatar}`">
                                   </q-avatar>
                                 </q-item-section>
                                 <q-item-section>
@@ -185,7 +185,7 @@
                             once
                             transition="scale"
                           >
-                            <q-card class="q-ma-sm q-mb-lg">
+                            <q-card class="q-mb-lg">
                               <q-item
                                 v-ripple
                                 clickable
@@ -193,7 +193,7 @@
                               >
                                 <q-item-section avatar>
                                   <q-avatar>
-                                    <img v-bind:src="`http://localhost:8000/img/${onePrivatePost.user[0].avatar}`">
+                                    <img v-bind:src="`http://localhost:8000/${onePrivatePost.user[0].avatar}`">
                                   </q-avatar>
                                 </q-item-section>
                                 <q-item-section>

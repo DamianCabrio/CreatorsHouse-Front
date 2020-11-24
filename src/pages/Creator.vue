@@ -6,13 +6,13 @@
           <template class="card">
             <q-img
               v-show="allCreator.data.banner"
-              :src=allCreator.data.banner
+              :src="`http://localhost:8000/${allCreator.data.banner}`"
               class="banner"
             >
             </q-img>
             <q-img
               v-show="!allCreator.data.banner"
-              src='https://i.pinimg.com/originals/65/f7/07/65f707e5eb6ccc0f1e0db053ac84a9d7.jpg'
+              :src="`http://localhost:8000/img/banner-default.jpg`"
               class="banner"
             ></q-img>
           </template>
@@ -35,7 +35,7 @@
                   <q-avatar size="150px">
                     <img
                       style="border:solid 5px white"
-                      v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`"
+                      v-bind:src="`http://localhost:8000/${allCreator.data.user[0].avatar}`"
                     >
                   </q-avatar>
                   <!--  botón editar perfil -->
@@ -115,7 +115,7 @@
                   <q-item>
                     <q-item-section avatar>
                       <q-avatar>
-                        <img v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`">
+                        <img v-bind:src="`http://localhost:8000/${allCreator.data.user[0].avatar}`">
                       </q-avatar>
                     </q-item-section>
 
@@ -128,7 +128,7 @@
                   <q-card-section class="no-padding">
                     <q-img
                       class="no-margin"
-                      src="https://31.media.tumblr.com/2e8986a1b1c062623cea1b9edaddcc52/tumblr_mup3qzOPsX1rk0k2jo1_500.gif"
+                      :src="`http://localhost:8000/img/zero-posts.gif`"
                       ratio="1"
                     ></q-img>
                   </q-card-section>
@@ -142,7 +142,7 @@
                   <q-item>
                     <q-item-section avatar>
                       <q-avatar>
-                        <img v-bind:src="`http://localhost:8000/img/${allCreator.data.user[0].avatar}`">
+                        <img v-bind:src="`http://localhost:8000/${allCreator.data.user[0].avatar}`">
                       </q-avatar>
                     </q-item-section>
 

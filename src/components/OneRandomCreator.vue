@@ -32,7 +32,7 @@
 
             <q-img
               :ratio="1.8/1"
-              v-bind:src="`http://localhost:8000/img/${user.avatar}`"
+              v-bind:src="`http://localhost:8000/${user.avatar}`"
             >
             </q-img>
           </div>
