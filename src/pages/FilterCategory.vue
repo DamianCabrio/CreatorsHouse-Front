@@ -1,15 +1,15 @@
 <template>
   <q-page>
     <div
-      class="bg-primary q-pa-xl"
-      style="min-height:20vh;margin-top:-5px"
+      class="bg-primary q-pa-xl flex flex-center"
+      style="min-height:35vh;margin-top:-5px"
     >
-      <div class="text-h3 text-center text-white q-pa-xl text-weight-light">{{creatorsXCat.nameCategory[0].nameCategory}}</div>
+      <div class="text-h3 text-center text-white q-pa-xl text-weight-light">{{creatorsXCat.nameCategory[0].nameCategory}}<div class="text-uppercase text-overline">Categoría</div></div>
     </div>
     <div class="container">
       <div class="row justify-center q-pt-xl q-pb-xl">
         <div class="col-12 col-md-8">
-          <div class="row">
+          <div class="row flex flex-center q-pt-xl q-pb-xl">
             <div
               v-for="creator in creatorsXCat"
               :key="creator.id"
@@ -47,7 +47,7 @@
 
                       <q-img
                         :ratio="1.8/1"
-                        v-bind:src="`http://localhost:8000/img/${user.avatar}`"
+                        v-bind:src="`http://localhost:8000/${user.avatar}`"
                       >
                       </q-img>
                     </div>

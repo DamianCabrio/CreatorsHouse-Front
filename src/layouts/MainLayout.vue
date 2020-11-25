@@ -116,7 +116,7 @@
           </q-select>
         </div>
         <!--Boton Login y Registrarse-->
-        <div class="q-pa-sm desktop-only">
+        <div class="q-pa-sm q-ml-md q-mr-md desktop-only">
           <router-link
             v-if="!islogin"
             style="color:white;text-decoration:none"
