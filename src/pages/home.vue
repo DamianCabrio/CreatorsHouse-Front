@@ -95,18 +95,16 @@
                         v-model="tab"
                         animated
                       >
-                        <q-tab-panel
-                          name="publico"
-                          v-for="(allPublicPost) in publicPosts"
-                          v-bind:key="`${allPublicPost.idUser}/${allPublicPost.idCreator}`"
-                        >
-                          <q-intersection
-                            v-for="onePublicPost in allPublicPost.posts"
-                            :key="onePublicPost.id"
-                            once
-                            transition="scale"
+                        <q-tab-panel name="publico">
+                          <div
+                            v-for="(allPublicPost) in publicPosts"
+                            v-bind:key="`${allPublicPost.idUser}/${allPublicPost.idCreator}`"
                           >
-                            <q-card class="q-mb-lg">
+                            <q-card
+                              v-for="onePublicPost in allPublicPost.posts"
+                              :key="onePublicPost.id"
+                              class="q-mb-lg"
+                            >
                               <q-item
                                 v-ripple
                                 clickable
@@ -172,20 +170,18 @@
                                 </q-btn>
                               </q-card-actions>
                             </q-card>
-                          </q-intersection>
+                          </div>
                         </q-tab-panel>
-                        <q-tab-panel
-                          name="premium"
-                          v-for="(allPrivatePost) in privatePosts"
-                          v-bind:key="`${allPrivatePost.idUser}/${allPrivatePost.idCreator}`"
-                        >
-                          <q-intersection
-                            v-for="onePrivatePost in allPrivatePost.posts"
-                            :key="onePrivatePost.id"
-                            once
-                            transition="scale"
+                        <q-tab-panel name="premium">
+                          <div
+                            v-for="(allPrivatePost) in privatePosts"
+                            v-bind:key="`${allPrivatePost.idUser}/${allPrivatePost.idCreator}`"
                           >
-                            <q-card class="q-mb-lg">
+                            <q-card
+                              v-for="onePrivatePost in allPrivatePost.posts"
+                              :key="onePrivatePost.id"
+                              class="q-mb-lg"
+                            >
                               <q-item
                                 v-ripple
                                 clickable
@@ -251,7 +247,7 @@
                                 </q-btn>
                               </q-card-actions>
                             </q-card>
-                          </q-intersection>
+                          </div>
                         </q-tab-panel>
                       </q-tab-panels>
                     </div>
@@ -269,7 +265,6 @@
                     <div class="text-h6">Convertite en Creador</div>
                     <q-separator></q-separator>
                     <div class="text-body2">Terminá de completar tu página y empezá a postear.</div>
-                    <div>En el card va un v-if o v-show="!creator"</div>
                   </q-card-section>
 
                   <q-separator />
@@ -309,7 +304,7 @@
                 </q-card>
                 <div class="q-pa-sm text-overline text-center">El creador random de hoy.</div>
                 <OneRandomCreator />
-                <!--                 <div>
+                <!-- <div>
                   <pre>{{publicPosts}}</pre>
                 </div> -->
               </div>
