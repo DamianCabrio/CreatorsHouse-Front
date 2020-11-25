@@ -15,10 +15,10 @@
               flat
             >
               <q-card-section>
-                <div class="text-caption q-pb-sm">Banner</div>
+                <div class="text-caption q-pb-sm">Banner {{banner}}</div>
                 <q-file
                   v-model="banner"
-                  label="imagen banner en jpg/png/gif"
+                  label="imagen banner en jpeg/png/gif/jpg"
                   outlined
                 />
               </q-card-section>
@@ -115,7 +115,7 @@ export default {
   data () {
     return {
       // datos para ser creator
-      banner: '',
+      banner: null,
       description: '',
       instagram: '',
       youtube: '',
@@ -161,7 +161,7 @@ export default {
     // Busco mis datos de usuario enviando mi token
     getUser () {
       axios.defaults.headers = {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
         Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
       }
       axios.get('http://localhost:8000/api/users/me', {
@@ -172,6 +172,7 @@ export default {
           this.user = response.data
         })
         .catch(err => {
+          console.log(this.banner)
           console.log(err.response)
         })
     },
