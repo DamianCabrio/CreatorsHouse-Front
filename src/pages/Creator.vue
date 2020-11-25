@@ -38,16 +38,6 @@
                       v-bind:src="`http://localhost:8000/${allCreator.data.user[0].avatar}`"
                     >
                   </q-avatar>
-                  <!--  botón editar perfil -->
-                  <div v-show="user.data.id == allCreator.data.idUser">
-                    <q-btn
-                      to="/edituser"
-                      label="Editar Mi Perfil"
-                      icon-right="edit"
-                      outline
-                      color="primary"
-                    />
-                  </div>
                   <div class="text-h4 text-weight-bold">{{allCreator.data.user[0].username}}</div>
                   <div class="text-h4 text-overline">{{allCreator.data.user[0].name}}</div>
                   <div class="text-subtitle1 text-weight-light">Seguidores: </div>
