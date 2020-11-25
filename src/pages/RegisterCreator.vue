@@ -6,7 +6,9 @@
           <div class="text-h3 text-weight-thin text-center">Convertirme en Creador</div>
         </div>
         <div class="col-12 col-md-8 q-pa-md">
-          <q-form @submit="onSubmit">
+          <q-form
+            enctype="multipart/form-data"
+            @submit="onSubmit">
             <q-card
               bordered
               class="q-mb-md"
@@ -175,13 +177,19 @@ export default {
     },
     // Guardar los datos del creator
     registerCreator () {
-      axios.post('http://localhost:8000//creators', {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.post('http://localhost:8000/api/creators', {
+        token: sessionStorage.getItem('apiToken'),
         banner: this.banner,
         description: this.description,
         instagram: this.instagram,
         youtube: this.youtube,
         costVip: this.vipCost,
-        categories: this.category
+        categories: this.category.value,
+        idUser: this.user.id
       })
         .then((response) => {
           console.log(response)
