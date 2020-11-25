@@ -6,7 +6,7 @@
           <div class="text-h3 text-weight-thin text-center">Convertirme en Creador</div>
         </div>
         <div class="col-12 col-md-8 q-pa-md">
-          <q-form>
+          <q-form @submit="onSubmit">
             <q-card
               bordered
               class="q-mb-md"
@@ -79,6 +79,7 @@
               size="lg"
               style="width:100%"
               text-color="white"
+              @click="registerCreator"
             />
           </div>
           <q-separator class="q-mt-md q-mb-lg" />
@@ -111,8 +112,7 @@ import * as axios from 'axios'
 export default {
   data () {
     return {
-      username: '',
-      avatar: '',
+      // datos para ser creator
       banner: '',
       description: '',
       instagram: '',
@@ -120,7 +120,6 @@ export default {
       vipCost: '',
       category: '',
       user: [],
-      creator: [],
       isCreator: false,
       selectOptions: [
         {
@@ -128,15 +127,15 @@ export default {
           value: '1'
         },
         {
-          label: 'Tutoriales',
+          label: 'Música',
           value: '2'
         },
         {
-          label: 'Dibujos',
+          label: 'Arte',
           value: '3'
         },
         {
-          label: 'Música',
+          label: 'KPop',
           value: '4'
         },
         {
@@ -157,11 +156,6 @@ export default {
     }
   },
   methods: {
-    logout: async function () {
-      sessionStorage.removeItem('apiToken')
-      this.user = []
-      this.$router.push(this.$route.query.redirect || '/')
-    },
     // Busco mis datos de usuario enviando mi token
     getUser () {
       axios.defaults.headers = {
@@ -174,34 +168,61 @@ export default {
         .then((response) => {
           console.log(response.data)
           this.user = response.data
-          // Buscar mis datos si soy creador
-          if (this.user.data.isCreator === 1) {
-            this.isCreator = true
-            this.getCreator()
-          }
         })
         .catch(err => {
           console.log(err.response)
         })
     },
-    // Busco mis datos si soy creator enviando mi id de usuario
-    getCreator () {
-      axios.defaults.headers = {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
-      }
-      axios.get('http://localhost:8000/api/usercreator/' + this.user.data.id, {
-        // token: sessionStorage.getItem('apiToken'),
-        // idUser: this.user.data.id
-        // idUser: 1
+    // Guardar los datos del creator
+    registerCreator () {
+      axios.post('http://localhost:8000//creators', {
+        banner: this.banner,
+        description: this.description,
+        instagram: this.instagram,
+        youtube: this.youtube,
+        costVip: this.vipCost,
+        categories: this.category
       })
         .then((response) => {
-          console.log(response.data)
-          this.creator = response.data
+          console.log(response)
+          this.isCreator = true
+          this.$q.notify({
+            color: 'info',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'Ya eres un Creador!'
+          })
+          setTimeout(function () {
+            this.$router.push('/home')
+          }.bind(this), 3000)
         })
         .catch(err => {
-          console.log(err.response)
+          console.log(err)
+          this.$q.notify({
+            color: 'danger',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'No se pudo guardar el creador, Lo sentimos!'
+          })
         })
+    },
+
+    onSubmit () {
+      /*  if (this.accept !== true) {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'warning',
+          message: 'Debes aceptar los términos y condiciones'
+        })
+      } else {
+        this.$q.notify({
+          color: 'green-4',
+          textColor: 'white',
+          icon: 'cloud_done',
+          message: 'Debe cargar todos los datos requeridos!'
+        })
+      } */
     }
   }
 }
