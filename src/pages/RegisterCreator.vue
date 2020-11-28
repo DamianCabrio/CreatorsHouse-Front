@@ -14,14 +14,14 @@
               class="q-mb-md"
               flat
             >
-              <q-card-section>
+            <!--   <q-card-section>
                 <div class="text-caption q-pb-sm">Banner {{banner}}</div>
                 <q-file
                   v-model="banner"
                   label="imagen banner en jpeg/png/gif/jpg"
                   outlined
                 />
-              </q-card-section>
+              </q-card-section> -->
               <q-card-section>
                 <div class="text-caption q-pb-sm">Descripción de mi perfil</div>
                 <template>
@@ -184,13 +184,13 @@ export default {
       }
       axios.post('http://localhost:8000/api/creators', {
         token: sessionStorage.getItem('apiToken'),
-        banner: this.banner,
+        // banner: this.banner,
         description: this.description,
         instagram: this.instagram,
         youtube: this.youtube,
         costVip: this.vipCost,
-        categories: this.category.value,
-        idUser: this.user.id
+        categories: this.category.value
+        // idUser: this.user.id
       })
         .then((response) => {
           console.log(response)
