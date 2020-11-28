@@ -1,26 +1,37 @@
 <template>
   <div class="row justify-center">
     <div class="col-12 col-md-8 q-pa-md q-gutter-sm">
-      <div class="row">
+      <div class="row justify-center">
         <div class="col-12 q-pa-xl text-center">
           <div class="text-h3 text-weight-thin text-center">Mi Cuenta</div>
         </div>
         <div class="col-12 col-md-6 q-pa-md">
+          <q-card
+            flat
+            bordered
+            style="width: 100%;max-height:300px"
+            class="q-mb-md"
+          >
+            <q-item>
+              <q-item-section avatar>
+                <q-avatar size="100px">
+                  <img :src="`http://localhost:8000/${user.data.avatar}`">
+                  <img :src="`https://forum.vuejs.org/user_avatar/forum.vuejs.org/msqar/45/20991_2.png`">
+                </q-avatar>
+              </q-item-section>
+
+              <q-item-section>
+                <q-item-label>{{user.data.username}}</q-item-label>
+                <q-item-label caption>{{user.data.name}}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-card>
           <q-form>
             <q-card
               bordered
               class="q-mb-md"
               flat
             >
-              <q-card-section>
-                <div class="text-caption q-pb-sm">Avatar</div>
-                <q-file
-                  v-model="avatar"
-                  label="imagen avatar jpg/png/gif"
-                  outlined
-                  @change="onFileChange"
-                />
-              </q-card-section>
               <q-card-section>
                 <div class="text-caption q-pb-sm">Username</div>
                 <q-input
@@ -78,25 +89,39 @@
               size="lg"
               style="width:100%"
               text-color="white"
+              @click="updateUser"
             />
           </div>
         </div>
 
         <div class="col-12 col-md-6 q-pa-md">
+          <q-card class="q-mb-md">
+            <q-img
+              src="https://cdn.quasar.dev/img/parallax2.jpg"
+              basic
+              :ratio="16/9"
+            >
+              <div class="absolute-bottom text-subtitle2 text-center">
+                {{creator}}
+              </div>
+            </q-img>
+            <input
+              type="file"
+              name="banner"
+              ref="banner"
+              id="banner"
+            >
+            <button
+              type="button"
+              @click='uploadBanner()'
+            >Upload file</button>
+          </q-card>
           <q-form>
             <q-card
               bordered
               class="q-mb-md"
               flat
             >
-              <q-card-section>
-                <div class="text-caption q-pb-sm">Banner</div>
-                <q-file
-                  v-model="banner"
-                  label="imagen banner en jpg/png/gif"
-                  outlined
-                />
-              </q-card-section>
               <q-card-section>
                 <div class="text-caption q-pb-sm">Descripción de mi perfil</div>
                 <template>
@@ -113,6 +138,7 @@
                 <q-select
                   v-model="category"
                   outlined
+                  label="Elegir Categoría"
                   float-label="Is Quasar Awesome?"
                   radio
                   :options="selectOptions"
@@ -171,6 +197,8 @@ export default {
     return {
       username: '',
       avatar: '',
+      password: '',
+      password2: '',
       banner: '',
       description: '',
       instagram: '',
@@ -180,6 +208,7 @@ export default {
       user: [],
       creator: [],
       isCreator: false,
+      isPwd: true,
       selectOptions: [
         {
           label: 'YouTube',
@@ -245,6 +274,51 @@ export default {
             icon: 'cloud_done',
             message: 'Error, intente nuevamente!'
           })
+        })
+    },
+    updateUser () {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.put('http://localhost:8000/api/users', {
+        username: this.username,
+        password: this.password
+      })
+        .then((response) => {
+          console.log(response)
+          this.$q.notify({
+            color: 'info',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'Se guardaron los cambios!'
+          })
+        })
+    },
+    uploadBanner: function () {
+      this.banner = this.$refs.banner.files[0]
+      // this.file_path = files[0]
+
+      const formData = new FormData()
+      formData.append('banner', this.banner)
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.post('http://localhost:8000/api/upload',
+        {
+          banner: formData,
+          idCreator: this.creator.data[0].id
+        })
+        .then(function (response) {
+          if (!response.data) {
+            alert('File not uploaded.')
+          } else {
+            alert('File uploaded successfully.')
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
         })
     },
     logout: async function () {
