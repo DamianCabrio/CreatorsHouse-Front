@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: 'ThreeRandomCreators',
+  name: 'OneRandomCreators',
   data () {
     return {
       users: []
