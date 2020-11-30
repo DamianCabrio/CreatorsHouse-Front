@@ -66,11 +66,20 @@
             <div class="col-12 text-center">
               <template>
                 <div class="q-pa-md q-gutter-sm">
-                  <q-btn
-                    color="white"
-                    text-color="black"
-                    label="Seguir"
-                  />
+                  <div v-if="!isFollow">
+                    <q-btn
+                      color="white"
+                      text-color="black"
+                      label="Seguir"
+                    />
+                  </div>
+                  <div v-else>
+                    <q-btn
+                      color="white"
+                      text-color="black"
+                      label="Siguiendo"
+                    />
+                  </div>
                   <q-btn
                     color="primary"
                     text-color="white"
@@ -94,7 +103,7 @@
       </div>
       <q-separator></q-separator>
       <div class="row justify-center q-pt-lg q-pb-lg">
-        <div class="text-h5 text-weight-light">Posts</div>
+        <div class="text-h5 text-weight-light">Posts {{ids}}{{follow}}</div>
       </div>
       <div class="row justify-center">
         <div class="col-12 col-md-10 q-pt-lg q-pb-lg">
@@ -226,7 +235,9 @@ export default {
       postsCreator: [],
       allCreator: [],
       user: [],
-      isCreator: false
+      isCreator: false,
+      isFollow: false,
+      follow: []
     }
   },
   mounted: function () {
@@ -236,6 +247,7 @@ export default {
     if (sessionStorage.getItem('apiToken')) {
       // tengo un token guardado localmente
       this.getUser()
+      this.getIsFollow()
     }
     // NOTE: YA CARGA EL SCRIPT, FALTA AGREGAR EL ID DE PREFERENCE
     const mercadopago = document.createElement('script')
@@ -255,11 +267,6 @@ export default {
         .then((response) => {
           console.log(response.data)
           this.user = response.data
-          // Buscar mis datos si soy creador
-          if (this.user.data.isCreator === 1) {
-            this.isCreator = true
-            this.getCreator()
-          }
         })
         .catch(err => {
           console.log(err.response)
@@ -283,6 +290,26 @@ export default {
             color: 'warning'
           })
           this.$q.notify('')
+        })
+    },
+    getIsFollow: async function () {
+      var idCreator = this.$route.params.idCreator
+      // var idUser = this.user.data.id
+      // http://localhost:8000/isFollow?idUser=1&idCreator=3
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.get('http://localhost:8000/api/isFollow/' + idCreator)
+        .then((response) => {
+          console.log(response)
+          this.follow = response.data
+          this.isFollow = true
+          alert('es seguidor')
+        })
+        .catch((error) => {
+          console.log(error)
+          alert('error')
         })
     },
     getAllCreator: async function () {

@@ -72,7 +72,7 @@ export default {
       this.submitResult = submitResult
       this.submitEmpty = submitResult.length === 0
       // guardo el file
-      const banner = formData.get('poster_file')
+      /*       const banner = formData.get('poster_file')
       axios.defaults.headers = {
         'Content-Type': 'multipart/form-data',
         Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
@@ -84,6 +84,27 @@ export default {
         .catch(function (error) {
           console.log(error)
           alert('Archivo no cargado.')
+        }) */
+
+      const params = new URLSearchParams({
+        banner: formData.get('poster_file')
+      }).toString()
+
+      const url = 'http://localhost:8000/api/upload'
+
+      axios
+        .post(url, params, {
+          headers: {
+            // 'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+          }
+        })
+        .then(res => {
+          // this.Info = JSON.parse(res.data)
+          alert('Archivo guardado.')
+        })
+        .catch(err => {
+          console.log(err)
         })
     }
   }
