@@ -95,7 +95,16 @@
         </div>
 
         <div class="col-12 col-md-6 q-pa-md">
-          <q-card class="q-mb-md">
+          <!--Imagen del banner-->
+           <q-uploader
+          url=""
+          extensions=".gif,.jpg,.jpeg,.png"
+          @added="file_selected"
+          />
+
+          <q-btn @click="uploadFile()">Subir Banner</q-btn>
+          <!----------------------->
+          <!-- <q-card class="q-mb-md">
             <q-img
               src="https://cdn.quasar.dev/img/parallax2.jpg"
               basic
@@ -115,7 +124,7 @@
               type="button"
               @click='uploadBanner()'
             >Upload file</button>
-          </q-card>
+          </q-card> -->
           <q-form>
             <q-card
               bordered
@@ -195,6 +204,10 @@ import * as axios from 'axios'
 export default {
   data () {
     return {
+      // Para upload banner
+      selected_file: '',
+      check_if_document_upload: false,
+      // ----------------
       username: '',
       avatar: '',
       password: '',
@@ -256,6 +269,12 @@ export default {
     }
   },
   methods: {
+    onRejected (rejectedEntries) {
+      this.$q.notify({
+        type: 'negative',
+        message: `${rejectedEntries.length} Los archivos no son un formato valido`
+      })
+    },
     register () {
       axios.post('http://localhost:8000/creator', {
         avatar: this.avatar,
@@ -295,31 +314,37 @@ export default {
           })
         })
     },
-    uploadBanner: function () {
-      this.banner = this.$refs.banner.files[0]
-      // this.file_path = files[0]
+    // Guardar Banner
+    file_selected (file) {
+      this.selected_file = file[0]
+      this.check_if_document_upload = true
+    },
 
-      const formData = new FormData()
-      formData.append('banner', this.banner)
-      axios.defaults.headers = {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
-      }
-      axios.post('http://localhost:8000/api/upload',
-        {
-          banner: formData,
-          idCreator: this.creator.data[0].id
-        })
+    uploadFile () {
+      const fd = new FormData()
+      fd.append('archivo', this.selected_file)
+
+      axios.post('http://localhost:8000/api/uploadBanner', fd, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+        }
+      })
         .then(function (response) {
-          if (!response.data) {
-            alert('File not uploaded.')
-          } else {
-            alert('File uploaded successfully.')
-          }
+          console.log(response)
+          this.$q.notify({
+            message: 'Se actualizo el Banner.',
+            color: 'possitive'
+          })
         })
-        .catch(function (error) {
-          console.log(error)
+        .catch(function (err) {
+          console.log(err)
+          this.$q.notify({
+            message: 'Error, No se guardo el Banner.',
+            color: 'negative'
+          })
         })
+        // ------------FIN guardar Banner-------------
     },
     logout: async function () {
       sessionStorage.removeItem('apiToken')

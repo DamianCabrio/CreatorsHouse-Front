@@ -1,9 +1,15 @@
 <template>
-  <div class="q-pa-md">
-    <q-form @submit="onSubmit" class="q-gutter-md">
+<div class="q-pa-md">
+  <!-- Intento basico -->
+  <div id="q-app">
+    <q-input type = "file" v-model="file"></q-input>
+    <q-btn @click="upLoadFile()">Subir</q-btn>
+  </div>
+  <!--------------------->
+    <q-form @submit="onSubmit" class="q-gutter-md" ref="form">
       <q-file
         name="poster_file"
-        v-model="file"
+        v-model="form_file"
         filled
         label="Select poster image"
       />
@@ -39,6 +45,7 @@
       </q-card-section>
     </q-card>
   </div>
+
 </template>
 
 <script>
@@ -47,15 +54,27 @@ export default {
   name: 'Banner',
   data () {
     return {
+      // intento basico
       file: null,
+      // ---------------
+      form_file: null,
       files: null,
-
       submitEmpty: false,
       submitResult: []
     }
   },
 
   methods: {
+    upLoadFile () {
+      const senData = new FormData()
+      senData.append('archivo', this.file[0])
+      axios.post('http://localhost:8000/upload',
+        senData,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        }
+      )
+    },
     onSubmit (evt) {
       const formData = new FormData(evt.target)
       const submitResult = []
@@ -85,17 +104,19 @@ export default {
           console.log(error)
           alert('Archivo no cargado.')
         }) */
-
-      const params = new URLSearchParams({
+      const senData = new FormData()
+      senData.append('banner', this.form_file)
+      // formData.append('banner', this.form.file)
+      /* const params = new URLSearchParams({
         banner: formData.get('poster_file')
-      }).toString()
+      }).toString() */
 
       const url = 'http://localhost:8000/api/upload'
 
       axios
-        .post(url, params, {
+        .post(url, senData, {
           headers: {
-            // 'Content-Type': 'multipart/form-data',
+            'Content-Type': 'multipart/form-data',
             Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
           }
         })
