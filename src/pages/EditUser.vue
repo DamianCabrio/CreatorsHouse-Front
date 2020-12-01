@@ -3,7 +3,7 @@
     <div class="col-12 col-md-8 q-pa-md q-gutter-sm">
       <div class="row justify-center">
         <div class="col-12 q-pa-xl text-center">
-          <div class="text-h3 text-weight-thin text-center">Mi Cuenta</div>
+          <div class="text-h3 text-weight-thin text-center">Mi Perfil</div>
         </div>
         <div class="col-12 col-md-6 q-pa-md">
           <q-card
@@ -29,7 +29,7 @@
           <!--Imagen del avatar-->
           <div class="col-12 col-md-6 q-pa-md">
             <q-uploader
-            label="Cambiar tu avatar"
+            label="Cambiar tu Avatar"
             color="dark"
             style="width:100%"
             url=""
