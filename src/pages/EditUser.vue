@@ -3,7 +3,7 @@
     <div class="col-12 col-md-8 q-pa-md q-gutter-sm">
       <div class="row justify-center">
         <div class="col-12 q-pa-xl text-center">
-          <div class="text-h3 text-weight-thin text-center">Mi Cuenta</div>
+          <div class="text-h3 text-weight-thin text-center">Mi Perfil</div>
         </div>
         <div class="col-12 col-md-6 q-pa-md">
           <q-card
@@ -26,6 +26,27 @@
               </q-item-section>
             </q-item>
           </q-card>
+          <!--Imagen del avatar-->
+          <div class="col-12 col-md-6 q-pa-md">
+            <q-uploader
+            label="Cambiar tu Avatar"
+            color="dark"
+            style="width:100%"
+            url=""
+            extensions=".gif,.jpg,.jpeg,.png"
+            @added="file_selected"
+            />
+            <div class="q-pb-md">
+              <q-btn color="primary"
+                label="Subir Avatar"
+                size="lg"
+                style="width:100%"
+                text-color="white"
+                @click="uploadFile()">
+              </q-btn>
+            </div>
+          </div>
+          <!----------------------->
           <q-form>
             <q-card
               bordered
@@ -93,16 +114,27 @@
             />
           </div>
         </div>
-
         <div class="col-12 col-md-6 q-pa-md">
           <!--Imagen del banner-->
-           <q-uploader
-          url=""
-          extensions=".gif,.jpg,.jpeg,.png"
-          @added="file_selected"
-          />
-
-          <q-btn @click="uploadFile()">Subir Banner</q-btn>
+          <div class="col-12 col-md-6 q-pa-md">
+            <q-uploader
+            label="Cambiar tu Banner"
+            color="dark"
+            style="width:100%"
+            url=""
+            extensions=".gif,.jpg,.jpeg,.png"
+            @added="file_selected"
+            />
+            <div class="q-pb-md">
+              <q-btn color="primary"
+                label="Subir Banner"
+                size="lg"
+                style="width:100%"
+                text-color="white"
+                @click="uploadFile()">
+              </q-btn>
+            </div>
+          </div>
           <!----------------------->
           <!-- <q-card class="q-mb-md">
             <q-img
@@ -314,7 +346,7 @@ export default {
           })
         })
     },
-    // Guardar Banner
+    // -------------Guardar Banner-----------------
     file_selected (file) {
       this.selected_file = file[0]
       this.check_if_document_upload = true
