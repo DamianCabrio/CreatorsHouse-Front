@@ -38,24 +38,24 @@
                       v-bind:src="`http://localhost:8000/${allCreator.data.user[0].avatar}`"
                     >
                   </q-avatar>
-                  <div class="text-h4 text-weight-bold">{{allCreator.data.user[0].username}}</div>
-                  <div class="text-h4 text-overline">{{allCreator.data.user[0].name}}</div>
-                  <div class="text-subtitle1 text-weight-light">Seguidores: </div>
-                  <div class="text-h6 text-weight-bold">{{allCreator.data.cantFollowers}}</div>
+                  <div class="text-h4 text-weight-bold">{{ allCreator.data.user[0].username }}</div>
+                  <div class="text-h4 text-overline">{{ allCreator.data.user[0].name }}</div>
+                  <div class="text-subtitle1 text-weight-light">Seguidores:</div>
+                  <div class="text-h6 text-weight-bold">{{ allCreator.data.cantFollowers }}</div>
                   <div class="row justify-center">
                     <div v-if="allCreator.data.instagram !== null && allCreator.data.instagram !== ''">
                       <a
-                        style="text-decoration:none"
-                        class="text-body1 text-weight-light q-pa-md text-secondary link-sm"
                         :href=allCreator.data.instagram
+                        class="text-body1 text-weight-light q-pa-md text-secondary link-sm"
+                        style="text-decoration:none"
                         target="_blank"
                       >Instagram</a>
                     </div>
                     <div v-if="allCreator.data.youtube !== null && allCreator.data.youtube !== ''">
                       <a
-                        style="text-decoration:none"
-                        class="text-body1 text-weight-light q-pa-md text-secondary link-sm"
                         :href=allCreator.data.youtube
+                        class="text-body1 text-weight-light q-pa-md text-secondary link-sm"
+                        style="text-decoration:none"
                         target="_blank"
                       >YouTube</a>
                     </div>
@@ -65,12 +65,13 @@
             </div>
             <div class="col-12 text-center">
               <template>
-                <div class="q-pa-md q-gutter-sm">
+                <div class="q-pa-md q-gutter-sm" v-if="isLogin">
                   <div v-if="!isFollow">
                     <q-btn
                       color="white"
                       text-color="black"
                       label="Seguir"
+                      @click="followUser"
                     />
                   </div>
                   <div v-else>
@@ -82,20 +83,22 @@
                   </div>
                   <q-btn
                     color="primary"
-                    text-color="white"
                     label="Donar"
+                    text-color="white"
                   />
                   <q-btn
-                    style="secondary"
-                    text-color="black"
                     label="Ser VIP"
                     outline
+                    style="secondary"
+                    text-color="black"
                   />
+                  <div class="mercadoPago"></div>
                 </div>
               </template>
             </div>
             <div class="col-12 col-md-8 text-center">
-              <div class="text-body1 text-bold q-pa-md">Sobre Mí<div class="text-weight-light">{{allCreator.data.description}}</div>
+              <div class="text-body1 text-bold q-pa-md">Sobre Mí
+                <div class="text-weight-light">{{ allCreator.data.description }}</div>
               </div>
             </div>
           </div>
@@ -119,15 +122,15 @@
                     </q-item-section>
 
                     <q-item-section>
-                      <q-item-label>{{allCreator.data.user[0].username}}</q-item-label>
+                      <q-item-label>{{ allCreator.data.user[0].username }}</q-item-label>
                       <q-item-label caption>Oh Oh, no hay posts todavía.</q-item-label>
                     </q-item-section>
                   </q-item>
                   <q-separator></q-separator>
                   <q-card-section class="no-padding">
                     <q-img
-                      class="no-margin"
                       :src="`http://localhost:8000/img/zero-posts.gif`"
+                      class="no-margin"
                       ratio="1"
                     ></q-img>
                   </q-card-section>
@@ -146,8 +149,8 @@
                     </q-item-section>
 
                     <q-item-section>
-                      <q-item-label>{{allCreator.data.user[0].username}}</q-item-label>
-                      <q-item-label caption>{{post.date}}</q-item-label>
+                      <q-item-label>{{ allCreator.data.user[0].username }}</q-item-label>
+                      <q-item-label caption>{{ post.date }}</q-item-label>
                     </q-item-section>
                   </q-item>
                   <q-separator></q-separator>
@@ -155,18 +158,22 @@
                     <div
                       v-if="post.tipo == 1"
                       class="text-overline text-primary"
-                    >Texto</div>
+                    >Texto
+                    </div>
                     <div
                       v-if="post.tipo == 2"
                       class="text-overline text-primary"
-                    >Imágenes</div>
+                    >Imágenes
+                    </div>
                     <div
                       v-if="post.tipo == 3"
                       class="text-overline text-primary"
-                    >Video</div>
-                    <div class="text-h5 q-mt-sm q-mb-xs">{{post.title}}</div>
+                    >Video
+                    </div>
+                    <div class="text-h5 q-mt-sm q-mb-xs">{{ post.title }}</div>
                     <div class="text-body1 text-dark">
-                      {{post.content}} </div>
+                      {{ post.content }}
+                    </div>
                   </q-card-section>
                   <q-separator></q-separator>
                   <q-card-section class="no-padding">
@@ -182,37 +189,38 @@
                   </q-card-section>
                   <q-separator></q-separator>
                   <q-item
-                    class="no-margin no-padding"
                     v-for="video in post.videos"
                     :key="video.id"
+                    class="no-margin no-padding"
                   >
                     <iframe
                       class="no-margin no-padding"
+                      frameborder="0"
+                      height="360px"
                       v-bind:src="video.video"
                       width="100%"
-                      height="360px"
-                      frameborder="0"
                     ></iframe>
                   </q-item>
                   <q-card-actions align="right">
                     <q-btn
                       v-if="post.isPublic"
-                      outline
                       color="primary"
                       icon-right="lock_outline"
                       label="Desbloquear"
+                      outline
                     />
                     <q-btn
-                      flat
-                      color="primary"
-                      round
-                      icon="favorite"
                       class="q-ml-md"
+                      color="primary"
+                      flat
+                      icon="favorite"
+                      round
                     >
                       <q-badge
                         color="secondary"
                         floating
-                      >{{post.cantLikes}}</q-badge>
+                      >{{ post.cantLikes }}
+                      </q-badge>
                     </q-btn>
                   </q-card-actions>
                 </q-card>
@@ -237,10 +245,28 @@ export default {
       user: [],
       isCreator: false,
       isFollow: false,
-      follow: []
+      follow: [],
+      isLogin: false
     }
   },
   mounted: function () {
+    const mercadoPagoScript = document.createElement('script')
+    mercadoPagoScript.setAttribute('src', 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js')
+    mercadoPagoScript.setAttribute('data-preference-id', '677439646-156d5e58-8883-44e9-98ab-7b002f16d2c6')
+    // const mercadoPago = document.getElementsByClassName('mercadoPago')
+    // console.log(mercadoPago[0])
+    document.body.appendChild(mercadoPagoScript)
+    // document.getElementById('mercadoPago').appendChild(mercadoPagoScript)
+
+    if (sessionStorage.getItem('apiToken')) {
+      this.isLogin = true
+      // devuelve true si está la sesión iniciada
+    } else {
+      this.isLogin = false
+    }
+
+    console.log(this.isLogin)
+
     this.getPostsCreator()
     this.getAllCreator()
     // Verifico si hay una sesion iniciada
@@ -255,6 +281,23 @@ export default {
     document.head.appendChild(mercadopago)
   },
   methods: {
+    followUser () {
+      console.log(this.user.data)
+      var idCreator = this.$route.params.idCreator
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.post('http://localhost:8000/api/follow/' + this.user.data.id + '/' + idCreator, {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
     // Busco mis datos de usuario enviando mi token
     getUser () {
       axios.defaults.headers = {
@@ -265,7 +308,7 @@ export default {
         token: sessionStorage.getItem('apiToken')
       })
         .then((response) => {
-          console.log(response.data)
+          console.log(response)
           this.user = response.data
         })
         .catch(err => {
@@ -309,7 +352,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          alert('error')
+          alert(error)
         })
     },
     getAllCreator: async function () {

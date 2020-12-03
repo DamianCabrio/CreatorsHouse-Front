@@ -11,8 +11,8 @@
         <q-card>
           <div
             v-ripple
-            @click="goHomeCreator(user.idCreator[0].id)"
             class="cursor-pointer relative-position"
+            @click="goHomeCreator(user.idCreator[0].id)"
           >
             <q-item>
               <q-item-section avatar>
@@ -31,8 +31,8 @@
             </q-item>
 
             <q-img
-              spinner-color="white"
               :ratio="1.8/1"
+              spinner-color="white"
               v-bind:src="`http://localhost:8000/${user.avatar}`"
             >
             </q-img>

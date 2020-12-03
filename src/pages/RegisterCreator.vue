@@ -37,10 +37,10 @@
                 <div class="text-caption q-pb-sm">Categoría</div>
                 <q-select
                   v-model="category"
-                  outlined
-                  float-label="Is Quasar Awesome?"
-                  radio
                   :options="selectOptions"
+                  float-label="Is Quasar Awesome?"
+                  outlined
+                  radio
                 />
               </q-card-section>
               <q-card-section>
@@ -84,23 +84,23 @@
               @click="registerCreator"
             />
           </div>
-          <q-separator class="q-mt-md q-mb-lg" />
-          <q-card class="q-mt-md" bordered flat>
+          <q-separator class="q-mt-md q-mb-lg"/>
+          <q-card bordered class="q-mt-md" flat>
             <q-card-section>
               <div class="text-caption q-pb-sm">Vincular Mercado Pago
               </div>
               <q-btn
-                label="Vincular"
-                style="width:100%;color:#00238C"
-                size="lg"
-                type="a"
                 href="https://auth.mercadopago.com.ar/authorization?client_id=7896672689628001&response_type=code&platform_id=mp&redirect_uri=http://localhost:8080"
-              > <img
-                  src="mp/mp-logo.svg"
-                  spinner-color="white"
-                  style="width:100px"
-                  class="q-ma-md"
-                /></q-btn>
+                label="Vincular"
+                size="lg"
+                style="width:100%;color:#00238C"
+                type="a"
+              ><img
+                class="q-ma-md"
+                spinner-color="white"
+                src="mp/mp-logo.svg"
+                style="width:100px"
+              /></q-btn>
             </q-card-section>
           </q-card>
         </div>

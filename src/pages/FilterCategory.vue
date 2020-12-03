@@ -4,7 +4,10 @@
       class="bg-primary q-pa-xl flex flex-center"
       style="min-height:35vh;margin-top:-5px"
     >
-      <div class="text-h3 text-center text-white q-pa-xl text-weight-light">{{creatorsXCat.nameCategory[0].nameCategory}}<div class="text-uppercase text-overline">Categoría</div></div>
+      <div class="text-h3 text-center text-white q-pa-xl text-weight-light">
+        {{ creatorsXCat.nameCategory[0].nameCategory }}
+        <div class="text-uppercase text-overline">Categoría</div>
+      </div>
     </div>
     <div class="container">
       <div class="row justify-center q-pt-xl q-pb-xl">
@@ -26,8 +29,8 @@
                   >
                     <div
                       v-ripple
-                      @click="goHomeCreator(creator.id)"
                       class="cursor-pointer relative-position"
+                      @click="goHomeCreator(creator.id)"
                     >
                       <q-item>
                         <q-item-section avatar>

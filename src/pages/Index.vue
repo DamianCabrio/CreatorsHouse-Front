@@ -27,18 +27,18 @@
         <div class="col-md-5 col-12">
           <div class="q-pa-md q-pt-xl">
             <iframe
-              width="100%"
-              height="360px"
-              frameborder="0"
               :ratio="2 / 1"
+              frameborder="0"
+              height="360px"
               src="https://www.youtube.com/embed/6RdcVauc-64?rel=0"
+              width="100%"
             />
           </div>
         </div>
       </div>
       <div class="row justify-center bg-three-creators q-pt-xl q-pb-xl">
         <div class="col-12 col-md-8">
-          <ShowThreeCreatorsHome />
+          <ShowThreeCreatorsHome/>
           <div class="text-center text-h4 text-weight-light q-pa-xl">Conocé nuestros creadores</div>
           <q-separator/>
         </div>
@@ -50,8 +50,8 @@
           <div class="col-12 col-md-8">
             <q-card
               bordered
-              flat
               class="q-ma-md"
+              flat
             >
               <q-card-section
                 class="no-padding"
@@ -101,63 +101,66 @@
             <div class="text-center text-h4 text-weight-light q-pa-xl">¿Cómo empezar?</div>
             <div
               bordered
-              flat
               class="q-ma-md"
+              flat
             >
               <q-stepper
-                flat
-                v-model="step"
                 ref="stepper"
-                color="secondary"
+                v-model="step"
                 animated
+                color="secondary"
+                flat
               >
                 <q-step
-                  :name="1"
-                  title="Registrate en Creator House"
-                  icon="person_add"
                   :done="step > 1"
-                  color="secondary"
+                  :name="1"
                   class="text-h6 text-weight-light"
+                  color="secondary"
+                  icon="person_add"
+                  title="Registrate en Creator House"
                 >
-                  En menos de 1 minuto podés crear una cuenta siguiendo desde el botón "Registrarse". Después de este paso, ya estás listo para seguir y ver el contenido de otros.
+                  En menos de 1 minuto podés crear una cuenta siguiendo desde el botón "Registrarse". Después de este
+                  paso, ya estás listo para seguir y ver el contenido de otros.
                 </q-step>
 
                 <q-step
-                  :name="2"
-                  title="Ser creador"
-                  caption="Opcional"
-                  icon="person_add"
                   :done="step > 2"
-                  color="secondary"
+                  :name="2"
+                  caption="Opcional"
                   class="text-h6 text-weight-light"
+                  color="secondary"
+                  icon="person_add"
+                  title="Ser creador"
                 >
-                  Luego de crearte una cuenta, en tu home, hacés click en "Ser creador" y terminás de completar los datos para ser creador y subir contenido.
+                  Luego de crearte una cuenta, en tu home, hacés click en "Ser creador" y terminás de completar los
+                  datos para ser creador y subir contenido.
                 </q-step>
                 <q-step
-                  :name="3"
-                  title="Subí contenido"
-                  icon="cloud_upload"
                   :done="step > 3"
-                  color="secondary"
+                  :name="3"
                   class="text-h6 text-weight-light"
+                  color="secondary"
+                  icon="cloud_upload"
+                  title="Subí contenido"
                 >
-                  El último paso es empezar a crear posts públicos y premium para que las personas vean lo que hacés y también puedan acceder a tu contenido exclusivo.
+                  El último paso es empezar a crear posts públicos y premium para que las personas vean lo que hacés y
+                  también puedan acceder a tu contenido exclusivo.
                 </q-step>
 
                 <template v-slot:navigation>
                   <q-stepper-navigation>
                     <q-btn
-                      @click="$refs.stepper.next()"
-                      color="primary"
                       :label="step === 3 ? 'Listo' : 'Continuar'"
+                      color="primary"
+                      @click="$refs.stepper.next()"
                     />
                     <q-btn
                       v-if="step > 1"
-                      flat
-                      color="primary"
-                      @click="$refs.stepper.previous()"
-                      label="Atrás"
                       class="q-ml-sm"
+                      color="primary"
+                      flat
+                      label="Atrás"
+                      @click="$refs.stepper.previous()"
                     />
                   </q-stepper-navigation>
                 </template>
@@ -181,6 +184,9 @@ export default {
       info: null,
       step: 1
     }
+  },
+  mounted () {
+
   }
 }
 </script>
@@ -189,8 +195,8 @@ export default {
 .index-title {
   span {
     background-image: linear-gradient(
-      transparent calc(65% - 5px),
-      darken($accent, 15%) 5px
+        transparent calc(65% - 5px),
+        darken($accent, 15%) 5px
     );
     background-size: 0;
     background-repeat: no-repeat;

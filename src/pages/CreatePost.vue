@@ -15,29 +15,29 @@
               <q-card-section>
                 <div class="text-caption q-pb-sm">Tipo de post</div>
                 <q-btn-toggle
-                  class="shadow-0"
                   v-model="postType"
-                  spread
-                  color="grey-4"
-                  text-color="black"
-                  toggle-color="secondary"
                   :options="[
                     {label: 'Texto', value: '1'},
                     {label: 'Imágenes', value: '2'},
                     {label: 'Video', value: '3'}
                     ]"
+                  class="shadow-0"
+                  color="grey-4"
+                  spread
+                  text-color="black"
+                  toggle-color="secondary"
                 />
               </q-card-section>
               <div v-if="postType == 2">
                 <q-card-section>
                   <div class="text-caption q-pb-sm">Subir Imágenes</div>
                   <q-file
-                    outlined
-                    multiple
                     v-model="images"
+                    multiple
+                    outlined
                   >
                     <template v-slot:prepend>
-                      <q-icon name="attach_file" />
+                      <q-icon name="attach_file"/>
                     </template>
                   </q-file>
                 </q-card-section>
@@ -46,11 +46,11 @@
                 <q-card-section>
                   <div class="text-caption q-pb-sm">Subir Video</div>
                   <q-input
+                    v-model="video"
+                    hint="Pon un link de un vídeo"
+                    label="URL YouTube"
                     outlined
                     type="url"
-                    hint="Pon un link de un vídeo"
-                    v-model="video"
-                    label="URL YouTube"
                     @input="changeWatchForEmbed()"
                   />
                 </q-card-section>
@@ -64,9 +64,9 @@
               <q-card-section>
                 <div class="text-caption q-pb-sm">Título</div>
                 <q-input
-                  outlined
                   v-model="postTitle"
                   label="Título"
+                  outlined
                 />
               </q-card-section>
               <q-card-section>
@@ -79,25 +79,25 @@
               <q-card-section>
                 <div class="text-body1 q-pb-sm">¿Quién puede ver este Post?</div>
                 <q-btn-toggle
-                  class="shadow-0"
                   v-model="postVisibility"
-                  spread
-                  color="grey-4"
-                  text-color="black"
-                  toggle-color="secondary"
                   :options="[
                     {label: 'Público', value: '0'},
                     {label: 'Premium', value: '1'}
                     ]"
+                  class="shadow-0"
+                  color="grey-4"
+                  spread
+                  text-color="black"
+                  toggle-color="secondary"
                 />
               </q-card-section>
               <q-card-section>
                 <q-btn
-                  style="width:100%"
                   color="primary"
                   label="Publicar"
                   size="lg"
                   spread
+                  style="width:100%"
                   @click="submitPost"
                 />
               </q-card-section>

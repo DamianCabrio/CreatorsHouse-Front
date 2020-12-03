@@ -20,7 +20,7 @@
                       </div>
                       <div v-else>
                         <q-avatar size="80px">
-                          <img src="https://www.placecage.com/c/100/100" />
+                          <img src="https://www.placecage.com/c/100/100"/>
                         </q-avatar>
                       </div>
                     </div>
@@ -34,15 +34,15 @@
                     <template>
                       <div style="max-width: 350px">
                         <q-scroll-area
-                          :thumb-style="thumbStyle"
                           :bar-style="barStyle"
+                          :thumb-style="thumbStyle"
                           style="height: 300px; max-width: 350px;"
                         >
                           <q-list
-                            bordered
-                            separator
                             v-for="followedCreator in postsCreators"
                             :key="followedCreator.id"
+                            bordered
+                            separator
                           >
                             <q-item
                               v-ripple
@@ -56,7 +56,7 @@
                               </q-item-section>
 
                               <q-item-section>
-                                <q-item-label>{{followedCreator.user[0].username}}</q-item-label>
+                                <q-item-label>{{ followedCreator.user[0].username }}</q-item-label>
                               </q-item-section>
                             </q-item>
                           </q-list>
@@ -89,7 +89,7 @@
                         />
                       </q-tabs>
 
-                      <q-separator />
+                      <q-separator/>
 
                       <q-tab-panels
                         v-model="tab"
@@ -116,26 +116,29 @@
                                   </q-avatar>
                                 </q-item-section>
                                 <q-item-section>
-                                  <q-item-label>{{onePublicPost.user[0].username}}</q-item-label>
-                                  <q-item-label caption>{{onePublicPost.date}}</q-item-label>
+                                  <q-item-label>{{ onePublicPost.user[0].username }}</q-item-label>
+                                  <q-item-label caption>{{ onePublicPost.date }}</q-item-label>
                                 </q-item-section>
                               </q-item>
-                              <q-separator />
+                              <q-separator/>
                               <q-card-section>
                                 <div
                                   v-if="onePublicPost.tipo == 1"
                                   class="text-overline text-primary"
-                                >Texto</div>
+                                >Texto
+                                </div>
                                 <div
                                   v-if="onePublicPost.tipo == 2"
                                   class="text-overline text-primary"
-                                >Imágenes</div>
+                                >Imágenes
+                                </div>
                                 <div
                                   v-if="onePublicPost.tipo == 3"
                                   class="text-overline text-primary"
-                                >Video</div>
-                                <div class="text-h5 q-mt-sm q-mb-xs">{{onePublicPost.title}}</div>
-                                <div class="text-body1 text-dark">{{onePublicPost.content}}</div>
+                                >Video
+                                </div>
+                                <div class="text-h5 q-mt-sm q-mb-xs">{{ onePublicPost.title }}</div>
+                                <div class="text-body1 text-dark">{{ onePublicPost.content }}</div>
                               </q-card-section>
                               <div
                                 v-for="image in onePublicPost.images"
@@ -149,10 +152,10 @@
                               <div v-if="onePublicPost.videos.length > 0">
                                 <iframe
                                   class="no-margin no-padding"
+                                  frameborder="0"
+                                  height="360px"
                                   v-bind:src="onePublicPost.videos[0].video"
                                   width="100%"
-                                  height="360px"
-                                  frameborder="0"
                                 ></iframe>
                               </div>
                               <q-separator></q-separator>
@@ -166,7 +169,8 @@
                                   <q-badge
                                     color="secondary"
                                     floating
-                                  >{{onePublicPost.cantLikes}}</q-badge>
+                                  >{{ onePublicPost.cantLikes }}
+                                  </q-badge>
                                 </q-btn>
                               </q-card-actions>
                             </q-card>
@@ -193,26 +197,29 @@
                                   </q-avatar>
                                 </q-item-section>
                                 <q-item-section>
-                                  <q-item-label>{{onePrivatePost.user[0].username}}</q-item-label>
-                                  <q-item-label caption>{{onePrivatePost.date}}</q-item-label>
+                                  <q-item-label>{{ onePrivatePost.user[0].username }}</q-item-label>
+                                  <q-item-label caption>{{ onePrivatePost.date }}</q-item-label>
                                 </q-item-section>
                               </q-item>
-                              <q-separator />
+                              <q-separator/>
                               <q-card-section>
                                 <div
                                   v-if="onePrivatePost.tipo == 1"
                                   class="text-overline text-primary"
-                                >Texto</div>
+                                >Texto
+                                </div>
                                 <div
                                   v-if="onePrivatePost.tipo == 2"
                                   class="text-overline text-primary"
-                                >Imágenes</div>
+                                >Imágenes
+                                </div>
                                 <div
                                   v-if="onePrivatePost.tipo == 3"
                                   class="text-overline text-primary"
-                                >Video</div>
-                                <div class="text-h5 q-mt-sm q-mb-xs">{{onePrivatePost.title}}</div>
-                                <div class="text-body1 text-dark">{{onePrivatePost.content}}</div>
+                                >Video
+                                </div>
+                                <div class="text-h5 q-mt-sm q-mb-xs">{{ onePrivatePost.title }}</div>
+                                <div class="text-body1 text-dark">{{ onePrivatePost.content }}</div>
                               </q-card-section>
                               <div
                                 v-for="image in onePrivatePost.images"
@@ -226,10 +233,10 @@
                               <div v-if="onePrivatePost.videos.length > 0">
                                 <iframe
                                   class="no-margin no-padding"
+                                  frameborder="0"
+                                  height="360px"
                                   v-bind:src="onePrivatePost.videos[0].video"
                                   width="100%"
-                                  height="360px"
-                                  frameborder="0"
                                 ></iframe>
                               </div>
                               <q-separator></q-separator>
@@ -243,7 +250,8 @@
                                   <q-badge
                                     color="secondary"
                                     floating
-                                  >{{onePrivatePost.cantLikes}}</q-badge>
+                                  >{{ onePrivatePost.cantLikes }}
+                                  </q-badge>
                                 </q-btn>
                               </q-card-actions>
                             </q-card>
@@ -267,7 +275,7 @@
                     <div class="text-body2">Terminá de completar tu página y empezá a postear.</div>
                   </q-card-section>
 
-                  <q-separator />
+                  <q-separator/>
 
                   <q-card-actions vertical>
                     <q-btn
@@ -288,22 +296,22 @@
                     <div class="text-h6">Vas a publicar hoy?</div>
                   </q-card-section>
 
-                  <q-separator />
+                  <q-separator/>
 
                   <q-card-actions vertical>
                     <q-btn
                       color="primary"
                       content-class="bg-grey-1"
                       label="CREAR POST"
-                      v-bind:to="`/CreatePost/${creator.data[0].id}`"
-                      unelevated
                       spread
+                      unelevated
+                      v-bind:to="`/CreatePost/${creator.data[0].id}`"
                     >
                     </q-btn>
                   </q-card-actions>
                 </q-card>
                 <div class="q-pa-sm text-overline text-center">El creador random de hoy.</div>
-                <OneRandomCreator />
+                <OneRandomCreator/>
                 <!-- <div>
                   <pre>{{publicPosts}}</pre>
                 </div> -->

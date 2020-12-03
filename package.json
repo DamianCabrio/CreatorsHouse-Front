@@ -13,6 +13,7 @@
     "@morioh/v-lightbox": "^1.0.3",
     "@quasar/extras": "^1.0.0",
     "core-js": "^3.7.0",
+    "postscribe": "^2.0.8",
     "quasar": "^1.0.0"
   },
   "devDependencies": {

@@ -11,8 +11,8 @@
         >
           <div
             v-ripple
-            @click="goHomeCreator(user.idCreator[0].id)"
             class="cursor-pointer relative-position"
+            @click="goHomeCreator(user.idCreator[0].id)"
           >
             <q-item>
               <q-item-section avatar>
