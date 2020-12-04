@@ -212,29 +212,37 @@
                     />
                     <div
                       v-if="!post.isPublic">
-
-                    </div>
-                    <q-btn
-                      v-if="!post.isPublic"
-                      class="q-ml-md"
-                      color="primary"
-                      flat
-                      icon="favorite"
-                      round
-                    >
-                      <q-badge
+                      <q-btn
                         v-if="!post.alreadyLiked"
-                        color="secondary"
-                        floating
-                      >{{ post.cantLikes }}
-                      </q-badge>
-                      <q-badge
-                        v-else
+                        class="q-ml-md"
                         color="primary"
-                        floating>
-                        {{ post.cantLikes }}
-                      </q-badge>
-                    </q-btn>
+                        flat
+                        icon="favorite"
+                        round
+                        @click="likePost(post.id)"
+                      >
+                        <q-badge
+                          color="secondary"
+                          floating
+                        >{{ post.cantLikes }}
+                        </q-badge>
+                      </q-btn>
+                      <q-btn
+                        v-else
+                        class="q-ml-md"
+                        color="primary"
+                        flat
+                        icon="favorite"
+                        round
+                        @click="unlikePost(post.id)"
+                      >
+                        <q-badge
+                          color="primary"
+                          floating>
+                          {{ post.cantLikes }}
+                        </q-badge>
+                      </q-btn>
+                    </div>
                   </q-card-actions>
                 </q-card>
               </div>
@@ -294,8 +302,45 @@ export default {
     document.head.appendChild(mercadopago)
   },
   methods: {
+    unlikePost (postId) {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.post('http://localhost:8000/api/posts/unlike/' + postId + '/' + this.user.data.id, {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          this.$nextTick(function () {
+            this.postsCreator[postId].alreadyFollow = false
+            console.log(this.postsCreator[postId])
+          })
+          console.log(response.data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    likePost (postId) {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.post('http://localhost:8000/api/posts/like/' + postId + '/' + this.user.data.id, {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          this.$nextTick(function () {
+            this.postsCreator[postId].alreadyFollow = true
+            console.log(this.postsCreator[postId])
+          })
+          console.log(response.data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
     followUser () {
-      console.log(this.user.data)
       var idCreator = this.$route.params.idCreator
       axios.defaults.headers = {
         'Content-Type': 'application/json',
@@ -358,8 +403,9 @@ export default {
     // En postsCreator estan todos los posts de ese creator (con imagens videos y like si es que los tiene)
     getPostsCreator: async function () {
       var idCreator = this.$route.params.idCreator
-
+      console.log('hola', this.isLogin)
       if (this.isLogin) {
+        console.log('hil')
         axios.defaults.headers = {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
