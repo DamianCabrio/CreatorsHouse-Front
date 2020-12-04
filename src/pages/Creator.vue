@@ -78,7 +78,8 @@
                     <q-btn
                       color="white"
                       text-color="black"
-                      label="Siguiendo"
+                      label="Dejar de seguir"
+                      @click="unfollowUser"
                     />
                   </div>
                   <q-btn
@@ -106,7 +107,7 @@
       </div>
       <q-separator></q-separator>
       <div class="row justify-center q-pt-lg q-pb-lg">
-        <div class="text-h5 text-weight-light">Posts {{ids}}{{follow}}</div>
+        <div class="text-h5 text-weight-light">Posts</div>
       </div>
       <div class="row justify-center">
         <div class="col-12 col-md-10 q-pt-lg q-pb-lg">
@@ -209,7 +210,12 @@
                       label="Desbloquear"
                       outline
                     />
+                    <div
+                      v-if="!post.isPublic">
+
+                    </div>
                     <q-btn
+                      v-if="!post.isPublic"
                       class="q-ml-md"
                       color="primary"
                       flat
@@ -217,9 +223,16 @@
                       round
                     >
                       <q-badge
+                        v-if="!post.alreadyLiked"
                         color="secondary"
                         floating
                       >{{ post.cantLikes }}
+                      </q-badge>
+                      <q-badge
+                        v-else
+                        color="primary"
+                        floating>
+                        {{ post.cantLikes }}
                       </q-badge>
                     </q-btn>
                   </q-card-actions>
@@ -292,9 +305,36 @@ export default {
         token: sessionStorage.getItem('apiToken')
       })
         .then((response) => {
+          this.$nextTick(function () {
+            this.isFollow = true
+          })
           console.log(response.data)
         })
         .catch(err => {
+          console.log(err.response)
+        })
+    },
+    unfollowUser () {
+      var idCreator = this.$route.params.idCreator
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.post('http://localhost:8000/api/unfollow/' + this.user.data.id + '/' + idCreator, {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          this.$nextTick(function () {
+            this.isFollow = false
+          })
+          console.log(response.data)
+        })
+        .catch(err => {
+          this.$q.notify({
+            message: 'Lo sentimos, vuelva a intentarlo más tarde.',
+            color: 'warning'
+          })
+          this.$q.notify('')
           console.log(err.response)
         })
     },
@@ -318,6 +358,13 @@ export default {
     // En postsCreator estan todos los posts de ese creator (con imagens videos y like si es que los tiene)
     getPostsCreator: async function () {
       var idCreator = this.$route.params.idCreator
+
+      if (this.isLogin) {
+        axios.defaults.headers = {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+        }
+      }
       // alert(idCreator)
       axios.get('http://localhost:8000/postscreator/' + idCreator)
         .then((response) => {
@@ -348,11 +395,9 @@ export default {
           console.log(response)
           this.follow = response.data
           this.isFollow = true
-          alert('es seguidor')
         })
         .catch((error) => {
           console.log(error)
-          alert(error)
         })
     },
     getAllCreator: async function () {
