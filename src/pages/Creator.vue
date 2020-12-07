@@ -141,9 +141,7 @@
                 v-for="(post, i) in postsCreator"
                 :key="i"
               >
-                <q-card v-if="!post.isPrivate"
-                        class="q-mb-md q-mb-xl q-ma-sm"
-                >
+                <q-card class="q-mb-md q-mb-xl q-ma-sm">
                   <q-item>
                     <q-item-section avatar>
                       <q-avatar>
@@ -174,39 +172,48 @@
                     >Video
                     </div>
                     <div class="text-h5 q-mt-sm q-mb-xs">{{ post.title }}</div>
-                    <div class="text-body1 text-dark">
-                      {{ post.content }}
+                    <div v-if="!post.isPrivate">
+                      <div class="text-body1 text-dark">
+                        {{ post.content }}
+                      </div>
+                    </div>
+                    <div v-else>
+                      <div class="text-body1 text-dark">
+                        Contenido bloqueado
+                      </div>
                     </div>
                   </q-card-section>
                   <q-separator></q-separator>
-                  <q-card-section class="no-padding">
-                    <div
-                      v-for="image in post.images"
-                      :key="image.id"
-                    >
-                      <q-img
-                        :ratio="4/3"
-                        v-bind:src="`${image.image}`"
-                      />
-                    </div>
-                  </q-card-section>
-                  <q-separator></q-separator>
-                  <q-item
-                    v-for="video in post.videos"
-                    :key="video.id"
-                    class="no-margin no-padding"
-                  >
-                    <iframe
+                  <div v-if="!post.isPrivate">
+                    <q-card-section class="no-padding">
+                      <div
+                        v-for="image in post.images"
+                        :key="image.id"
+                      >
+                        <q-img
+                          :ratio="4/3"
+                          v-bind:src="`${image.image}`"
+                        />
+                      </div>
+                    </q-card-section>
+                    <q-separator></q-separator>
+                    <q-item
+                      v-for="video in post.videos"
+                      :key="video.id"
                       class="no-margin no-padding"
-                      frameborder="0"
-                      height="360px"
-                      v-bind:src="video.video"
-                      width="100%"
-                    ></iframe>
-                  </q-item>
+                    >
+                      <iframe
+                        class="no-margin no-padding"
+                        frameborder="0"
+                        height="360px"
+                        v-bind:src="video.video"
+                        width="100%"
+                      ></iframe>
+                    </q-item>
+                  </div>
                   <q-card-actions align="right">
                     <q-btn
-                      v-if="post.isPublic"
+                      v-if="!post.isPublic && post.isPrivate"
                       color="primary"
                       disable
                       icon-right="lock_outline"
@@ -214,7 +221,7 @@
                       outline
                     />
                     <div
-                      v-if="!post.isPublic">
+                      v-if="post.isPublic || !post.isPrivate">
                       <q-btn
                         color="primary"
                         icon-right="comment"
@@ -223,7 +230,7 @@
                         v-bind:to="`/creator/${$route.params.idCreator}/post/${post.id}`"
                       />
                       <q-btn
-                        v-if="!post.alreadyLiked"
+                        v-if="!post.alreadyLiked && isLogin"
                         class="q-ml-md"
                         color="primary"
                         flat
@@ -238,7 +245,7 @@
                         </q-badge>
                       </q-btn>
                       <q-btn
-                        v-else
+                        v-else-if="post.alreadyLiked && isLogin"
                         class="q-ml-md"
                         color="primary"
                         flat
@@ -248,6 +255,21 @@
                       >
                         <q-badge
                           color="primary"
+                          floating>
+                          {{ post.cantLikes }}
+                        </q-badge>
+                      </q-btn>
+                      <q-btn
+                        v-else
+                        class="q-ml-md"
+                        color="primary"
+                        disable
+                        flat
+                        icon="favorite"
+                        round
+                      >
+                        <q-badge
+                          color="secondary"
                           floating>
                           {{ post.cantLikes }}
                         </q-badge>
