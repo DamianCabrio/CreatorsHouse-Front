@@ -104,7 +104,7 @@
                 class="GL__select-GL__menu-link"
               >
                 <q-item-section>
-                  <q-item-label v-html="scope.opt.label"/>
+                  <q-item-label v-html="scope.opt.label" />
                 </q-item-section>
                 <q-item-section
                   :class="{ 'default-type': !scope.opt.type }"
@@ -155,7 +155,7 @@
                   to="/home"
                 >
                   <q-item-section avatar>
-                    <q-icon name="home"/>
+                    <q-icon name="home" />
                   </q-item-section>
 
                   <q-item-section>
@@ -169,7 +169,7 @@
                   to="/EditUser"
                 >
                   <q-item-section avatar>
-                    <q-icon name="account_circle"/>
+                    <q-icon name="account_circle" />
                   </q-item-section>
 
                   <q-item-section>
@@ -182,21 +182,21 @@
                   @click="logout"
                 >
                   <q-item-section avatar>
-                    <q-icon name="logout"/>
+                    <q-icon name="logout" />
                   </q-item-section>
 
                   <q-item-section>
                     Logout
                   </q-item-section>
                 </q-item>
-                <q-separator/>
+                <q-separator />
                 <q-item
                   v-close-popup
                   clickable
                   to="/help"
                 >
                   <q-item-section avatar>
-                    <q-icon name="help_outline"/>
+                    <q-icon name="help_outline" />
                   </q-item-section>
                   <q-item-section>
                     Ayuda y Feedback
@@ -232,24 +232,24 @@
               <div class="col-12 col-md-4">
                 <div class="text-h6 text-weight-light q-pb-md">Media</div>
                 <div class="text-body2 text-weight-light"><a
-                  class="text-primary"
-                  href="https://creatorhouse.media"
-                  style="text-decoration:none"
-                >Blog Creator House</a></div>
+                    class="text-primary"
+                    href="https://creatorhouse.media"
+                    style="text-decoration:none"
+                  >Blog Creator House</a></div>
                 <div class="text-body2 text-weight-light q-pt-md">Instagram</div>
               </div>
             </div>
           </div>
         </div>
         <q-toolbar class="q-pt-md q-pb-md">
-          <q-toolbar-title class="text-weight-thin text-center text-caption q-pt-sm">CREATOR HOUSE ©2020 - Made With
-            &#10084;
+          <q-toolbar-title class=" text-overline text-center q-pt-sm">CREATOR HOUSE ©2020 - Made With
+            &#10084; from {{location}}
           </q-toolbar-title>
         </q-toolbar>
       </div>
     </q-footer>
     <q-page-container>
-      <router-view/>
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
@@ -257,7 +257,7 @@
 <script>
 
 import { date } from 'quasar'
-
+import * as axios from 'axios'
 export default {
   computed: {
     todaysDate () {
@@ -266,6 +266,18 @@ export default {
     }
   },
   methods: {
+    getLocation () {
+      axios.get('http://localhost:8000/getCity/' + this.ipLaura, {
+
+      })
+        .then((response) => {
+          console.log(response.data)
+          this.location = response.data
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
     logout: async function () {
       sessionStorage.removeItem('apiToken')
       this.user = []
@@ -355,8 +367,15 @@ export default {
       options: null,
       filteredOptions: [],
       drawerRight: false,
-      islogin: false
+      islogin: false,
+      ipLaura: '152169111047',
+      ipDamian: '181031.164.171',
+      ipNorbert: '181031.164.171',
+      location: ''
     }
+  },
+  created () {
+    this.getLocation()
   },
   mounted () {
     // Verifico si hay una sesion iniciada
