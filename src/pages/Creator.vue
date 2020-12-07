@@ -341,10 +341,17 @@ export default {
             this.postsCreator[index].alreadyLiked = false
             this.postsCreator[index].cantLikes = this.postsCreator[index].cantLikes - 1
           })
-          console.log(response.data)
+          this.$q.notify({
+            type: 'positive',
+            message: 'Quito su like con éxito'
+          })
         })
         .catch(err => {
-          console.log(err.response)
+          this.$q.notify({
+            type: 'negative',
+            message: 'Ocurrió un error al quitar el like, vuelva a intentar'
+          })
+          console.log(err)
         })
     },
     likePost (postId, index) {
@@ -360,10 +367,17 @@ export default {
             this.postsCreator[index].alreadyLiked = true
             this.postsCreator[index].cantLikes = this.postsCreator[index].cantLikes + 1
           })
-          console.log(response.data)
+          this.$q.notify({
+            type: 'positive',
+            message: 'Dio like con éxito'
+          })
         })
         .catch(err => {
-          console.log(err.response)
+          this.$q.notify({
+            type: 'negative',
+            message: 'Ocurrió un error al dar like, vuelva a intentar'
+          })
+          console.log(err)
         })
     },
     followUser () {
@@ -379,10 +393,17 @@ export default {
           this.$nextTick(function () {
             this.isFollow = true
           })
-          console.log(response.data)
+          this.$q.notify({
+            type: 'positive',
+            message: 'Siguio al creador con exito'
+          })
         })
         .catch(err => {
-          console.log(err.response)
+          this.$q.notify({
+            type: 'negative',
+            message: 'Ocurrió un error al intentar seguir al creador, vuelva a intentar'
+          })
+          console.log(err)
         })
     },
     unfollowUser () {
@@ -398,15 +419,17 @@ export default {
           this.$nextTick(function () {
             this.isFollow = false
           })
-          console.log(response.data)
+          this.$q.notify({
+            type: 'positive',
+            message: 'Dejo de seguir al creador con exito'
+          })
         })
         .catch(err => {
           this.$q.notify({
-            message: 'Lo sentimos, vuelva a intentarlo más tarde.',
-            color: 'warning'
+            type: 'negative',
+            message: 'Ocurrió un error al intentar dejar de seguir al creador, vuelva a intentar'
           })
-          this.$q.notify('')
-          console.log(err.response)
+          console.log(err)
         })
     },
     // Busco mis datos de usuario enviando mi token
@@ -419,11 +442,14 @@ export default {
         token: sessionStorage.getItem('apiToken')
       })
         .then((response) => {
-          console.log(response)
           this.user = response.data
         })
         .catch(err => {
-          console.log(err.response)
+          this.$q.notify({
+            type: 'negative',
+            message: 'Ocurrió un error al obtener datos del usuario, vuelva a intentar'
+          })
+          console.log(err)
         })
     },
     // En postsCreator estan todos los posts de ese creator (con imagens videos y like si es que los tiene)
@@ -439,17 +465,13 @@ export default {
       axios.get('http://localhost:8000/postscreator/' + idCreator)
         .then((response) => {
           this.postsCreator = response.data
-          console.log(this.postsCreator, 'hola')
-          // alert(response.data[0].banner)
         })
         .catch((error) => {
-          console.log(error)
-          // alert(error)
           this.$q.notify({
-            message: 'Lo sentimos, vuelva a intentarlo más tarde.',
-            color: 'warning'
+            type: 'negative',
+            message: 'Ocurrió un error al obtener los posts del creador, vuelva a intentar'
           })
-          this.$q.notify('')
+          console.log(error)
         })
     },
     getIsFollow: async function () {
@@ -466,6 +488,10 @@ export default {
           this.isFollow = true
         })
         .catch((error) => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'Ocurrió un error al obtener si sigue al creador, vuelva a intentar'
+          })
           console.log(error)
         })
     },
@@ -479,13 +505,11 @@ export default {
           // alert(response.data[0].banner)
         })
         .catch((error) => {
-          console.log(error)
-          // alert(error)
           this.$q.notify({
-            message: 'Lo sentimos, vuelva a intentarlo más tarde.',
-            color: 'warning'
+            type: 'negative',
+            message: 'Ocurrió un error al obtener los datos del creador, vuelva a intentar'
           })
-          this.$q.notify('')
+          console.log(error)
         })
     }
   }
