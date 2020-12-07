@@ -1,47 +1,48 @@
 <template>
-<div class="q-pa-md">
-  <!-- Intento basico -->
-  <div id="q-app">
-    <q-input type = "file" v-model="file"></q-input>
-    <q-btn @click="upLoadFile()">Subir</q-btn>
-  </div>
-  <!--------------------->
-    <q-form @submit="onSubmit" class="q-gutter-md" ref="form">
+  <div class="q-pa-md">
+    <!-- Intento basico -->
+    <div id="q-app">
+      <q-input v-model="file" type="file"></q-input>
+      <q-btn @click="upLoadFile()">Subir</q-btn>
+    </div>
+    <!--------------------->
+    <q-form ref="form" class="q-gutter-md" @submit="onSubmit">
       <q-file
-        name="poster_file"
         v-model="form_file"
         filled
         label="Select poster image"
+        name="poster_file"
       />
 
       <q-file
-        name="cover_files"
         v-model="files"
         filled
-        multiple
-        use-chips
         label="Select cover images"
+        multiple
+        name="cover_files"
+        use-chips
       />
 
       <div>
-        <q-btn label="Subir" type="submit" color="primary"/>
+        <q-btn color="primary" label="Subir" type="submit"/>
       </div>
     </q-form>
 
-    <q-card v-if="submitEmpty" flat bordered class="q-mt-md bg-grey-2">
+    <q-card v-if="submitEmpty" bordered class="q-mt-md bg-grey-2" flat>
       <q-card-section>
         Submitted form contains empty formData.
       </q-card-section>
     </q-card>
-    <q-card v-else-if="submitResult.length > 0" flat bordered class="q-mt-md bg-grey-2">
+    <q-card v-else-if="submitResult.length > 0" bordered class="q-mt-md bg-grey-2" flat>
       <q-card-section>Submitted form contains the following formData (key = value):</q-card-section>
-      <q-separator />
+      <q-separator/>
       <q-card-section class="row q-gutter-sm items-center">
         <div
           v-for="(item, index) in submitResult"
           :key="index"
           class="q-px-sm q-py-xs bg-grey-8 text-white rounded-borders text-center text-no-wrap"
-        >{{ item.name }} = {{ item.value }}</div>
+        >{{ item.name }} = {{ item.value }}
+        </div>
       </q-card-section>
     </q-card>
   </div>
@@ -50,6 +51,7 @@
 
 <script>
 import * as axios from 'axios'
+
 export default {
   name: 'Banner',
   data () {

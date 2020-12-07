@@ -14,14 +14,14 @@
               class="q-mb-md"
               flat
             >
-            <!--   <q-card-section>
-                <div class="text-caption q-pb-sm">Banner {{banner}}</div>
-                <q-file
-                  v-model="banner"
-                  label="imagen banner en jpeg/png/gif/jpg"
-                  outlined
-                />
-              </q-card-section> -->
+              <!--   <q-card-section>
+                  <div class="text-caption q-pb-sm">Banner {{banner}}</div>
+                  <q-file
+                    v-model="banner"
+                    label="imagen banner en jpeg/png/gif/jpg"
+                    outlined
+                  />
+                </q-card-section> -->
               <q-card-section>
                 <div class="text-caption q-pb-sm">Descripción de mi perfil</div>
                 <template>

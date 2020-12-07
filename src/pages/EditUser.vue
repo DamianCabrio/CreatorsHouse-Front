@@ -7,10 +7,10 @@
         </div>
         <div class="col-12 col-md-6 q-pa-md">
           <q-card
-            flat
             bordered
-            style="width: 100%;max-height:300px"
             class="q-mb-md"
+            flat
+            style="width: 100%;max-height:300px"
           >
             <q-item>
               <q-item-section avatar>
@@ -21,28 +21,28 @@
               </q-item-section>
 
               <q-item-section>
-                <q-item-label>{{user.data.username}}</q-item-label>
-                <q-item-label caption>{{user.data.name}}</q-item-label>
+                <q-item-label>{{ user.data.username }}</q-item-label>
+                <q-item-label caption>{{ user.data.name }}</q-item-label>
               </q-item-section>
             </q-item>
           </q-card>
           <!--Imagen del avatar-->
           <div class="col-12 col-md-6 q-pa-md">
             <q-uploader
-            label="Cambiar tu Avatar"
-            color="dark"
-            style="width:100%"
-            url=""
-            extensions=".gif,.jpg,.jpeg,.png"
-            @added="file_selected"
+              color="dark"
+              extensions=".gif,.jpg,.jpeg,.png"
+              label="Cambiar tu Avatar"
+              style="width:100%"
+              url=""
+              @added="file_selected"
             />
             <div class="q-pb-md">
               <q-btn color="primary"
-                label="Subir Avatar"
-                size="lg"
-                style="width:100%"
-                text-color="white"
-                @click="uploadFile()">
+                     label="Subir Avatar"
+                     size="lg"
+                     style="width:100%"
+                     text-color="white"
+                     @click="uploadFile()">
               </q-btn>
             </div>
           </div>
@@ -56,10 +56,10 @@
               <q-card-section>
                 <div class="text-caption q-pb-sm">Username</div>
                 <q-input
-                  outlined
-                  v-model="username"
                   :key=user.id
+                  v-model="username"
                   :placeholder=user.data.username
+                  outlined
                 />
               </q-card-section>
               <q-card-section>
@@ -71,10 +71,10 @@
           isValidPassword
         ]"
                   :type="isPwd ? 'password' : 'text'"
-                  outlined
                   hint=""
                   label="Contraseña *"
                   lazy-rules
+                  outlined
                 >
                   <template v-slot:append>
                     <q-icon
@@ -89,8 +89,8 @@
                   :error="!confirmPassword"
                   :type="isPwd ? 'password' : 'text'"
                   error-message="Contraseña no coincide."
-                  outlined
                   label="Confirmar Contraseña *"
+                  outlined
                 >
                   <template v-slot:append>
                     <q-icon
@@ -118,20 +118,20 @@
           <!--Imagen del banner-->
           <div class="col-12 col-md-6 q-pa-md">
             <q-uploader
-            label="Cambiar tu Banner"
-            color="dark"
-            style="width:100%"
-            url=""
-            extensions=".gif,.jpg,.jpeg,.png"
-            @added="file_selected"
+              color="dark"
+              extensions=".gif,.jpg,.jpeg,.png"
+              label="Cambiar tu Banner"
+              style="width:100%"
+              url=""
+              @added="file_selected"
             />
             <div class="q-pb-md">
               <q-btn color="primary"
-                label="Subir Banner"
-                size="lg"
-                style="width:100%"
-                text-color="white"
-                @click="uploadFile()">
+                     label="Subir Banner"
+                     size="lg"
+                     style="width:100%"
+                     text-color="white"
+                     @click="uploadFile()">
               </q-btn>
             </div>
           </div>
@@ -178,11 +178,11 @@
                 <div class="text-caption q-pb-sm">Categoría</div>
                 <q-select
                   v-model="category"
-                  outlined
-                  label="Elegir Categoría"
-                  float-label="Is Quasar Awesome?"
-                  radio
                   :options="selectOptions"
+                  float-label="Is Quasar Awesome?"
+                  label="Elegir Categoría"
+                  outlined
+                  radio
                 />
               </q-card-section>
               <q-card-section>
@@ -376,7 +376,7 @@ export default {
             color: 'negative'
           })
         })
-        // ------------FIN guardar Banner-------------
+      // ------------FIN guardar Banner-------------
     },
     logout: async function () {
       sessionStorage.removeItem('apiToken')

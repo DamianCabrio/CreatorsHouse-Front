@@ -141,9 +141,7 @@
                 v-for="(post, i) in postsCreator"
                 :key="i"
               >
-                <q-card v-if="!post.isPrivate"
-                        class="q-mb-md q-mb-xl q-ma-sm"
-                >
+                <q-card class="q-mb-md q-mb-xl q-ma-sm">
                   <q-item>
                     <q-item-section avatar>
                       <q-avatar>
@@ -208,20 +206,12 @@
                     <q-btn
                       v-if="post.isPublic"
                       color="primary"
-                      disable
                       icon-right="lock_outline"
-                      label="Suscríbase para desbloquear"
+                      label="Desbloquear"
                       outline
                     />
                     <div
                       v-if="!post.isPublic">
-                      <q-btn
-                        color="primary"
-                        icon-right="comment"
-                        label="Comentarios"
-                        outline
-                        v-bind:to="`/creator/${$route.params.idCreator}/post/${post.id}`"
-                      />
                       <q-btn
                         v-if="!post.alreadyLiked"
                         class="q-ml-md"
@@ -295,6 +285,8 @@ export default {
     } else {
       this.isLogin = false
     }
+
+    console.log(this.isLogin)
 
     this.getPostsCreator()
     this.getAllCreator()
@@ -407,7 +399,9 @@ export default {
     // En postsCreator estan todos los posts de ese creator (con imagens videos y like si es que los tiene)
     getPostsCreator: async function () {
       var idCreator = this.$route.params.idCreator
+      console.log('hola', this.isLogin)
       if (this.isLogin) {
+        console.log('hil')
         axios.defaults.headers = {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')

@@ -12,6 +12,7 @@ const routes = [
       { path: 'edituser', component: () => import('pages/EditUser.vue') },
       { path: 'registercreator', component: () => import('pages/RegisterCreator.vue') },
       { path: 'creator/:idCreator', component: () => import('pages/Creator.vue') },
+      { path: 'creator/:idCreator/post/:idPost', component: () => import('pages/CreatorPost.vue') },
       { path: 'filterCategory/:idCategory', component: () => import('pages/FilterCategory.vue') },
       { path: 'banner', component: () => import('pages/Banner.vue') }
     ]
