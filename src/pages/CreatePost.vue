@@ -81,8 +81,8 @@
                 <q-btn-toggle
                   v-model="postVisibility"
                   :options="[
-                    {label: 'Público', value: '0'},
-                    {label: 'Premium', value: '1'}
+                    {label: 'Público', value: '1'},
+                    {label: 'Premium', value: '0'}
                     ]"
                   class="shadow-0"
                   color="grey-4"

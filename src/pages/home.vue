@@ -305,7 +305,7 @@
                       label="CREAR POST"
                       spread
                       unelevated
-                      v-bind:to="`/CreatePost/${creator.data[0].id}`"
+                      v-bind:to="`/CreatePost/${creator.data.id}`"
                     >
                     </q-btn>
                   </q-card-actions>
