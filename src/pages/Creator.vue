@@ -82,18 +82,20 @@
                       @click="unfollowUser"
                     />
                   </div>
-                  <q-btn
-                    color="primary"
-                    label="Donar"
-                    text-color="white"
-                  />
-                  <q-btn
-                    label="Ser VIP"
-                    outline
-                    style="secondary"
-                    text-color="black"
-                  />
-                  <div class="mercadoPago"></div>
+                  <div v-if="allCreator.data.hasMercadoPago">
+                    <q-btn
+                      color="primary"
+                      label="Donar"
+                      text-color="white"
+                    />
+                    <q-btn
+                      label="Ser VIP"
+                      outline
+                      style="secondary"
+                      text-color="black"
+                    />
+                    <div id="mercadoPago" ref="mercadoPago">hola</div>
+                  </div>
                 </div>
               </template>
             </div>
@@ -303,14 +305,6 @@ export default {
     }
   },
   mounted: function () {
-    const mercadoPagoScript = document.createElement('script')
-    mercadoPagoScript.setAttribute('src', 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js')
-    mercadoPagoScript.setAttribute('data-preference-id', '683690540-7499ac2a-aeee-467a-b596-316e18bb4120')
-    // const mercadoPago = document.getElementsByClassName('mercadoPago')
-    // console.log(mercadoPago[0])
-    document.body.appendChild(mercadoPagoScript)
-    // document.getElementById('mercadoPago').appendChild(mercadoPagoScript)
-
     if (sessionStorage.getItem('apiToken')) {
       this.isLogin = true
       // devuelve true si está la sesión iniciada
@@ -321,13 +315,36 @@ export default {
     this.getPostsCreator()
     this.getAllCreator()
     // Verifico si hay una sesion iniciada
-    if (sessionStorage.getItem('apiToken')) {
+    if (this.isLogin) {
       // tengo un token guardado localmente
       this.getUser()
       this.getIsFollow()
     }
   },
   methods: {
+    getPaymentScript () {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.get('http://localhost:8000/api/creators/' + this.$route.params.idCreator + '/pay', {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          console.log(response)
+          const mercadoPagoScript = document.createElement('script')
+          mercadoPagoScript.setAttribute('src', 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js')
+          mercadoPagoScript.setAttribute('data-preference-id', response.data.data)
+          document.body.appendChild(mercadoPagoScript)
+        })
+        .catch(err => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'Ocurrió un error al intentar obtener la informacion de suscripcion, vuelva a intentar'
+          })
+          console.log(err)
+        })
+    },
     unlikePost (postId, index) {
       axios.defaults.headers = {
         'Content-Type': 'application/json',
@@ -443,6 +460,7 @@ export default {
       })
         .then((response) => {
           this.user = response.data
+          this.getPaymentScript()
         })
         .catch(err => {
           this.$q.notify({

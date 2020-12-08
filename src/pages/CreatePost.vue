@@ -123,7 +123,8 @@ export default {
       user: [],
       creator: [],
       isCreator: false,
-      creatorId: ''
+      creatorId: '',
+      isCorrectCreator: false
     }
   },
   mounted () {
@@ -139,13 +140,16 @@ export default {
   },
   beforeUpdate () {
     // Verifico que el creator sea el mismo que esta logueado
-    alert(this.creatorId + '=' + this.creator.data[0].id)
-    if (parseInt(this.creatorId) === parseInt(this.creator.data[0].id)) {
-      // correcto
-      // alert('correcto')
-    } else {
-      // alert('incorrecto ')
-      this.$router.push(this.$route.query.redirect || '/Home')
+    // alert(this.creatorId + '=' + this.creator.data.id)
+    if (this.isCorrectCreator === false) {
+      if (parseInt(this.creatorId) === parseInt(this.creator.data.id)) {
+        this.isCorrectCreator = true
+        // correcto
+        // alert('correcto')
+      } else {
+        // alert('incorrecto ')
+        this.$router.push(this.$route.query.redirect || '/Home')
+      }
     }
   },
   methods: {
@@ -219,14 +223,23 @@ export default {
             icon: 'cloud_done',
             message: 'El post fue guardado con éxito!'
           })
+          this.$router.push('/creator/' + this.creator.data.id + '/post/' + response.data.data.id)
         }, (error) => {
           console.log(error)
-          this.$q.notify({
-            color: 'danger',
-            textColor: 'white',
-            icon: 'cloud_done',
-            message: 'Error, intente nuevamente!'
-          })
+
+          if (error.response.status === 422) {
+            this.$q.notify({
+              type: 'negative',
+              message: 'Revise que lleno todos los campos'
+            })
+          } else {
+            this.$q.notify({
+              color: 'danger',
+              textColor: 'white',
+              icon: 'cloud_done',
+              message: 'Error, intente nuevamente!'
+            })
+          }
         })
     }
   }

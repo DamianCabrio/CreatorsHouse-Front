@@ -152,7 +152,7 @@
                     <template>
                       <div class="q-pa-md">
                         <q-input
-                          v-model="comment"
+                          v-model="text"
                           autogrow
                           filled
                           label="Deje su comentario"
@@ -165,7 +165,7 @@
                     </template>
                   </div>
                   <div v-if="post.comments.length !== 0 || post.comments === null">
-                    <q-card v-for="comment in post.comments"
+                    <q-card v-for="comment in comments"
                             v-bind:key="comment.id"
                             class="q-mb-md q-mb-xl q-ma-sm">
                       <q-item>
@@ -211,7 +211,8 @@ export default {
       user: [],
       isCreator: false,
       isLogin: false,
-      comment: ''
+      text: '',
+      comments: []
     }
   },
   mounted: function () {
@@ -223,6 +224,7 @@ export default {
     }
     // Get post
     this.getAllCreator()
+    this.getUser()
     this.getPost()
   },
   methods: {
@@ -277,6 +279,7 @@ export default {
       axios.get('http://localhost:8000/creators/' + idCreator + '/post/' + idPost)
         .then((response) => {
           this.post = response.data
+          this.comments = this.post.comments
         })
         .catch((error) => {
           this.$q.notify({
@@ -287,7 +290,24 @@ export default {
         })
     },
     sendComment () {
-      this.comment = ''
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.post('http://localhost:8000/api/user/' + this.user.data.id + '/post/' + this.$route.params.idPost + '/comment', {
+        text: this.text
+      })
+        .then((response) => {
+          this.comments.unshift(response.data)
+          this.text = ''
+        })
+        .catch((error) => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'Ocurrió un error al obtener los posts del creador, vuelva a intentar'
+          })
+          console.log(error)
+        })
     },
     getAllCreator: async function () {
       var idCreator = this.$route.params.idCreator
@@ -305,6 +325,28 @@ export default {
           })
           console.log(error)
         })
+    },
+    getUser () {
+      if (this.isLogin) {
+        axios.defaults.headers = {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+        }
+        axios.get('http://localhost:8000/api/users/me', {
+          token: sessionStorage.getItem('apiToken')
+        })
+          .then((response) => {
+            this.user = response.data
+            console.log(this.user)
+          })
+          .catch(err => {
+            this.$q.notify({
+              type: 'negative',
+              message: 'Ocurrió un error al obtener datos del usuario, vuelva a intentar'
+            })
+            console.log(err)
+          })
+      }
     }
   }
 }

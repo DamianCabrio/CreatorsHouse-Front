@@ -20,7 +20,7 @@
                       </div>
                       <div v-else>
                         <q-avatar size="80px">
-                          <img src="https://www.placecage.com/c/100/100" />
+                          <img src="https://www.placecage.com/c/100/100"/>
                         </q-avatar>
                       </div>
                     </div>
@@ -89,7 +89,7 @@
                         />
                       </q-tabs>
 
-                      <q-separator />
+                      <q-separator/>
 
                       <q-tab-panels
                         v-model="tab"
@@ -120,7 +120,7 @@
                                   <q-item-label caption>{{ onePublicPost.date }}</q-item-label>
                                 </q-item-section>
                               </q-item>
-                              <q-separator />
+                              <q-separator/>
                               <q-card-section>
                                 <div
                                   v-if="onePublicPost.tipo == 1"
@@ -201,7 +201,7 @@
                                   <q-item-label caption>{{ onePrivatePost.date }}</q-item-label>
                                 </q-item-section>
                               </q-item>
-                              <q-separator />
+                              <q-separator/>
                               <q-card-section>
                                 <div
                                   v-if="onePrivatePost.tipo == 1"
@@ -275,7 +275,7 @@
                     <div class="text-body2">Terminá de completar tu página y empezá a postear.</div>
                   </q-card-section>
 
-                  <q-separator />
+                  <q-separator/>
 
                   <q-card-actions vertical>
                     <q-btn
@@ -296,7 +296,7 @@
                     <div class="text-h6">Vas a publicar hoy?</div>
                   </q-card-section>
 
-                  <q-separator />
+                  <q-separator/>
 
                   <q-card-actions vertical>
                     <q-btn
@@ -320,14 +320,14 @@
                     <div class="text-h6">Tu frase del día:</div>
                   </q-card-section>
 
-                  <q-separator />
+                  <q-separator/>
                   <q-card-section class="bg-indigo-1">
-                    <div class="text-body2">{{phrase}}</div>
+                    <div class="text-body2">{{ phrase }}</div>
                   </q-card-section>
 
                 </q-card>
                 <div class="q-pa-sm text-overline text-center">El creador random de hoy.</div>
-                <OneRandomCreator />
+                <OneRandomCreator/>
                 <!-- <div>
                   <pre>{{publicPosts}}</pre>
                 </div> -->
@@ -374,8 +374,7 @@ export default {
   },
   methods: {
     getPhrase () {
-      axios.get('http://localhost:8000/getFrase', {
-      })
+      axios.get('http://localhost:8000/getFrase', {})
         .then((response) => {
           console.log(response.data)
           this.phrase = response.data
