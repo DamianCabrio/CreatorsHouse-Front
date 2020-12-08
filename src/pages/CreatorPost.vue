@@ -200,7 +200,7 @@
                     <q-separator></q-separator>
                   </div>
                   <div v-else>
-                    <h3>Se el primero en comentar</h3>
+                    <h3 class="text-h4 text-weight-light text-center text-primary">Sé el primero en comentar</h3>
                   </div>
                 </div>
               </div>
