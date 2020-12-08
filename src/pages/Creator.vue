@@ -488,11 +488,12 @@ export default {
           this.isFollow = true
         })
         .catch((error) => {
-          this.$q.notify({
-            type: 'negative',
-            message: 'Ocurrió un error al obtener si sigue al creador, vuelva a intentar'
-          })
-          console.log(error)
+          if (error.response.status !== 404) {
+            this.$q.notify({
+              type: 'negative',
+              message: 'Ocurrió un error al obtener si sigue al creador, vuelva a intentar'
+            })
+          }
         })
     },
     getAllCreator: async function () {

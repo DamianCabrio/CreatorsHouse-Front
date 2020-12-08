@@ -174,6 +174,7 @@
 </template>
 <script>
 import ShowThreeCreatorsHome from 'components/ShowThreeCreatorsHome.vue'
+import * as axios from 'axios'
 
 export default {
   name: 'PageIndex',
@@ -186,7 +187,27 @@ export default {
     }
   },
   mounted () {
-
+    const params = new URLSearchParams(location.search)
+    var code = params.get('code')
+    if (code != null) {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.get('http://localhost:8000/api/mercado-pago/callback/' + code, {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          console.log(response.data)
+          const baseUrl = window.location.origin
+          window.location = baseUrl + '/#/EditUser'
+        })
+        .catch(err => {
+          console.log(err.response)
+          const baseUrl = window.location.origin
+          window.location = baseUrl + '/#/EditUser'
+        })
+    }
   }
 }
 </script>
