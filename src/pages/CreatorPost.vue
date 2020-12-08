@@ -6,9 +6,10 @@
           <div class="row justify-center">
             <div class="col-12 col-md-6">
               <q-btn
+                class="q-ma-sm q-mb-lg"
                 color="primary"
                 icon-right="arrow_back"
-                label="Volver atras"
+                label="Volver atrás"
                 outline
                 v-bind:to="`/creator/${$route.params.idCreator}`"
               />
@@ -88,7 +89,7 @@
                       ></iframe>
                     </q-item>
                   </div>
-                  <q-card-actions align="right">
+<!--                   <q-card-actions align="right">
                     <q-btn
                       v-if="!post.isPublic && post.isPrivate"
                       color="primary"
@@ -97,8 +98,7 @@
                       label="Suscríbase para desbloquear"
                       outline
                     />
-                    <div
-                      v-if="post.isPublic || !post.isPrivate">
+                    <div v-if="post.isPublic || !post.isPrivate">
                       <q-btn
                         v-if="!post.alreadyLiked && isLogin"
                         class="q-ml-md"
@@ -120,12 +120,14 @@
                         color="primary"
                         flat
                         icon="favorite"
+                        disable
                         round
                         @click="unlikePost(post.id,i)"
                       >
                         <q-badge
                           color="primary"
-                          floating>
+                          floating
+                        >
                           {{ post.cantLikes }}
                         </q-badge>
                       </q-btn>
@@ -140,12 +142,13 @@
                       >
                         <q-badge
                           color="secondary"
-                          floating>
+                          floating
+                        >
                           {{ post.cantLikes }}
                         </q-badge>
                       </q-btn>
                     </div>
-                  </q-card-actions>
+                  </q-card-actions> -->
                 </q-card>
                 <div v-if="post.isPublic && !post.isPrivate">
                   <div v-if="isLogin">
@@ -154,21 +157,30 @@
                         <q-input
                           v-model="text"
                           autogrow
-                          filled
+                          outlined
+                          bg-color="indigo-1"
                           label="Deje su comentario"
                         >
                           <template v-slot:after>
-                            <q-btn dense flat icon="send" round @click="sendComment"/>
+                            <q-btn
+                              dense
+                              flat
+                              icon="send"
+                              round
+                              @click="sendComment"
+                            />
                           </template>
                         </q-input>
                       </div>
                     </template>
                   </div>
                   <div v-if="post.comments.length !== 0 || post.comments === null">
-                    <q-card v-for="comment in comments"
-                            v-bind:key="comment.id"
-                            class="q-mb-md q-mb-xl q-ma-sm">
-                      <q-item>
+                    <q-card
+                      v-for="comment in comments"
+                      v-bind:key="comment.id"
+                      class="q-mb-md q-mb-xl q-ma-sm"
+                    >
+                      <q-item class="bg-dark text-white">
                         <q-item-section avatar>
                           <q-avatar>
                             <img v-bind:src="`http://localhost:8000/${comment.user.avatar}`">
@@ -177,11 +189,12 @@
 
                         <q-item-section>
                           <q-item-label>{{ comment.user.username }}</q-item-label>
-                          <q-item-label caption>{{ comment.created_at }}</q-item-label>
+                          <q-item-label class="text-white" caption>{{ comment.created_at }}</q-item-label>
                         </q-item-section>
                       </q-item>
+                      <q-separator></q-separator>
                       <q-section>
-                        {{ comment.text }}
+                        <q-item>{{ comment.text }}</q-item>
                       </q-section>
                     </q-card>
                     <q-separator></q-separator>
