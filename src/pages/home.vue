@@ -311,7 +311,6 @@
                   </q-card-actions>
                 </q-card>
                 <q-card
-                  v-if="isCreator"
                   bordered
                   class="q-ma-sm"
                   flat
