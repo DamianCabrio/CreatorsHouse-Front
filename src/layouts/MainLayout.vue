@@ -280,6 +280,7 @@ export default {
     logout: async function () {
       sessionStorage.removeItem('apiToken')
       this.user = []
+      location.reload()
       this.$router.push(this.$route.query.redirect || '/')
     },
     getCreators: async function () {

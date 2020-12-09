@@ -70,6 +70,7 @@ export default {
           // this.apiToken = response.data.tokenData
           sessionStorage.setItem('apiToken', response.data.tokenData.token)
           // Si valido el login redirecciono a su perfil
+          location.reload()
           const baseUrl = window.location.origin
           window.location = baseUrl + '/#/Home'
         })
