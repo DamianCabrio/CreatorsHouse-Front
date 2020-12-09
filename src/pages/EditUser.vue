@@ -34,7 +34,7 @@
               label="Cambiar tu Avatar"
               style="width:100%"
               url=""
-              @added="file_selected"
+              @added="file_avatar"
             />
             <div class="q-pb-md">
               <q-btn color="primary"
@@ -42,7 +42,7 @@
                      size="lg"
                      style="width:100%"
                      text-color="white"
-                     @click="uploadFile()">
+                     @click="uploadAvatar()">
               </q-btn>
             </div>
           </div>
@@ -364,6 +364,38 @@ export default {
             message: 'Se guardaron los cambios!'
           })
         })
+    },
+    // -------------Guardar Avatar-----------------
+    file_avatar (file) {
+      this.selected_file = file[0]
+      this.check_if_document_upload = true
+    },
+
+    uploadAvatar () {
+      const fd = new FormData()
+      fd.append('archivo', this.selected_file)
+
+      axios.post('http://localhost:8000/api/uploadAvatar', fd, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+        }
+      })
+        .then(function (response) {
+          console.log(response)
+          this.$q.notify({
+            message: 'Se actualizo el Avatar.',
+            color: 'possitive'
+          })
+        })
+        .catch(function (err) {
+          console.log(err)
+          this.$q.notify({
+            message: 'Error, No se guardo el Avatar.',
+            color: 'negative'
+          })
+        })
+      // ------------FIN guardar Avatar-------------
     },
     // -------------Guardar Banner-----------------
     file_selected (file) {
