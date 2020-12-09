@@ -38,9 +38,9 @@
       </div>
       <div class="row justify-center bg-three-creators q-pt-xl q-pb-xl">
         <div class="col-12 col-md-8">
-          <ShowThreeCreatorsHome />
+          <ShowThreeCreatorsHome/>
           <div class="text-center text-h4 text-weight-light q-pa-xl">Conocé nuestros creadores</div>
-          <q-separator />
+          <q-separator/>
         </div>
       </div>
     </div>
@@ -223,8 +223,8 @@ export default {
 .index-title {
   span {
     background-image: linear-gradient(
-      transparent calc(65% - 5px),
-      darken($accent, 15%) 5px
+        transparent calc(65% - 5px),
+        darken($accent, 15%) 5px
     );
     background-size: 0;
     background-repeat: no-repeat;

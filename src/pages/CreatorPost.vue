@@ -89,66 +89,66 @@
                       ></iframe>
                     </q-item>
                   </div>
-<!--                   <q-card-actions align="right">
-                    <q-btn
-                      v-if="!post.isPublic && post.isPrivate"
-                      color="primary"
-                      disable
-                      icon-right="lock_outline"
-                      label="Suscríbase para desbloquear"
-                      outline
-                    />
-                    <div v-if="post.isPublic || !post.isPrivate">
-                      <q-btn
-                        v-if="!post.alreadyLiked && isLogin"
-                        class="q-ml-md"
-                        color="primary"
-                        flat
-                        icon="favorite"
-                        round
-                        @click="likePost(post.id,i)"
-                      >
-                        <q-badge
-                          color="secondary"
-                          floating
-                        >{{ post.cantLikes }}
-                        </q-badge>
-                      </q-btn>
-                      <q-btn
-                        v-else-if="post.alreadyLiked && isLogin"
-                        class="q-ml-md"
-                        color="primary"
-                        flat
-                        icon="favorite"
-                        disable
-                        round
-                        @click="unlikePost(post.id,i)"
-                      >
-                        <q-badge
-                          color="primary"
-                          floating
-                        >
-                          {{ post.cantLikes }}
-                        </q-badge>
-                      </q-btn>
-                      <q-btn
-                        v-else
-                        class="q-ml-md"
-                        color="primary"
-                        disable
-                        flat
-                        icon="favorite"
-                        round
-                      >
-                        <q-badge
-                          color="secondary"
-                          floating
-                        >
-                          {{ post.cantLikes }}
-                        </q-badge>
-                      </q-btn>
-                    </div>
-                  </q-card-actions> -->
+                  <!--                   <q-card-actions align="right">
+                                      <q-btn
+                                        v-if="!post.isPublic && post.isPrivate"
+                                        color="primary"
+                                        disable
+                                        icon-right="lock_outline"
+                                        label="Suscríbase para desbloquear"
+                                        outline
+                                      />
+                                      <div v-if="post.isPublic || !post.isPrivate">
+                                        <q-btn
+                                          v-if="!post.alreadyLiked && isLogin"
+                                          class="q-ml-md"
+                                          color="primary"
+                                          flat
+                                          icon="favorite"
+                                          round
+                                          @click="likePost(post.id,i)"
+                                        >
+                                          <q-badge
+                                            color="secondary"
+                                            floating
+                                          >{{ post.cantLikes }}
+                                          </q-badge>
+                                        </q-btn>
+                                        <q-btn
+                                          v-else-if="post.alreadyLiked && isLogin"
+                                          class="q-ml-md"
+                                          color="primary"
+                                          flat
+                                          icon="favorite"
+                                          disable
+                                          round
+                                          @click="unlikePost(post.id,i)"
+                                        >
+                                          <q-badge
+                                            color="primary"
+                                            floating
+                                          >
+                                            {{ post.cantLikes }}
+                                          </q-badge>
+                                        </q-btn>
+                                        <q-btn
+                                          v-else
+                                          class="q-ml-md"
+                                          color="primary"
+                                          disable
+                                          flat
+                                          icon="favorite"
+                                          round
+                                        >
+                                          <q-badge
+                                            color="secondary"
+                                            floating
+                                          >
+                                            {{ post.cantLikes }}
+                                          </q-badge>
+                                        </q-btn>
+                                      </div>
+                                    </q-card-actions> -->
                 </q-card>
                 <div v-if="post.isPublic && !post.isPrivate">
                   <div v-if="isLogin">
@@ -157,9 +157,9 @@
                         <q-input
                           v-model="text"
                           autogrow
-                          outlined
                           bg-color="indigo-1"
                           label="Deje su comentario"
+                          outlined
                         >
                           <template v-slot:after>
                             <q-btn
@@ -189,7 +189,7 @@
 
                         <q-item-section>
                           <q-item-label>{{ comment.user.username }}</q-item-label>
-                          <q-item-label class="text-white" caption>{{ comment.created_at }}</q-item-label>
+                          <q-item-label caption class="text-white">{{ comment.created_at }}</q-item-label>
                         </q-item-section>
                       </q-item>
                       <q-separator></q-separator>
@@ -311,6 +311,7 @@ export default {
         text: this.text
       })
         .then((response) => {
+          location.reload()
           this.comments.unshift(response.data)
           this.text = ''
         })

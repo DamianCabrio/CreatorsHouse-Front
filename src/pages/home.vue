@@ -97,11 +97,11 @@
                       >
                         <q-tab-panel name="publico">
                           <div
-                            v-for="(allPublicPost) in publicPosts"
+                            v-for="(allPublicPost,i) in publicPosts"
                             v-bind:key="`${allPublicPost.idUser}/${allPublicPost.idCreator}`"
                           >
                             <q-card
-                              v-for="onePublicPost in allPublicPost.posts"
+                              v-for="(onePublicPost) in allPublicPost.posts"
                               :key="onePublicPost.id"
                               class="q-mb-lg"
                             >
@@ -161,15 +161,40 @@
                               <q-separator></q-separator>
                               <q-card-actions align="right">
                                 <q-btn
-                                  color="red"
+                                  color="primary"
+                                  icon-right="comment"
+                                  label="Comentarios"
+                                  outline
+                                  v-bind:to="`/creator/${allPublicPost.idCreator}/post/${onePublicPost.id}`"
+                                />
+                                <q-btn
+                                  v-if="!onePublicPost.alreadyLiked"
+                                  class="q-ml-md"
+                                  color="primary"
                                   flat
                                   icon="favorite"
                                   round
+                                  @click="likePost(onePublicPost.id,i,'p')"
                                 >
                                   <q-badge
                                     color="secondary"
                                     floating
                                   >{{ onePublicPost.cantLikes }}
+                                  </q-badge>
+                                </q-btn>
+                                <q-btn
+                                  v-else-if="onePublicPost.alreadyLiked"
+                                  class="q-ml-md"
+                                  color="primary"
+                                  flat
+                                  icon="favorite"
+                                  round
+                                  @click="unlikePost(onePublicPost.id,i,'p')"
+                                >
+                                  <q-badge
+                                    color="primary"
+                                    floating>
+                                    {{ onePublicPost.cantLikes }}
                                   </q-badge>
                                 </q-btn>
                               </q-card-actions>
@@ -178,7 +203,7 @@
                         </q-tab-panel>
                         <q-tab-panel name="premium">
                           <div
-                            v-for="(allPrivatePost) in privatePosts"
+                            v-for="(allPrivatePost,i) in privatePosts"
                             v-bind:key="`${allPrivatePost.idUser}/${allPrivatePost.idCreator}`"
                           >
                             <q-card
@@ -242,15 +267,40 @@
                               <q-separator></q-separator>
                               <q-card-actions align="right">
                                 <q-btn
-                                  color="red"
+                                  color="primary"
+                                  icon-right="comment"
+                                  label="Comentarios"
+                                  outline
+                                  v-bind:to="`/creator/${allPrivatePost.idCreator}/post/${onePrivatePost.id}`"
+                                />
+                                <q-btn
+                                  v-if="!onePrivatePost.alreadyLiked"
+                                  class="q-ml-md"
+                                  color="primary"
                                   flat
                                   icon="favorite"
                                   round
+                                  @click="likePost(onePrivatePost.id,i,'pv')"
                                 >
                                   <q-badge
                                     color="secondary"
                                     floating
                                   >{{ onePrivatePost.cantLikes }}
+                                  </q-badge>
+                                </q-btn>
+                                <q-btn
+                                  v-else-if="onePrivatePost.alreadyLiked"
+                                  class="q-ml-md"
+                                  color="primary"
+                                  flat
+                                  icon="favorite"
+                                  round
+                                  @click="unlikePost(onePrivatePost.id,i,'pv')"
+                                >
+                                  <q-badge
+                                    color="primary"
+                                    floating>
+                                    {{ onePrivatePost.cantLikes }}
                                   </q-badge>
                                 </q-btn>
                               </q-card-actions>
@@ -372,6 +422,70 @@ export default {
     }
   },
   methods: {
+    unlikePost (postId, index, pOrPr) {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.post('http://localhost:8000/api/posts/unlike/' + postId + '/' + this.user.data.id, {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          this.$nextTick(function () {
+            if (pOrPr === 'p') {
+              this.publicPosts[index].alreadyLiked = false
+              this.publicPosts[index].cantLikes = this.publicPosts[index].cantLikes - 1
+            } else {
+              this.privatePosts[index].alreadyLiked = false
+              this.privatePosts[index].cantLikes = this.privatePosts[index].cantLikes - 1
+            }
+            location.reload()
+          })
+          this.$q.notify({
+            type: 'positive',
+            message: 'Quito su like con éxito'
+          })
+        })
+        .catch(err => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'Ocurrió un error al quitar el like, vuelva a intentar'
+          })
+          console.log(err)
+        })
+    },
+    likePost (postId, index, pOrPr) {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.post('http://localhost:8000/api/posts/like/' + postId + '/' + this.user.data.id, {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          this.$nextTick(function () {
+            if (pOrPr === 'p') {
+              this.publicPosts[index].alreadyLiked = true
+              this.publicPosts[index].cantLikes = this.publicPosts[index].cantLikes + 1
+            } else {
+              this.privatePosts[index].alreadyLiked = true
+              this.privatePosts[index].cantLikes = this.privatePosts[index].cantLikes + 1
+            }
+            location.reload()
+          })
+          this.$q.notify({
+            type: 'positive',
+            message: 'Dio like con éxito'
+          })
+        })
+        .catch(err => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'Ocurrió un error al dar like, vuelva a intentar'
+          })
+          console.log(err)
+        })
+    },
     getPhrase () {
       axios.get('http://localhost:8000/getFrase', {})
         .then((response) => {

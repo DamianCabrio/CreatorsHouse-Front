@@ -88,13 +88,14 @@
                       label="Donar"
                       text-color="white"
                     />
-                    <q-btn
-                      label="Ser VIP"
-                      outline
-                      style="secondary"
-                      text-color="black"
-                    />
-                    <div id="mercadoPago" ref="mercadoPago">hola</div>
+                    <a v-bind:href="linkPago">
+                      <q-btn
+                        label="Ser VIP"
+                        outline
+                        style="secondary"
+                        text-color="black"
+                      />
+                    </a>
                   </div>
                 </div>
               </template>
@@ -301,10 +302,15 @@ export default {
       isCreator: false,
       isFollow: false,
       follow: [],
-      isLogin: false
+      isLogin: false,
+      linkPago: ''
     }
   },
   mounted: function () {
+    const mercadoPagoStatus = window.location.href.split('&')[3].split('=')[1]
+    if (mercadoPagoStatus !== null) {
+      console.log(window.location.href.split('&')[3].split('=')[1])
+    }
     if (sessionStorage.getItem('apiToken')) {
       this.isLogin = true
       // devuelve true si está la sesión iniciada
@@ -332,10 +338,11 @@ export default {
       })
         .then((response) => {
           console.log(response)
-          const mercadoPagoScript = document.createElement('script')
-          mercadoPagoScript.setAttribute('src', 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js')
-          mercadoPagoScript.setAttribute('data-preference-id', response.data.data)
-          document.body.appendChild(mercadoPagoScript)
+          this.linkPago = response.data.data
+          // const mercadoPagoScript = document.createElement('script')
+          // mercadoPagoScript.setAttribute('src', 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js')
+          // mercadoPagoScript.setAttribute('data-preference-id', response.data.data)
+          // document.body.appendChild(mercadoPagoScript)
         })
         .catch(err => {
           this.$q.notify({
