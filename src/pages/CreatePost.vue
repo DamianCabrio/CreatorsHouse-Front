@@ -31,15 +31,14 @@
               <div v-if="postType == 2">
                 <q-card-section>
                   <div class="text-caption q-pb-sm">Subir Imágenes</div>
-                  <q-file
-                    v-model="images"
-                    multiple
-                    outlined
-                  >
-                    <template v-slot:prepend>
-                      <q-icon name="attach_file"/>
-                    </template>
-                  </q-file>
+                   <q-uploader
+                      color="dark"
+                      extensions=".gif,.jpg,.jpeg,.png"
+                      label="Subir tu Imagen"
+                      style="width:100%"
+                      url=""
+                      @added="file_selected"
+                    />
                 </q-card-section>
               </div>
               <div v-if="postType == 3">
@@ -153,6 +152,12 @@ export default {
     }
   },
   methods: {
+    // -------------Guardar Imagen-----------------
+    file_selected (file) {
+      this.selected_file = file[0]
+      this.check_if_document_upload = true
+    },
+    // --------------------------------------------
     logout: async function () {
       sessionStorage.removeItem('apiToken')
       this.user = []
@@ -205,15 +210,23 @@ export default {
     },
     submitPost () {
       var idCreator = this.$route.params.idCreator
-      // NOTE: hay que ponerlo dentro de /api
-      axios.post('http://localhost:8000/creators/posts/' + idCreator, {
-
+      // defino una variable con todos los datos del formulario
+      var datos = {
         content: this.content,
         tipo: this.postType,
         title: this.postTitle,
         isPublic: this.postVisibility,
-        video: this.video,
-        imagenes: this.images
+        video: this.video
+      }
+      // Creo el form data y agrego los datos mas la imagen
+      const fd = new FormData()
+      fd.append('imagenes', this.selected_file)
+      fd.append('data', JSON.stringify(datos))
+      axios.post('http://localhost:8000/api/creators/posts/' + idCreator, fd, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+        }
       })
         .then((response) => {
           console.log(response)
