@@ -66,7 +66,7 @@
             <div class="col-12 text-center">
               <template>
                 <div v-if="isLogin" class="q-pa-md q-gutter-sm">
-                    <div v-if="follow !== null && follow.data.isVip !== 1">
+                    <div v-if="follow !== null">
                       <div v-if="!isFollow">
                         <q-btn
                           color="white"
@@ -595,13 +595,12 @@ export default {
           this.isFollow = true
         })
         .catch((error) => {
+          console.log(error, 'hola')
           if (error.response.status !== 404) {
             this.$q.notify({
               type: 'negative',
               message: 'Ocurrió un error al obtener si sigue al creador, vuelva a intentar'
             })
-            this.follow = null
-            this.isFollow = false
           }
         })
     },
