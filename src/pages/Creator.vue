@@ -66,37 +66,58 @@
             <div class="col-12 text-center">
               <template>
                 <div v-if="isLogin" class="q-pa-md q-gutter-sm">
-                  <div v-if="!isFollow">
-                    <q-btn
-                      color="white"
-                      label="Seguir"
-                      text-color="black"
-                      @click="followUser"
-                    />
-                  </div>
-                  <div v-else>
-                    <q-btn
-                      color="white"
-                      label="Dejar de seguir"
-                      text-color="black"
-                      @click="unfollowUser"
-                    />
-                  </div>
-                  <div v-if="allCreator.data.hasMercadoPago">
-                    <q-btn
-                      color="primary"
-                      label="Donar"
-                      text-color="white"
-                    />
-                    <a v-bind:href="linkPago" :disabled="disabledSerVip">
+                    <div v-if="follow.data.isVip !== 1">
+                      <div v-if="!isFollow">
+                        <q-btn
+                          color="white"
+                          label="Seguir"
+                          text-color="black"
+                          @click="followUser"
+                        />
+                      </div>
+                      <div v-else>
+                        <q-btn
+                          color="white"
+                          label="Dejar de seguir"
+                          text-color="black"
+                          @click="unfollowUser"
+                        />
+                      </div>
+                      <div v-if="allCreator.data.hasMercadoPago">
+                        <a v-if="!isVip" :disabled="disabledSerVip" v-bind:href="linkPago">
+                          <q-btn
+                            label="Ser VIP"
+                            outline
+                            style="secondary"
+                            text-color="black"
+                          />
+                        </a>
+                      </div>
+                    </div>
                       <q-btn
-                        label="Ser VIP"
-                        outline
-                        style="secondary"
-                        text-color="black"
+                        color="primary"
+                        label="Donar"
+                        text-color="white"
+                        @click="donatePrompt = true"
                       />
-                    </a>
-                  </div>
+
+                      <q-dialog v-model="donatePrompt" persistent>
+                        <q-card style="min-width: 350px">
+                          <q-card-section>
+                            <div class="text-h6">¿Cuánto quiere donar?</div>
+                          </q-card-section>
+
+                          <q-card-section class="q-pt-none">
+                            <q-input v-model="donateAmmount" :rules="[val => val > 0 || 'El numero debe ser mayor a 0']" autofocus dense
+                                     @keyup.enter="donatePrompt = false"/>
+                          </q-card-section>
+
+                          <q-card-actions align="right" class="text-primary">
+                            <q-btn v-close-popup flat label="Cancelar"/>
+                            <q-btn v-close-popup flat label="Donar" @click="donate(donateAmmount)"/>
+                          </q-card-actions>
+                        </q-card>
+                      </q-dialog>
                 </div>
               </template>
             </div>
@@ -301,20 +322,17 @@ export default {
       user: [],
       isCreator: false,
       isFollow: false,
+      isVip: false,
+      doesntHaveMercadoPago: false,
       follow: [],
       isLogin: false,
       linkPago: '',
-      disabledSerVip: true
+      disabledSerVip: true,
+      donatePrompt: false,
+      donateAmmount: ''
     }
   },
   mounted: function () {
-    let mercadoPagoStatus = null
-    if (window.location.href.split('&')[3] !== undefined) {
-      mercadoPagoStatus = window.location.href.split('&')[3].split('=')[1]
-    }
-    if (mercadoPagoStatus !== null) {
-      console.log(window.location.href.split('&')[3].split('=')[1])
-    }
     if (sessionStorage.getItem('apiToken')) {
       this.isLogin = true
       // devuelve true si está la sesión iniciada
@@ -332,6 +350,28 @@ export default {
     }
   },
   methods: {
+    donate (monto) {
+      monto = monto.replace('.', ',')
+
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.get('http://localhost:8000/api/creators/' + this.$route.params.idCreator + '/donate/' + monto, {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+          console.log(response)
+          window.location.href = response.data.data
+          // const mercadoPagoScript = document.createElement('script')
+          // mercadoPagoScript.setAttribute('src', 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js')
+          // mercadoPagoScript.setAttribute('data-preference-id', response.data.data)
+          // document.body.appendChild(mercadoPagoScript)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     getPaymentScript () {
       axios.defaults.headers = {
         'Content-Type': 'application/json',
@@ -350,10 +390,7 @@ export default {
           // document.body.appendChild(mercadoPagoScript)
         })
         .catch(err => {
-          this.$q.notify({
-            type: 'negative',
-            message: 'Ocurrió un error al intentar obtener la informacion de suscripcion, vuelva a intentar'
-          })
+          this.doesntHaveMercadoPago = true
           console.log(err)
         })
     },
@@ -472,6 +509,7 @@ export default {
       })
         .then((response) => {
           this.user = response.data
+          this.makeVip()
           this.getPaymentScript()
         })
         .catch(err => {
@@ -481,6 +519,40 @@ export default {
           })
           console.log(err)
         })
+    },
+    makeVip () {
+      let mercadoPagoStatus = null
+      console.log(window.location.href.split('&'))
+      if (window.location.href.split('&')[3] !== undefined && window.location.href.split('&')[4].split('=')[1] !== 'donar') {
+        mercadoPagoStatus = window.location.href.split('&')[3].split('=')[1]
+      } else if (window.location.href.split('&')[4].split('=')[1] === 'donar') {
+        this.$q.notify({
+          type: 'positive',
+          message: 'Dono con exito'
+        })
+      }
+      if (mercadoPagoStatus !== null && mercadoPagoStatus === 'approved') {
+        axios.defaults.headers = {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+        }
+        axios.post('http://localhost:8000/api/creator/makeVip/' + this.$route.params.idCreator, {
+          token: sessionStorage.getItem('apiToken')
+        })
+          .then((response) => {
+            console.log(response)
+            this.isVip = true
+            location.reload()
+          })
+          .catch(err => {
+            this.$q.notify({
+              type: 'positive',
+              message: 'Ahora es VIP'
+            })
+            this.isVip = true
+            console.log(err)
+          })
+      }
     },
     // En postsCreator estan todos los posts de ese creator (con imagens videos y like si es que los tiene)
     getPostsCreator: async function () {
@@ -515,6 +587,7 @@ export default {
       axios.get('http://localhost:8000/api/isFollow/' + idCreator)
         .then((response) => {
           this.follow = response.data
+          console.log(this.follow, 'hola')
           this.isFollow = true
         })
         .catch((error) => {

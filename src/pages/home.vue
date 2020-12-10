@@ -416,12 +416,27 @@ export default {
     if (sessionStorage.getItem('apiToken')) {
       // tengo un token guardado localmente
       this.getUser()
+      this.removeVips()
     } else {
       // sino redirecciono al login
       this.$router.push(this.$route.query.redirect || '/Login')
     }
   },
   methods: {
+    removeVips () {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('apiToken')
+      }
+      axios.post('http://localhost:8000/api/creator/removeVip/', {
+        token: sessionStorage.getItem('apiToken')
+      })
+        .then((response) => {
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     unlikePost (postId, index, pOrPr) {
       axios.defaults.headers = {
         'Content-Type': 'application/json',
