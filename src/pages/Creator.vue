@@ -88,7 +88,7 @@
                       label="Donar"
                       text-color="white"
                     />
-                    <a v-bind:href="linkPago">
+                    <a v-bind:href="linkPago" :disabled="disabledSerVip">
                       <q-btn
                         label="Ser VIP"
                         outline
@@ -303,11 +303,15 @@ export default {
       isFollow: false,
       follow: [],
       isLogin: false,
-      linkPago: ''
+      linkPago: '',
+      disabledSerVip: true
     }
   },
   mounted: function () {
-    const mercadoPagoStatus = window.location.href.split('&')[3].split('=')[1]
+    let mercadoPagoStatus = null
+    if (window.location.href.split('&')[3] !== undefined) {
+      mercadoPagoStatus = window.location.href.split('&')[3].split('=')[1]
+    }
     if (mercadoPagoStatus !== null) {
       console.log(window.location.href.split('&')[3].split('=')[1])
     }
@@ -339,6 +343,7 @@ export default {
         .then((response) => {
           console.log(response)
           this.linkPago = response.data.data
+          this.disabledSerVip = false
           // const mercadoPagoScript = document.createElement('script')
           // mercadoPagoScript.setAttribute('src', 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js')
           // mercadoPagoScript.setAttribute('data-preference-id', response.data.data)
