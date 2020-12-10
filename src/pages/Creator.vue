@@ -94,13 +94,13 @@
                         </a>
                       </div>
                     </div>
+                  <div v-if="!doesntHaveMercadoPago">
                       <q-btn
                         color="primary"
                         label="Donar"
                         text-color="white"
                         @click="donatePrompt = true"
                       />
-                  <div v-if="!doesntHaveMercadoPago">
                       <q-dialog v-model="donatePrompt" persistent>
                         <q-card style="min-width: 350px">
                           <q-card-section>
@@ -525,9 +525,9 @@ export default {
       let mercadoPagoStatus = null
       if (window.location.href.split('&')[3] !== undefined) {
         if (window.location.href.split('&')[4] !== undefined) {
-          mercadoPagoStatus = window.location.href.split('&')[3].split('=')[1]
-        } else {
           if (window.location.href.split('&')[4].split('=')[1] !== 'donar') {
+            mercadoPagoStatus = window.location.href.split('&')[3].split('=')[1]
+          } else {
             this.$q.notify({
               type: 'positive',
               message: 'Dono con exito'
