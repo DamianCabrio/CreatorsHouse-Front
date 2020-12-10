@@ -66,7 +66,7 @@
             <div class="col-12 text-center">
               <template>
                 <div v-if="isLogin" class="q-pa-md q-gutter-sm">
-                    <div v-if="follow.data.isVip !== 1">
+                    <div v-if="follow !== null && follow.data.isVip !== 1">
                       <div v-if="!isFollow">
                         <q-btn
                           color="white"
@@ -83,7 +83,7 @@
                           @click="unfollowUser"
                         />
                       </div>
-                      <div v-if="allCreator.data.hasMercadoPago">
+                      <div v-if="!doesntHaveMercadoPago">
                         <a v-if="!isVip" :disabled="disabledSerVip" v-bind:href="linkPago">
                           <q-btn
                             label="Ser VIP"
@@ -100,7 +100,7 @@
                         text-color="white"
                         @click="donatePrompt = true"
                       />
-
+                  <div v-if="!doesntHaveMercadoPago">
                       <q-dialog v-model="donatePrompt" persistent>
                         <q-card style="min-width: 350px">
                           <q-card-section>
@@ -118,6 +118,7 @@
                           </q-card-actions>
                         </q-card>
                       </q-dialog>
+                  </div>
                 </div>
               </template>
             </div>
@@ -517,19 +518,22 @@ export default {
             type: 'negative',
             message: 'Ocurrió un error al obtener datos del usuario, vuelva a intentar'
           })
-          console.log(err)
+          console.log(err, 'hollaaaaa')
         })
     },
     makeVip () {
       let mercadoPagoStatus = null
-      console.log(window.location.href.split('&'))
-      if (window.location.href.split('&')[3] !== undefined && window.location.href.split('&')[4].split('=')[1] !== 'donar') {
-        mercadoPagoStatus = window.location.href.split('&')[3].split('=')[1]
-      } else if (window.location.href.split('&')[4].split('=')[1] === 'donar') {
-        this.$q.notify({
-          type: 'positive',
-          message: 'Dono con exito'
-        })
+      if (window.location.href.split('&')[3] !== undefined) {
+        if (window.location.href.split('&')[4] !== undefined) {
+          mercadoPagoStatus = window.location.href.split('&')[3].split('=')[1]
+        } else {
+          if (window.location.href.split('&')[4].split('=')[1] !== 'donar') {
+            this.$q.notify({
+              type: 'positive',
+              message: 'Dono con exito'
+            })
+          }
+        }
       }
       if (mercadoPagoStatus !== null && mercadoPagoStatus === 'approved') {
         axios.defaults.headers = {
@@ -596,6 +600,8 @@ export default {
               type: 'negative',
               message: 'Ocurrió un error al obtener si sigue al creador, vuelva a intentar'
             })
+            this.follow = null
+            this.isFollow = false
           }
         })
     },
