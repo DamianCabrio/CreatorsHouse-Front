@@ -14,9 +14,9 @@
             style="height: 40px; max-width: 150px"
           />
         </router-link>
-        <div class="self-strech row no-wrap">
+        <div class="self-strech row no-wrap desktop-only">
           <!--Titulo Creator House -->
-          <div class="q-pl-md">
+          <div class="q-pl-md desktop-only">
             <q-toolbar-title></q-toolbar-title>
           </div>
 
@@ -116,7 +116,7 @@
           </q-select>
         </div>
         <!--Boton Login y Registrarse-->
-        <div class="q-pa-sm q-ml-md q-mr-md desktop-only">
+        <div class="q-pa-sm q-ml-md q-mr-md">
           <router-link
             v-if="!islogin"
             style="color:white;text-decoration:none"
@@ -124,7 +124,7 @@
           >Login
           </router-link>
         </div>
-        <div class="q-pa-sm desktop-only">
+        <div class="q-pl-sm">
           <q-btn
             v-if="!islogin"
             icon="create"
