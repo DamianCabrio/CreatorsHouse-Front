@@ -70,7 +70,7 @@
                       >
                         <q-img
                           :ratio="4/3"
-                          v-bind:src="`${image.image}`"
+                          v-bind:src="`http://localhost:8000/${image.image}`"
                         />
                       </div>
                     </q-card-section>
