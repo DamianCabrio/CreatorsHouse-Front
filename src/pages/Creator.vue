@@ -65,59 +65,87 @@
             </div>
             <div class="col-12 text-center">
               <template>
-                <div v-if="isLogin" class="q-pa-md q-gutter-sm">
-                    <div v-if="follow !== null">
-                      <div v-if="!isFollow">
-                        <q-btn
-                          color="white"
-                          label="Seguir"
-                          text-color="black"
-                          @click="followUser"
-                        />
-                      </div>
-                      <div v-else>
-                        <q-btn
-                          color="white"
-                          label="Dejar de seguir"
-                          text-color="black"
-                          @click="unfollowUser"
-                        />
-                      </div>
-                      <div v-if="!doesntHaveMercadoPago">
-                        <a v-if="!isVip" :disabled="disabledSerVip" v-bind:href="linkPago">
-                          <q-btn
-                            label="Ser VIP"
-                            outline
-                            style="secondary"
-                            text-color="black"
-                          />
-                        </a>
-                      </div>
-                    </div>
-                  <div v-if="!doesntHaveMercadoPago">
+                <div
+                  v-if="isLogin"
+                  class="q-pa-md q-gutter-sm"
+                >
+                  <div v-if="follow !== null">
+                    <div v-if="!isFollow">
                       <q-btn
-                        color="primary"
-                        label="Donar"
-                        text-color="white"
-                        @click="donatePrompt = true"
+                        color="white"
+                        label="Seguir"
+                        text-color="black"
+                        @click="followUser"
                       />
-                      <q-dialog v-model="donatePrompt" persistent>
-                        <q-card style="min-width: 350px">
-                          <q-card-section>
-                            <div class="text-h6">¿Cuánto quiere donar?</div>
-                          </q-card-section>
+                    </div>
+                    <div v-else>
+                      <q-btn
+                        class="q-ma-md"
+                        color="white"
+                        label="Dejar de seguir"
+                        text-color="black"
+                        @click="unfollowUser"
+                      />
+                    </div>
+                    <div v-if="!doesntHaveMercadoPago">
+                      <a
+                        v-if="!isVip"
+                        :disabled="disabledSerVip"
+                        v-bind:href="linkPago"
+                        style="text-decoration:none!important"
+                      >
+                        <q-btn
+                          label="Ser VIP"
+                          outline
+                          text-color="black"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div v-if="!doesntHaveMercadoPago">
+                    <q-btn
+                      color="primary"
+                      label="Donar"
+                      text-color="white"
+                      @click="donatePrompt = true"
+                    />
+                    <q-dialog
+                      v-model="donatePrompt"
+                      persistent
+                    >
+                      <q-card style="min-width: 350px">
+                        <q-card-section>
+                          <div class="text-h6">¿Cuánto quiere donar?</div>
+                        </q-card-section>
 
-                          <q-card-section class="q-pt-none">
-                            <q-input v-model="donateAmmount" :rules="[val => val > 0 || 'El numero debe ser mayor a 0']" autofocus dense
-                                     @keyup.enter="donatePrompt = false"/>
-                          </q-card-section>
+                        <q-card-section class="q-pt-none">
+                          <q-input
+                            v-model="donateAmmount"
+                            :rules="[val => val > 0 || 'El numero debe ser mayor a 0']"
+                            autofocus
+                            dense
+                            @keyup.enter="donatePrompt = false"
+                          />
+                        </q-card-section>
 
-                          <q-card-actions align="right" class="text-primary">
-                            <q-btn v-close-popup flat label="Cancelar"/>
-                            <q-btn v-close-popup flat label="Donar" @click="donate(donateAmmount)"/>
-                          </q-card-actions>
-                        </q-card>
-                      </q-dialog>
+                        <q-card-actions
+                          align="right"
+                          class="text-primary"
+                        >
+                          <q-btn
+                            v-close-popup
+                            flat
+                            label="Cancelar"
+                          />
+                          <q-btn
+                            v-close-popup
+                            flat
+                            label="Donar"
+                            @click="donate(donateAmmount)"
+                          />
+                        </q-card-actions>
+                      </q-card>
+                    </q-dialog>
                   </div>
                 </div>
               </template>
@@ -216,8 +244,8 @@
                         :key="image.id"
                       >
                         <q-img
-                          :ratio="4/3"
-                          v-bind:src="`${image.image}`"
+                          style="width:100%"
+                          v-bind:src="`http://localhost:8000/${image.image}`"
                         />
                       </div>
                     </q-card-section>
@@ -245,8 +273,7 @@
                       label="Suscríbase para desbloquear"
                       outline
                     />
-                    <div
-                      v-if="post.isPublic || !post.isPrivate">
+                    <div v-if="post.isPublic || !post.isPrivate">
                       <q-btn
                         color="primary"
                         icon-right="comment"
@@ -280,7 +307,8 @@
                       >
                         <q-badge
                           color="primary"
-                          floating>
+                          floating
+                        >
                           {{ post.cantLikes }}
                         </q-badge>
                       </q-btn>
@@ -295,7 +323,8 @@
                       >
                         <q-badge
                           color="secondary"
-                          floating>
+                          floating
+                        >
                           {{ post.cantLikes }}
                         </q-badge>
                       </q-btn>
@@ -530,7 +559,7 @@ export default {
           } else {
             this.$q.notify({
               type: 'positive',
-              message: 'Dono con exito'
+              message: 'Gracias por su donación!'
             })
           }
         }
